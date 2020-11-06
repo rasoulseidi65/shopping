@@ -1,0 +1,73 @@
+
+<p-tabView dir="rtl">
+<p-tabPanel>
+  <ng-template pTemplate="header"><i class="pi pi-user-edit p-pl-3 text-white" style="font-size: 1rem"></i>ویژگی محصول</ng-template>
+  <form [formGroup]="formGroupFeature" dir="rtl">
+    <p-panel styleClass="mb-3 pt-2" dir="rtl">
+      <p-header>
+        <p class="text-right titlePanel"> مشخصات ویژگی محصول</p>
+        <p class="subTitlePanel">لطفا ویژگی را کامل و دقیق وارد نمایید</p>
+      </p-header>
+      <div class="p-grid p-fluid">
+        <div class="p-md-6">
+          <div class="p-field p-grid">
+            <label for="title" class="p-col-12 p-mb-3 p-md-4 p-mb-md-0">عنوان فارسی ویژگی:</label>
+            <div class="p-col-12 p-md-7">
+              <input id="titleFarsi" type="text" [(ngModel)]="feature.titleFarsi" pInputText formControlName="titleFarsi">
+            </div>
+          </div>
+          <div class="p-field p-grid">
+            <label for="title" class="p-col-12 p-mb-3 p-md-4 p-mb-md-0">عنوان لاتین ویژگی:</label>
+            <div class="p-col-12 p-md-7">
+              <input id="titleLatin" type="text" [(ngModel)]="feature.titleLatin" pInputText formControlName="titleLatin">
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <p-footer>
+        <button  pButton label="ثبت ویژگی جدید" class="ui-button-success" icon="pi pi-check" iconPos="left" (click)="onRegisterFeature()"></button>
+      </p-footer>
+    </p-panel>
+  </form>
+  <form [formGroup]="formGroupFeatureValue" dir="rtl">
+    <p-panel styleClass="mb-3 pt-2" dir="rtl">
+      <p-header>
+        <p class="text-right titlePanel"> مشخصات ویژگی محصول</p>
+        <p class="subTitlePanel">لطفا ویژگی را کامل و دقیق وارد نمایید</p>
+      </p-header>
+      <div class="p-grid p-fluid">
+        <div class="p-md-6">
+          <div class="p-field p-grid">
+            <label for="title" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">عنوان ویژگی :</label>
+            <div class="p-col-12 p-md-9">
+              <select id="inputState2" class="form-control" formControlName="featureID" [(ngModel)]="featureValue.featuresID">
+                <option *ngFor="let i of Feature " [value]="i._id">{{i.titleFarsi}}</option>
+
+              </select>
+              <!--                <input id="title" type="text" [(ngModel)]="product.title" pInputText formControlName="title">-->
+            </div>
+          </div>
+          <div class="p-field p-grid">
+            <label for="title" class="p-col-12 p-mb-3 p-md-4 p-mb-md-0">مقدار ویژگی:</label>
+            <div class="p-col-12 p-md-7">
+              <input id="titleLatin" type="text" class="form-control" [(ngModel)]="featureValue.value" pInputText formControlName="value">
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <p-footer>
+        <button  pButton label="ثبت مقدار ویژگی " class="ui-button-success" icon="pi pi-check" iconPos="left" (click)="onRegisterFeatureValue()"></button>
+      </p-footer>
+    </p-panel>
+  </form>
+
+</p-tabPanel>
+</p-tabView>

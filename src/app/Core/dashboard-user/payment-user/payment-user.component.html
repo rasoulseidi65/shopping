@@ -1,0 +1,30 @@
+<p-table [value]="payment" #dt [columns]="cols" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="alert alert-warning text-center"> لیست تراکنش ها</div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr class="title-table">
+      <th style="width: 30%" class="text-center">ردیف</th>
+      <th style="width: 30%" class="text-center">شماره تراکنش</th>
+
+      <th style="width: 70%" class="text-center">تاریخ </th>
+      <th style="width: 70%" class="text-center">زمان</th>
+      <th style="width: 70%" class="text-center">قیمت </th>
+      <th style="width: 70%" class="text-center">وضعیت تراکنش</th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-payment let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center">{{rowIndex + 1}}</td>
+      <td class="text-center">{{payment.resNumber}}</td>
+      <td class="text-center">{{payment.date}}</td>
+      <td class="text-center">{{payment.time}}</td>
+      <td class="text-center">{{payment.price}}</td>
+      <td class="text-center">{{payment.statusPayment}}</td>
+
+    </tr>
+  </ng-template>
+
+</p-table>

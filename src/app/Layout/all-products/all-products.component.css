@@ -1,0 +1,218 @@
+.product-item {
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 10px;
+  transition: all .5s ease;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: white;
+  border-radius: 5px;
+}
+.product-item:hover{
+  border-radius: 5px;
+  box-shadow: 0 0 16px rgba(33,33,33,.2);
+}
+.badge {
+  position: absolute;
+  left: 35px;
+  top: 20px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  background: #EF2B2F;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+
+.product-tumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #ffffff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.product-tumb img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-details {
+  padding-top: 1px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.product-catagory {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #777777;
+  margin-bottom: 18px;
+}
+
+.product-details h4 a {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  color: #363636;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.product-details h4 a:hover {
+  color: #EF2B2F;
+}
+
+.product-details p {
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 18px;
+  color: #999;
+}
+
+.product-bottom-details {
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  padding-top: 2px;
+
+}
+
+.product-bottom-details div.product-links {
+  float: left;
+  width: 25%;
+}
+.product-bottom-details div.product-links i {
+  -webkit-text-stroke: 2px #EF2B2F;
+  -webkit-text-fill-color: transparent;
+  margin-right: .25rem!important;
+}
+.product-bottom-details div.product-links i:hover {
+  -webkit-text-fill-color: #EF2B2F;
+}
+.product-bottom-details div.product-price {
+  float: left;
+  width: 75%;
+  direction: rtl;
+  padding-top: 5px;
+}
+.product-price {
+  font-size: 11px;
+  font-weight: 600;
+}
+.product-price b {
+  font-size: 15px;
+  color: #EF2B2F;
+  font-weight: 600;
+}
+.product-price small {
+  font-weight: 400;
+  text-decoration: line-through;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.product-links {
+  text-align: right;
+}
+
+.product-links a {
+  display: inline-block;
+  margin-left: 5px;
+  color: #e1e1e1;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.product-links a:hover {
+  color: #EF2B2F;
+}
+.button {
+  positive:relative;
+  margin: 10px auto;
+  height:auto;
+  width:auto;
+  padding-top: 1px;
+}
+.buttonall {
+  color: #EF2B2F;
+  background-color:#ebebeb;
+  border-radius: 5px;
+  border: 1px solid #EF2B2F;
+}
+.buttonall:hover {
+  /*box-shadow: 1px 5px 5px #777;*/
+  color:white;
+  background-color:#EF2B2F;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+  background: #EF2B2F;
+  color: #ffffff;
+  padding: 10px 35px;
+  font-size: 14px;
+  border-radius: 5px;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 500ms ease;
+  overflow:hidden;
+}
+button:hover {
+  box-shadow: 1px 1px 10px #777;
+}
+
+.owl-carousel .owl-item img {
+  display: block;
+  width: 100%;
+}
+:host::ng-deep .owl-prev,
+:host::ng-deep .owl-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+:host::ng-deep .owl-prev {
+  left: 0;
+}
+:host::ng-deep .owl-next {
+  right: 0;
+}
+:host::ng-deep .owl-theme .owl-nav [class*=owl-] {
+  color: #bfbdbd !important;
+  font-size: 14px;
+  margin: 5px;
+  padding: 4px 7px;
+  background-color: transparent!important;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+}
+:host::ng-deep.p-dialog-title{
+  font-size: 13px!important;
+}
+.textDialog{
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 12px;
+  color: #777777;
+}
+:host::ng-deep.p-dialog .p-dialog-header {
+  color: #777777!important;
+  padding: 0.2rem!important;
+  padding-top: 15px!important;
+}
+:host::ng-deep.p-dialog .p-dialog-footer {
+  padding: 0.5rem!important;
+
+}
+:host::ng-deep.p-dialog .p-dialog-content {
+  margin-top: -15px!important;
+}
+
+

@@ -1,0 +1,25 @@
+<div class="container-fluid mt-2 gift-container py-4" dir="rtl">
+  <div class="row justify-content-center gift-bg py-3">
+    <div class="col-8 align-items-center">
+      <div class="row justify-content-center">
+        <div class="col-12 title align-items-center">
+          <h3 class="text-white text-center">
+            برای اطلاع از آخرین تخفیف‌ها و جدیدترین کالا‌ها در خبرنامه ثبت‌نام کنید.
+          </h3>
+        </div>
+        <div class="col-sm-12 col-lg-4 align-items-center mt-2">
+          <input pInputText placeholder="عضویت با ایمیل" style="background-color: #ffffff" [(ngModel)]="email">
+        </div>
+        <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
+          <button class="button" (click)="regEmailNewsletter()">ثبت نام</button>
+        </div>
+        <div class="col-sm-12 col-lg-4 align-items-center mt-2">
+          <p-inputNumber mode="decimal"  [useGrouping]="false" [maxlength]="11" [minlength]="11"  [format]="" class="text-center"  placeholder="عضویت با شماره موبایل" [(ngModel)]="mobile"></p-inputNumber>
+        </div>
+        <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
+          <button class="button" (click)="regSmsNewsletter()">ثبت نام</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

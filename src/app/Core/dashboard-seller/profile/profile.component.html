@@ -1,0 +1,423 @@
+<p-toast position="center"></p-toast>
+
+<div class="row pnl-content p-3">
+  <div class="col-12">
+    <div class="box text-right" dir="rtl">
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step>
+          <form [formGroup]="personalForm" (ngSubmit)="submitPersonalForm()">
+            <ng-template matStepLabel>اطلاعات فردی</ng-template>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="firstName">نام</label>
+                <input id="firstName" type="text" pInputText formControlName="firstName" maxlength="100">
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.firstName">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('firstName').hasError(error.type)
+                            && (personalForm.get('firstName').dirty
+                            || personalForm.get('firstName').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label for="lastName">نام خانوادگی</label>
+                <input id="lastName" type="text" pInputText formControlName="lastName" maxlength="150">
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.lastName">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('lastName').hasError(error.type)
+                            && (personalForm.get('lastName').dirty
+                            || personalForm.get('lastName').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="idNumber">شماره شناسنامه</label>
+                <input id="idNumber" type="text" pKeyFilter="int" pInputText
+                       formControlName="idNumber" maxlength="11">
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.idNumber">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('idNumber').hasError(error.type)
+                            && (personalForm.get('idNumber').dirty
+                            || personalForm.get('idNumber').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label for="nationalCode">کد ملی</label>
+                <input id="nationalCode" type="text" pKeyFilter="int"
+                       pInputText formControlName="nationalCode" minlength="10" maxlength="10">
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.nationalCode">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('nationalCode').hasError(error.type)
+                            && (personalForm.get('nationalCode').dirty
+                            || personalForm.get('nationalCode').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label for="phone">تلفن</label>
+                <input id="phone" type="text" pKeyFilter="int"
+                       pInputText formControlName="phone" minlength="11" maxlength="11">
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.phone">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('phone').hasError(error.type)
+                            && (personalForm.get('phone').dirty
+                            || personalForm.get('phone').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <input type="hidden" formControlName="birthDay" id="birthDay">
+              <div class="p-field p-col">
+                <label class="d-block">سال تولد</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="years" formControlName="year"></p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.year">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('year').hasError(error.type)
+                            && (personalForm.get('year').dirty
+                            || personalForm.get('year').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">ماه</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="months" formControlName="month"
+                (onChange)="monthOnChange(personalForm.controls['month'].value)"></p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.month">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('month').hasError(error.type)
+                            && (personalForm.get('month').dirty
+                            || personalForm.get('month').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">روز</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="days" formControlName="day"></p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.day">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('day').hasError(error.type)
+                            && (personalForm.get('day').dirty
+                            || personalForm.get('day').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label class="d-block">استان</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="states" formControlName="state"
+                            optionLabel="name" [filter]="true" [showClear]="true"
+                            (onChange)="stateOnChange(personalForm.controls['state'].value.code)">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="state-item state-item-value"
+                         *ngIf="personalForm.controls['state'].value">
+                      <div>{{personalForm.controls['state'].value.name}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-state pTemplate="item">
+                    <div class="state-item text-right">
+                      <div class="text-right">{{state.value.name}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.state">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('state').hasError(error.type)
+                            && (personalForm.get('state').dirty
+                            || personalForm.get('state').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">شهر</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" [options]="cities" formControlName="city"
+                            optionLabel="name" [filter]="true" [showClear]="true">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="city-item city-item-value"
+                         *ngIf="personalForm.controls['city'].value">
+                      <div>{{personalForm.controls['city'].value.name}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-city pTemplate="item">
+                    <div class="city-item text-right">
+                      <div class="text-right">{{city.value.name}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.city">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('city').hasError(error.type)
+                            && (personalForm.get('city').dirty
+                            || personalForm.get('city').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">جنسیت</label>
+                <mat-radio-group aria-label="جنسیت" formControlName="gender">
+                  <mat-radio-button class="mt-2" value="male">آقا</mat-radio-button>
+                  <mat-radio-button class="mt-2" value="female" class="mr-3">خانم</mat-radio-button>
+                </mat-radio-group>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.gender">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('gender').hasError(error.type)
+                            && (personalForm.get('gender').dirty
+                            || personalForm.get('gender').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="address">آدرس</label>
+                <textarea rows="5" cols="30" pInputTextarea id="address"
+                          autoResize="autoResize" formControlName="address">
+                </textarea>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.address">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('address').hasError(error.type)
+                            && (personalForm.get('address').dirty
+                            || personalForm.get('address').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+            <div class="float-left">
+              <button mat-button matStepperNext [disabled]="personalForm.invalid">بعدی</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <form [formGroup]="contactForm" (ngSubmit)="submitContactForm()">
+            <ng-template matStepLabel>اطلاعات فروشگاه</ng-template>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="shopName">نام</label>
+                <input id="shopName" type="text" pInputText
+                       formControlName="shopName">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of contactErrorMessages.shopName">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="contactForm.get('shopName').hasError(error.type)
+                            && (contactForm.get('shopName').dirty
+                            || contactForm.get('shopName').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label class="d-block">دسته بندی</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="categories" formControlName="category"></p-dropdown>
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of contactErrorMessages.category">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="contactForm.get('category').hasError(error.type)
+                            && (contactForm.get('category').dirty
+                            || contactForm.get('category').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label for="shabaNumber">شماره شبا</label>
+                <input id="shabaNumber" type="text" pInputText
+                       formControlName="shabaNumber">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of contactErrorMessages.shabaNumber">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="contactForm.get('shabaNumber').hasError(error.type)
+                            && (contactForm.get('shabaNumber').dirty
+                            || contactForm.get('shabaNumber').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  formControlName="logo"
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="logoUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="float-left">
+              <button mat-button [disabled]="contactForm.invalid" matStepperNext>بعدی</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <form [formGroup]="businessForm" (ngSubmit)="submitBusinessForm()">
+            <ng-template matStepLabel>اطلاعات حقوقی</ng-template>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="companyName">نام سازمان</label>
+                <input id="companyName" type="text" pInputText
+                       formControlName="companyName">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.companyName">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('companyName').hasError(error.type)
+                            && (businessForm.get('companyName').dirty
+                            || businessForm.get('companyName').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="signCompany">حق امضا</label>
+                <input id="signCompany" type="text" pInputText
+                       formControlName="signCompany">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.signCompany">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('signCompany').hasError(error.type)
+                            && (businessForm.get('signCompany').dirty
+                            || businessForm.get('signCompany').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">نوع سازمان</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="typesCompany" formControlName="typeCompany"></p-dropdown>
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.typeCompany">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('typeCompany').hasError(error.type)
+                            && (businessForm.get('typeCompany').dirty
+                            || businessForm.get('typeCompany').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label for="regNumCompany">شماره ثبت</label>
+                <input id="regNumCompany" type="text" pInputText
+                       formControlName="regNumCompany">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.regNumCompany">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('regNumCompany').hasError(error.type)
+                            && (businessForm.get('regNumCompany').dirty
+                            || businessForm.get('regNumCompany').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label for="economicCompany">شماره اقتصادی</label>
+                <input id="economicCompany" type="text" pInputText
+                       formControlName="economicCompany">
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.economicCompany">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('economicCompany').hasError(error.type)
+                            && (businessForm.get('economicCompany').dirty
+                            || businessForm.get('economicCompany').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="resumeUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="imageNationalcardUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="imageSellerUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="imageCertificateUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="imageCompanyUploader($event)"
+                  accept="image/*" maxFileSize="1000000">
+                </p-fileUpload>
+              </div>
+            </div>
+            <div class="float-left">
+              <button mat-button matStepperNext [disabled]="businessForm.invalid">بعدی</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>
+
+

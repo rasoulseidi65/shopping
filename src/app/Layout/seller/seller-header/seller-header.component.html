@@ -1,0 +1,61 @@
+<nav class="site-nav text-right" dir="rtl">
+  <div class="container">
+    <div class="site-navigation">
+      <a routerLink="/" class="logo">BeGheymat.com</a>
+      <ul class="d-none d-lg-inline-block text-left site-menu">
+        <li><a routerLink="/seller">راهنمای ثبت نام</a></li>
+        <li><a routerLink="/seller">آموزش پنل فروشندگان</a></li>
+        <li><a routerLink="/seller/login">ورود به پنل فروشندگان</a></li>
+      </ul>
+      <ul class="d-none d-lg-inline-block text-left site-menu float-left">
+        <li class="cta-button">
+          <a routerLink="/seller/register" target="_blank" class="">ثبت نام</a>
+        </li>
+      </ul>
+
+      <a class="mr-auto float-left d-inline-block d-lg-none" (click)="showMenu()">
+        <i class="fa fa-bars fa-2x text-white"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="hero">
+  <div class="container">
+    <div class="row align-items-center justify-content-between pt-sm-only">
+      <div class="col-sm-12 col-lg-5 intro text-right">
+        <h1 class="text-white font-weight-bold mb-4">
+          در به قیمت
+          فروشنده شو
+        </h1>
+        <p class="text-white mb-4">
+          فروشگاه اینترنتی به قیمت، موقعیتی را برای فروشندگان فراهم کرده تا اجناسشان را به شکل اینترنتی به‌فروش برسانند. به این ترتیب تولیدکنندگان یا واردکنندگان کالا و همچنین کسانی که محصولات خانگی تولید می‌کنند می‌توانند از ویترین بزرگ به قیمت برای فروش محصولاتشان استفاده کنند.
+        </p>
+      </div>
+      <div class="col-sm-12 col-lg-7 text-right">
+        <img src="assets/bootstrap/img/xhero_img.png.pagespeed.ic.DEbE9QfN2U.webp" alt="Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  <div class="slant" style="background-image:url(assets/bootstrap/img/slant.svg)"></div>
+</div>
+
+
+<p-sidebar class="menuSidebar" Scroll [(visible)]="displayMobileMenu" [blockScroll]="true" [modal]="true"
+           position="right">
+  <div class=" text-center">
+    <img height="20px"  src="./assets/bootstrap/img/logo-fa.png" >
+  </div>
+
+  <div class="d-flex flex-column">
+    <div class="mb-auto">
+      <ul class="mobile-menu text-right site-menu">
+        <li><a routerLink="/home/seller">راهنمای ثبت نام</a></li>
+        <li><a routerLink="/home/seller">آموزش پنل فروشندگان</a></li>
+        <li><a routerLink="/home/seller/login">ورود به پنل فروشندگان</a></li>
+        <li><a routerLink="/home/seller/register">ثبت نام</a></li>
+      </ul>
+    </div>
+  </div>
+</p-sidebar>

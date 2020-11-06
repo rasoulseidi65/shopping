@@ -1,0 +1,68 @@
+
+<p-toast position="center"></p-toast>
+
+
+<p-tabView dir="rtl">
+  <p-tabPanel>
+    <ng-template pTemplate="header"><i class="pi pi-user-edit p-pl-3 text-white" style="font-size: 1rem"></i>ثبت فروشنده جدید</ng-template>
+    <form [formGroup]="formGroup" dir="rtl">
+      <p-panel styleClass="mb-3 pt-2" dir="rtl">
+        <p-header>
+          <p class="text-right titlePanel"> مشخصات فروشنده</p>
+          <p class="subTitlePanel">لطفا مشخصات محصول را کامل و دقیق وارد نمایید</p>
+        </p-header>
+        <div class="p-grid p-fluid">
+          <div class="p-md-6">
+
+            <div class="p-field p-grid">
+              <label for="title" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">عنوان شرکت/نام و نام خانوادگی:</label>
+              <div class="p-col-12 p-md-9">
+                <input id="title" type="text" [(ngModel)]="company.name" pInputText formControlName="name">
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="price" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0 text-right">شماره موبایل:</label>
+              <div class="p-col-12 p-md-9">
+                <p-inputNumber inputId="integeronly" [(ngModel)]="company.mobile"  formControlName="mobile"></p-inputNumber>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="password" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">رمز عبور:</label>
+              <div class="p-col-12 p-md-9">
+                <p-inputNumber pKeyFilter="num" [(ngModel)]="company.password" mode="decimal"  [useGrouping]="false" formControlName="password"></p-inputNumber>
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <div class="p-grid p-fluid">
+          <div class="p-md-12">
+            <div class="p-field p-grid">
+              <label for="email" class="p-col-12 p-mb-2 p-md-12 p-mb-md-0" >پروفایل فروشنده:</label>
+              <div class="p-col-12 p-md-12">
+                <p-fileUpload name="myfile[]" customUpload="true"
+                              invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                              invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                              accept="image/jpeg,image/png " maxFileSize="2000000"
+                              (uploadHandler)="onUpload($event)" uploadLabel="آپلود عکس" chooseLabel="انتخاب عکس"
+                              cancelLabel="انصراف"></p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <button  pButton label="ثبت فروشنده جدید" class="ui-button-success" icon="pi pi-check" iconPos="left" (click)="onRegisterCompany()"></button>
+        </p-footer>
+      </p-panel>
+    </form>
+
+  </p-tabPanel>
+
+
+</p-tabView>
+
+
+

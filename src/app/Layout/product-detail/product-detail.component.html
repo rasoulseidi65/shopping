@@ -1,0 +1,281 @@
+<app-header dir="rtl"></app-header>
+<p-toast position="center" [baseZIndex]="999999999" dir="rtl" [showTransitionOptions]="'0ms'"></p-toast>
+
+<div class="container-fluid text-right" dir="rtl">
+  <div class="row mt-5">
+    <div class="col-sm-12 col-lg-12">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i></a></li>
+        <li class="breadcrumb-item"><a href="">{{category['title']}}</a></li>
+        <li class="breadcrumb-item"><a href="">{{product['subCategory']}}</a></li>
+        <li class="breadcrumb-item active">{{product['title']}}</li>
+      </ol>
+
+    </div>
+  </div>
+  <!--  09039740635 برون-->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12 col-lg-5 col-lg-5">
+          <div class="box d-block mx-auto">
+
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions"
+                        [containerStyle]="{'max-width': '660px', 'margin-top':'2em'}" [numVisible]="5"
+                        dir="ltr" thumbnailsPosition="bottom" [autoPlay]="true" [transitionInterval]="2000"
+                        [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
+
+                <ngx-image-zoom
+                  [thumbImage]=item.thumbnailImageSrc
+                  [fullImage]=item.previewImageSrc
+                  [magnification]="1"
+                  [enableScrollZoom]="true"
+                  [enableLens]="true"
+                  [lensWidth]="200"
+                ></ngx-image-zoom>
+
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="p-grid p-nogutter p-justify-center">
+                  <img [src]="item.thumbnailImageSrc" style="width: 100px;height: 100px; display: block;"/>
+                </div>
+              </ng-template>
+            </p-galleria>
+
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-7">
+          <div class="box">
+            <div class="row title no-gutters justify-content-center">
+              <div class="col-sm-6 align-items-center text-right">
+                <h2>{{product['title']}}</h2>
+              </div>
+              <div class="col-sm-6 align-items-center text-left">
+                <a><i class="fa fa-heart fa-2x"></i></a>
+                <a><i class="fa fa-share-alt fa-2x"></i></a>
+              </div>
+            </div>
+
+            <div class="row desc no-gutters justify-content-center">
+              <div class="col-sm-12 col-md-6 align-items-center text-right">
+                <p>
+                  <label>امتیاز</label>
+                  <span>4.2</span>
+
+                  <label class="mr-5">تعداد دیدگاه</label>
+                  <span>1</span>
+                </p>
+                <p>
+                  <label>دسته بندی: </label>
+                  <span>{{category['title']}}</span>
+                </p>
+              </div>
+              <div class="col-sm-12 col-md-6 align-items-center">
+                <label>ویژگی های محصول</label>
+                <ul>
+                  <li>تایید شده توسط متخصصین</li>
+                  <li>ماندگاری بالا و طولانی مدت</li>
+                  <li>ضد آب</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row color no-gutters">
+
+              <div class="col-sm-12 col-md-6 align-items-start">
+
+                <input checked="checked" id="white" name="color" type="radio" value="white">
+                <label class="radio-label" for="white" style="background-color: red"></label>
+
+                <input id="grey" name="color" type="radio" value="blue">
+                <label class="radio-label" for="grey" style="background-color: blue"></label>
+
+                <input id="black" name="color" type="radio" value="black">
+                <label class="radio-label" for="black" style="background-color: black"></label>
+
+              </div>
+            </div>
+            <div class="row price justify-content-center no-gutters">
+              <div class="col-sm-6 align-items-center text-right">
+                <p>
+                  <label>قیمت: </label>
+                  <span>{{product['price']|number}} تومان </span>
+                </p>
+              </div>
+              <div class="col-sm-6 align-items-center text-left">
+                <p>
+                  <label>موجودی انبار: </label>
+                  <span>{{Inventory['count']}}</span>
+                  <!--                  <span *ngIf="InventoryState">موجود نمی باشد</span>-->
+                </p>
+              </div>
+              <div class="col-sm-6 align-items-center">
+                <button class="btn-primary btn-block" (click)="addCart(product)" [disabled]="InventoryState">افزودن به
+                  سبد خرید
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid text-right" dir="rtl">
+  <div class="row">
+    <div class="col-12">
+      <div class="box">
+        <ul class="nav product-tabs-list justify-content-center mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item product-tabs-item">
+            <a aria-controls="pills-home" aria-selected="true" class="nav-link active" data-toggle="pill"
+               href="#pills-info" id="pills-home-tab" role="tab">مشخصات</a>
+          </li>
+          <li class="nav-item product-tabs-item">
+            <a aria-controls="pills-profile" aria-selected="false" class="nav-link" data-toggle="pill"
+               href="#pills-guide" id="pills-profile-tab" role="tab">راهنما</a>
+          </li>
+          <li class="nav-item product-tabs-item">
+            <a aria-controls="pills-contact" aria-selected="false" class="nav-link" data-toggle="pill"
+               href="#pills-comment" id="pills-contact-tab" role="tab">نظرات</a>
+          </li>
+        </ul>
+        <div class="tab-content product-tabs-content" id="pills-tabContent">
+          <div aria-labelledby="pills-info-tab" class="tab-pane fade show active table-responsive" id="pills-info"
+               role="tabpanel">
+
+            <table>
+              <tbody>
+              <tr *ngFor=" let item of productFeature; let i=index">
+                <td>{{item[0].titleFarsi}}</td>
+                <td>{{featureValue[i][0].value}}</td>
+              </tr>
+              </tbody>
+            </table>
+                  </div>
+          <div aria-labelledby="pills-guide-tab" class="tab-pane fade" id="pills-guide" role="tabpanel">
+            <div [innerHTML]="product['help']"></div>
+
+          </div>
+          <div aria-labelledby="pills-comment-tab" class="tab-pane fade" id="pills-comment" role="tabpanel">
+            <div class="row justify-content-center comment">
+              <div class="col-2 align-items-center">
+                <h3>کاربر به قیمت</h3>
+                <p>در تاریخ 12 مهر 1399</p>
+              </div>
+              <div class="col-10 align-items-center">
+                <div class="row justify-content-center">
+                  <div class="col-11 align-items-center">
+                    <h4>خوب بود</h4>
+                    <p>ظاهرش خوبه اما هنوز استفاده نکردم</p>
+                  </div>
+                  <div class="col-1 align-items-center text-left">
+                    <a> 15 <i class="fa fa-thumbs-o-up mr-2"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center mt-4">
+              <div class="col-8">
+                <form>
+                  <div class="form-group">
+                    <label>عنوان نظر شما</label>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>متن نظر شما (اجباری)</label>
+                    <textarea class="form-control"></textarea>
+                  </div>
+                  <button type="submit" class="btn mx-auto d-block text-white">ثبت نظر</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col col-12 align-items-center">
+      <div class="section-title text-right">
+        <h2>محصولات مشابه</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="similar-product" class="ltr">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let i of similarProduct">
+        <div class="block-products-carousel__column">
+          <div class="block-products-carousel__cell">
+            <div class="product-card product-card--layout--grid">
+              <div class="product-card__actions-list">
+                <button class="product-card__action product-card__action--quickview" type="button"
+                        aria-label="Quick view">
+                  <svg width="16" height="16">
+                    <path d="M14,15h-4v-2h3v-3h2v4C15,14.6,14.6,15,14,15z M13,3h-3V1h4c0.6,0,1,0.4,1,1v4h-2V3z M6,3H3v3H1V2c0-0.6,0.4-1,1-1h4V3zM3,13h3v2H2c-0.6,0-1-0.4-1-1v-4h2V13z"></path>
+                  </svg>
+                </button>
+                <button class="product-card__action product-card__action--wishlist" type="button"
+                        aria-label="Add to wish list">
+                  <svg width="16" height="16">
+                    <path d="M13.9,8.4l-5.4,5.4c-0.3,0.3-0.7,0.3-1,0L2.1,8.4c-1.5-1.5-1.5-3.8,0-5.3C2.8,2.4,3.8,2,4.8,2s1.9,0.4,2.6,1.1L8,3.7l0.6-0.6C9.3,2.4,10.3,2,11.3,2c1,0,1.9,0.4,2.6,1.1C15.4,4.6,15.4,6.9,13.9,8.4z"></path>
+                  </svg>
+                </button>
+                <button class="product-card__action product-card__action--compare" type="button"
+                        aria-label="Add to compare">
+                  <svg width="16" height="16">
+                    <path
+                      d="M9,15H7c-0.6,0-1-0.4-1-1V2c0-0.6,0.4-1,1-1h2c0.6,0,1,0.4,1,1v12C10,14.6,9.6,15,9,15z"></path>
+                    <path d="M1,9h2c0.6,0,1,0.4,1,1v4c0,0.6-0.4,1-1,1H1c-0.6,0-1-0.4-1-1v-4C0,9.4,0.4,9,1,9z"></path>
+                    <path
+                      d="M15,5h-2c-0.6,0-1,0.4-1,1v8c0,0.6,0.4,1,1,1h2c0.6,0,1-0.4,1-1V6C16,5.4,15.6,5,15,5z"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-card__image">
+                <div class="image image--type--product">
+                  <a [routerLink]="['detail',i['_id']]" class="image__body">
+                    <img class="image__tag" [src]="i['image']" alt="">
+                  </a>
+                </div>
+              </div>
+              <div class="product-card__info text-center">
+                <div class="product-card__name">
+                  <div>
+                    <div class="product-card__badges" *ngIf="i['offer']===true">
+                      <div class="tag-badge tag-badge--sale">%{{i['offerPercent']}}</div>
+                    </div>
+                    <a>{{i['title']}}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="product-card__footer">
+                             <div class="product-card__prices">
+                  <div class="product-card__price product-card__price--old">
+                    {{i['price']}}
+                  </div>
+                  <div class="product-card__price product-card__price--new">
+                    {{i['price']-(i['price']*i['offerPercent'])/100}}  تومان
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</div>
+
+<app-footer></app-footer>

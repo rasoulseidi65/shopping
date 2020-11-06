@@ -1,0 +1,71 @@
+<p-dialog  [(visible)]="displayBasic" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
+  <p-header>
+    <p  class="mr-3">انجام شد</p>
+  </p-header>
+  <hr style="width: 100%;"/>
+  <p class="text-right text-success mt-2">محصول با موفقیت به سبد خرید اضافه شد</p>
+  <p class="text-right textDialog">برای ثبت نهایی سفارش بر روی دکمه ی مشاهده  سبد خرید کلیک کنید و برای افزودن دیگر محصولات به سبد خرید، بر روی دکمه ی ادامه کلیک کنید.</p>
+  <hr style="margin-bottom: -15px"/>
+  <ng-template pTemplate="footer" >
+    <button pButton pRipple type="button"  (click)="displayBasic=false" label="ادامه"  class="p-button-danger float-left"></button>
+    <button pButton pRipple type="button"  (click)="displayBasic=false" label="مشاهده سبد خرید"  class="p-button-danger float-left" routerLink="cart"></button>
+  </ng-template>
+</p-dialog>
+
+<section class="card-box mt-5">
+  <div class="container-fluid" dir="rtl">
+    <div class="row justify-content-center">
+      <div class="col col-6 align-items-center">
+        <div class="section-title text-right">
+          <h2 style="font-size: 20px">محصولات</h2>
+        </div>
+      </div>
+      <div class="col col-6 align-items-center">
+        <div class="section-title text-left">
+          <button routerLink="/home/product" class="buttonall">همه محصولات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blog-sliderowl-carousel mt-4">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let i of Product ">
+        <div class="product-item">
+          <div class="badge" *ngIf="i['offer']===true">%{{i['offerPercent']}}</div>
+          <div class="badge" *ngIf="i['offer']===false">{{i['topText']}}</div>
+
+          <div class="product-tumb">
+            <img [src]="i['image']" class="product-tumb img"/>
+          </div>
+          <div class="product-details text-right">
+            <div class="d-flex flex-row">
+              <span class="product-catagory mr-auto">{{i['Seller'][0].name}}</span>
+              <span class="product-catagory">{{i['subCategory']}} </span>
+            </div>
+            <h4><a href="" style="direction: rtl;font-size: 12px">{{i['title']}}</a></h4>
+            <div class="product-bottom-details">
+              <div class="product-links text-left"  (click)="addCart(i,i['Inventory'][0].count)">
+                <!--                <i class="fa fa-cart-arrow-down" style="font-size: 1.5rem"></i>-->
+
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill:#EF2B2F;margin-top: 5px " width="20" height="20" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+<metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+                  <g><path d="M820.8,561.3c33.7,0,68.8-26.5,78.1-58.9l88.8-311c9.2-32.4-10.7-58.9-44.4-58.9H316.3C316.3,64.8,261.4,10,193.8,10H10v122.5h183.8v520.6c0,50.7,41.1,91.9,91.9,91.9h581.9c33.9,0,61.3-27.4,61.3-61.3c0-33.9-27.4-61.3-61.3-61.3H316.3v-61.3L820.8,561.3L820.8,561.3z M316.3,255h554l-52.5,183.8H316.3V255z M377.5,913.4c0,42.1-34.5,76.6-76.6,76.6h-30.6c-42.1,0-76.6-34.5-76.6-76.6v-30.6c0-42.1,34.5-76.6,76.6-76.6h30.6c42.1,0,76.6,34.5,76.6,76.6V913.4z M928.8,913.4c0,42.1-34.5,76.6-76.6,76.6h-30.6c-42.1,0-76.6-34.5-76.6-76.6v-30.6c0-42.1,34.5-76.6,76.6-76.6h30.6c42.1,0,76.6,34.5,76.6,76.6V913.4z"/></g>
+</svg>
+              </div>
+              <div class="product-price text-right">
+                <small *ngIf="i['offer']===true">{{i['price']|number}}</small>
+                <b *ngIf="i['offer']===false">{{i['price']|number}}</b>
+                <b  *ngIf="i['offer']===true">{{i['price']-(i['price']*i['offerPercent'])/100|number}}</b>  <span style="font-size: 12px"> تومان</span></div>
+
+            </div>
+            <div class="product-bottom-details mt-3">
+              <div class="button text-center w-100">
+                <button [routerLink]="['detail',i['_id']]">مشاهده جزئیات</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>

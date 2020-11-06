@@ -1,0 +1,188 @@
+<!--<div class="container-fluid no-gutters p-0" dir="rtl">-->
+<!--  <div class="row no-gutters justify-content-center">-->
+
+<!--    <div class="col-sm-4 align-items-center text-center align-self-center">-->
+<!--      <h2>-->
+<!--        به خانواده بزرگ فروشندگان <b>به قیمت</b> بپیوندید-->
+<!--      </h2>-->
+<!--      <h4>-->
+<!--        به قیمت، فروشگاه بیش از ۱۰۰ هزار کسب و کار ایرانی-->
+<!--      </h4>-->
+<!--    </div>-->
+<!--    <div class="col-sm-8 no-gutters align-items-center align-self-center left">-->
+
+<!--      <mat-vertical-stepper [linear]="true" #stepper>-->
+<!--        <mat-step [stepControl]="form">-->
+<!--          <form (ngSubmit)="register()" [formGroup]="form" class="w-100">-->
+<!--            <ng-template matStepLabel>ثبت نام فروشنده</ng-template>-->
+<!--            <div class="row login-wrap rtl">-->
+<!--              <div class="col-12 text-center">-->
+<!--                <div class="form-group">-->
+<!--                  <span class="p-input-icon-right w-100">-->
+<!--                    <i class="pi pi-user text-dark"></i>-->
+<!--                  <input class="form-control" formControlName="mobile" maxlength="11"-->
+<!--                         minlength="11"-->
+<!--                         name="mobile" pInputText-->
+<!--                         placeholder="شماره موبایل" required>-->
+<!--                  </span>-->
+
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-12 text-center">-->
+<!--                <div class="form-group mb-3">-->
+<!--                  <span class=" p-input-icon-right w-100">-->
+<!--                  <i class="pi pi-eye text-dark"></i>-->
+<!--                  <input class="form-control" formControlName="password"-->
+<!--                         minlength="6"-->
+<!--                         name="password" pInputText-->
+<!--                         placeholder="کلمه عبور" required type="password">-->
+<!--                  </span>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--            </div>-->
+<!--          </form>-->
+<!--          <div>-->
+<!--            <button mat-button [disabled]="form.invalid" (click)="stepper.next()">ثبت و ادامه</button>-->
+<!--          </div>-->
+<!--        </mat-step>-->
+
+<!--        <mat-step [stepControl]="form">-->
+<!--          <ng-template matStepLabel>اطلاعات فروشنده</ng-template>-->
+<!--          <p>You are now done.</p>-->
+<!--          <div>-->
+<!--            <button mat-button [disabled]="form.invalid" (click)="stepper.next()">ثبت و ادامه</button>-->
+<!--          </div>-->
+<!--        </mat-step>-->
+
+<!--        <mat-step>-->
+<!--          <ng-template matStepLabel>بارگذاری مدارک</ng-template>-->
+<!--          <p>You are now done.</p>-->
+<!--          <div>-->
+<!--            <button mat-button matStepperPrevious>برگشت</button>-->
+<!--            <button mat-button (click)="stepper.next()">ثبت و ادامه</button>-->
+<!--          </div>-->
+<!--        </mat-step>-->
+<!--        <mat-step>-->
+<!--          <ng-template matStepLabel>اتمام ثبت نام</ng-template>-->
+<!--          <p>You are now done.</p>-->
+<!--          <div>-->
+<!--            <button mat-button matStepperPrevious>برگشت</button>-->
+<!--            <button mat-button (click)="stepper.reset()">ثبت</button>-->
+<!--          </div>-->
+<!--        </mat-step>-->
+<!--      </mat-vertical-stepper>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+<p-toast [baseZIndex]="999999999" dir="rtl" position="center" class="text-right"></p-toast>
+
+<div class="container-fluid" dir="rtl">
+  <div class="row pb-3 justify-content-center seller-login">
+    <div class="col-sm-8 align-items-center">
+      <div class="row mt-5 justify-content-center text-center">
+        <div class="col-sm-12 col-lg-6">
+          <h2>
+            به خانواده بزرگ فروشندگان <b>به قیمت</b> بپیوندید
+          </h2>
+          <h4>
+            به قیمت، فروشگاه بیش از ۱۰۰ هزار کسب و کار ایرانی
+          </h4>
+        </div>
+      </div>
+      <div class="row mt-3 justify-content-center">
+
+        <div class="col-sm-12 col-lg-6">
+          <div class="box">
+            <form (ngSubmit)="register()" [formGroup]="form" class="w-100">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <div class="form-group">
+                  <span class="p-input-icon-right w-100">
+                    <i class="pi pi-user text-dark"></i>
+                  <input pKeyFilter="int" class="form-control" formControlName="mobile" maxlength="11"
+                         minlength="11"
+                         name="mobile" pInputText
+                         placeholder="شماره موبایل" required>
+                  </span>
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.mobile">
+                      <li class="font-small text-danger font-weight-bold list-inline-item"
+                          *ngIf="form.get('mobile').hasError(error.type)
+                            && (form.get('mobile').dirty
+                            || form.get('mobile').touched)">
+                        {{ error.message }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <div class="form-group mb-3">
+                    <span class=" p-input-icon-right w-100">
+                    <i class="pi pi-eye text-dark"></i>
+                    <input class="form-control" formControlName="password"
+                           minlength="5"
+                           name="password" pInputText
+                           placeholder="کلمه عبور" required type="password">
+                    </span>
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.password">
+                      <li class="font-small text-danger font-weight-bold list-inline-item"
+                          *ngIf="form.get('password').hasError(error.type)
+                            && (form.get('password').dirty
+                            || form.get('password').touched)">
+                        {{ error.message }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-12 text-center">
+                  <div class="form-group mb-3">
+                  <span class=" p-input-icon-right w-100">
+                  <i class="pi pi-eye text-dark"></i>
+                  <input class="form-control" formControlName="confirmPassword"
+                         minlength="5"
+                         name="confirmPassword" pInputText
+                         placeholder="تکرار کلمه عبور" required type="password">
+                  </span>
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.confirmPassword">
+                      <li class="font-small text-danger font-weight-bold list-inline-item"
+                          *ngIf="form.get('confirmPassword').hasError(error.type)
+                            && (form.get('confirmPassword').dirty
+                            || form.get('confirmPassword').touched)">
+                        {{ error.message }}
+                      </li>
+                    </ul>
+                    <ul class="mt-0 text-right list-inline">
+                      <li class="font-small text-danger font-weight-bold list-inline-item"
+                          *ngIf="form.errors?.passwordNotMatch
+                            && (form.get('confirmPassword').dirty
+                            || form.get('confirmPassword').touched)">
+                        تکرار کلمه عبور مطابقت ندارد.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-12 text-right">
+                  <a routerLink="/home/seller/login">قبلا ثبت نام کرده اید؟</a>
+                </div>
+
+                <div class="col-md-12 col-lg-12 pt-4">
+                  <div class="text-center">
+                    <button [disabled]="form.invalid" class="btn btn-block btn-primary" mat-raised-button
+                            type="submit">ثبت نام
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
