@@ -193,19 +193,19 @@
 
 .site-nav .site-navigation .site-menu > li.cta-button a {
   padding: 6px 20px;
-  border: 2px solid #CC3333;
+  border: 2px solid #ffffff;
   color: #ffffff;
   border-radius: 30px;
 }
 
 .site-nav .site-navigation .site-menu > li.cta-button a:hover {
-  background-color: #CC3333;
-  border: 2px solid #CC3333;
-  color: #ffffff;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  color: #CC3333;
 }
 
 .hero {
-  background: #202040;
+  background: #CC3333;
   position: relative;
 }
 

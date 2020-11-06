@@ -9,6 +9,8 @@ import {SellerHeaderComponent} from './seller-header/seller-header.component';
 import {SellerFeatureComponent} from './seller-feature/seller-feature.component';
 import {SellerComponent} from './seller.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {SidebarModule} from 'primeng/sidebar';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     SellerRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    SidebarModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -90,7 +90,7 @@
 
 
 .seller-faq-dark {
-  background: #202040;
+  background: #CC3333;
   padding-top: 40px;
   padding-bottom: 40px;
 
@@ -114,15 +114,15 @@ mat-expansion-panel.mat-expanded{
 }
 
 mat-expansion-panel.mat-expanded mat-expansion-panel-header{
-  background-color: #CC3333;
-  color: #ffffff;
+  background-color: #777777;
+  color: #4d4d4d;
 
 }
 mat-expansion-panel.mat-expanded mat-expansion-panel-header mat-panel-title ,mat-expansion-panel.mat-expanded mat-expansion-panel-header .mat-expansion-indicator  {
   color: #ffffff;
 }
 mat-expansion-panel.mat-expanded p{
-  text-align: right;
+  text-align: justify;
   font-size: 14px;
   padding: 20px 5px 5px 20px;
   margin-bottom: 0;
@@ -131,15 +131,14 @@ mat-expansion-panel.mat-expanded p{
 :host::ng-deep mat-expansion-panel.mat-expanded .mat-expansion-indicator:after {
   color: white;
 }
-mat-expansion-panel-header:hover {
-  background: #999999!important;
-}
-mat-expansion-panel-header:hover mat-panel-title{
-  color: #ffffff!important;
-}
-::ng-deep mat-expansion-panel-header:hover .mat-expansion-indicator:after {
-  color: white;
-}
+/*mat-expansion-panel-header:hover {*/
+/*}*/
+/*mat-expansion-panel-header:hover mat-panel-title{*/
+/*  color: #ffffff!important;*/
+/*}*/
+/*::ng-deep mat-expansion-panel-header:hover .mat-expansion-indicator:after {*/
+/*  color: white;*/
+/*}*/
 .mat-accordion .mat-expansion-panel:last-of-type {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;

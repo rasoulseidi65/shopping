@@ -68,7 +68,7 @@ export class MobileHeaderComponent implements OnInit {
               label: 'کالای دیجیتال',
               items: [
                 {
-                  label: 'گوشی موبایل',
+                  label: 'گوشی (موبایل فرهادی)',
                   items: [
                     {
                       label: 'سامسونگ',
@@ -115,7 +115,7 @@ export class MobileHeaderComponent implements OnInit {
         {
           label: 'فروشنده شو',
           icon: 'fas fa-shopping-basket',
-          command: event => this.route.navigate(['/seller/register'])
+          command: event => this.route.navigate(['/seller'])
         },
         {
           label: 'سوال داری؟',
