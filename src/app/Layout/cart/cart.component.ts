@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {CartService} from "../../serviceCart/cart.service";
-import {LayoutService} from "../layout.service";
-import {UserService} from "../../Auth/user.service";
-import {MessageService} from "primeng/api";
+import {CartService} from '../../serviceCart/cart.service';
+import {LayoutService} from '../layout.service';
+import {UserService} from '../../Auth/user.service';
+import {MessageService} from 'primeng/api';
+import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
 
 interface state {
   name: string,
@@ -27,6 +28,8 @@ export class CartComponent implements OnInit {
   items: any[];
   state: state[];
   city: City[];
+  display: boolean = true;
+
   selectedCity: City;
   formGroup: FormGroup;
   sumPrice = 0;
@@ -45,7 +48,7 @@ export class CartComponent implements OnInit {
   userInfologin: any[];
   postInfo = {
     pricePost: '570000'
-  }
+  };
   formUser: FormGroup;
   userRegister = {
     mobile: '',
@@ -55,16 +58,23 @@ export class CartComponent implements OnInit {
   public payment = {
     userID: '',
     mobile: '',
-    price:'',
-    date:'',
-    time:''
+    price: '',
+    date: '',
+    time: ''
   };
+  xx: string;
   valueCountProduct = [];
+
   get formArray(): AbstractControl | null {
     return this.formGroup.get('formArray');
   }
 
-  constructor(private authService: UserService, private _formBuilder: FormBuilder, private serviceCart: CartService, private servicelayout: LayoutService, private messageService: MessageService) {
+  constructor(private authService: UserService,
+              private _formBuilder: FormBuilder,
+              private serviceCart: CartService,
+              private servicelayout: LayoutService,
+              private messageService: MessageService,
+              private localStorage: LocalStorageService) {
     this.state = [
       {name: 'آذربایجان شرقی', code: '0'},
       {name: 'آذربایجان غربی', code: '1'},
@@ -135,11 +145,9 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // localStorage.removeItem("user");
-    if (localStorage.getItem('user') !== null) {
-      this.successLogin = false;
-      this.getInfoUser();
-    }
+    // localStorage.removeItem('cartList')
+    this.getInfoUser();
+
 
     this.formUser = this._formBuilder.group({
       mobile: new FormControl('', Validators.required),
@@ -177,29 +185,20 @@ export class CartComponent implements OnInit {
         }),
       ])
     });
-    this.items = this.serviceCart.getItems();
-    var sumPrice = 0;
-    for (var i = 0; i < this.items.length; i++) {
-
-      this.valueCountProduct.push(this.items[i]['product'].number);
-
-      sumPrice += (this.items[i]['product']['cartList'].price) * (this.items[i]['product'].number)
-
-    }
-    this.sumPrice = sumPrice;
+    this.refreshCart();
   }
 
   onRegister() {
     this.servicelayout.updateUser(this.userInfologin['_id'], this.userInfo).subscribe((response) => {
       // console.log(response);
     });
-    this.payment.userID=this.userInfologin['_id'];
-    this.payment.mobile=this.userInfologin['mobile'];
-    let data={
-      product:JSON.parse(localStorage.getItem('cartList')),
-      user:this.payment,
-      price:this.sumPrice
-    }
+    this.payment.userID = this.userInfologin['_id'];
+    this.payment.mobile = this.userInfologin['mobile'];
+    let data = {
+      product: JSON.parse(localStorage.getItem('cartList')),
+      user: this.payment,
+      price: this.sumPrice
+    };
     this.servicelayout.onPayment(data).subscribe((response) => {
       let url = response['data'];
       document.location.href = url;
@@ -209,27 +208,30 @@ export class CartComponent implements OnInit {
 
   getInfoUser() {
     // localStorage.removeItem("user");
-    this.userInfologin = JSON.parse(localStorage.getItem('user'));
-    let data = {
-      mobile: this.userInfologin['mobile']
+    if (this.localStorage.getCurrentUser() === true) {
+      this.successLogin = false;
+      this.userInfologin = this.localStorage.userJson;
+      let data = {
+        mobile: this.userInfologin['mobile']
+      };
+      this.authService.onfindUser(data).subscribe((response) => {
+        if (response['success'] === true) {
+          this.localStorage.saveCurrentUser(JSON.stringify(response['data']));
+          this.userInfologin = this.localStorage.userJson;
+          this.userInfo.id = this.userInfologin['_id'];
+          this.userInfo.firstName = this.userInfologin['firstName'];
+          this.userInfo.lastName = this.userInfologin['lastName'];
+          this.userInfo.state = this.userInfologin['state'];
+          this.userInfo.city = this.userInfologin['city'];
+          this.userInfo.mobile = this.userInfologin['mobile'];
+          this.userInfo.phone = this.userInfologin['phone'];
+          this.userInfo.address = this.userInfologin['address'];
+          this.userInfo.postalCode = this.userInfologin['postalCode'];
+          this.userInfo.plaque = this.userInfologin['plaque'];
+        }
+      });
     }
-    this.authService.onfindUser(data).subscribe((response) => {
-      if (response['success'] === true) {
-        localStorage.setItem('user', JSON.stringify(response['data']));
 
-        this.userInfologin = JSON.parse(localStorage.getItem('user'));
-        this.userInfo.id = this.userInfologin['_id'];
-        this.userInfo.firstName = this.userInfologin['firstName'];
-        this.userInfo.lastName = this.userInfologin['lastName'];
-        this.userInfo.state = this.userInfologin['state'];
-        this.userInfo.city = this.userInfologin['city'];
-        this.userInfo.mobile = this.userInfologin['mobile'];
-        this.userInfo.phone = this.userInfologin['phone'];
-        this.userInfo.address = this.userInfologin['address'];
-        this.userInfo.postalCode = this.userInfologin['postalCode'];
-        this.userInfo.plaque = this.userInfologin['plaque'];
-      }
-    })
 
   }
 
@@ -237,7 +239,7 @@ export class CartComponent implements OnInit {
     this.authService.onLogin(this.userRegister).subscribe((response) => {
       if (response['success'] === true) {
         this.successLogin = false;
-        localStorage.setItem('user', JSON.stringify(response['data']));
+        this.localStorage.saveCurrentUser(JSON.stringify(response['data']));
         this.getInfoUser();
       } else {
         this.messageService.add({severity: 'error', summary: ' ورود ', detail: response['data']});
@@ -251,19 +253,47 @@ export class CartComponent implements OnInit {
         this.successLogin = false;
         this.authService.onLogin(this.userRegister).subscribe((response) => {
           if (response['success'] === true) {
-            localStorage.setItem('user', JSON.stringify(response['data']));
+            this.localStorage.saveCurrentUser(JSON.stringify(response['data']));
             this.getInfoUser();
           }
-        })
+        });
 
-        this.getInfoUser();
+        // this.getInfoUser();
       } else {
         this.messageService.add({severity: 'error', summary: 'ثبت نام ', detail: response['data']});
       }
     });
   }
-  deleteCart(item:any){
+
+  deleteCart(item: any) {
     this.serviceCart.deleteItem(item);
     this.items = this.serviceCart.getItems();
   }
+
+  refreshCart() {
+    this.items = this.serviceCart.getItems();
+    var sumPrice = 0;
+    for (var i = 0; i < this.items.length; i++) {
+
+      this.valueCountProduct.push(this.items[i]['product'].number);
+
+      sumPrice += (this.items[i]['product']['cartList'].price) * (this.items[i]['product'].number);
+
+    }
+    this.sumPrice = sumPrice;
+  }
+
+  addCart(item: any, count: any) {
+    console.log(item)
+    if (count <= 0) {
+      alert('موجود نمی باشد');
+    } else {
+
+      this.serviceCart.addToCart1(item['product'], count.value);
+      this.refreshCart();
+
+    }
+
+  }
+
 }
