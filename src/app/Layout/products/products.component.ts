@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Options} from 'ng5-slider';
 import {LayoutService} from '../layout.service';
 import {MessageService, SelectItem} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +12,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 })
 export class ProductsComponent implements OnInit {
+
+
+  pager: any = {};
   items = [];
   pageOfItems: Array<any>;
 
@@ -25,6 +27,7 @@ export class ProductsComponent implements OnInit {
   displayBasic: boolean;
   InventoryState = false;
   options: Options = this.getOptions();
+  countOfProduct: number = 7;
 
   getOptions(): Options {
     return {
@@ -35,22 +38,30 @@ export class ProductsComponent implements OnInit {
   }
 
   constructor(private service: LayoutService, private serviceCart: CartService, private messageService: MessageService) {
-    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+
   }
 
   ngOnInit(): void {
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
+      this.countOfProduct= response['data'].length;
+      this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
 
     });
+
+
   }
+
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
+    console.log(pageOfItems);
     this.pageOfItems = pageOfItems;
   }
+
   openFilter(): void {
     this.displayFilter = true;
   }
+
   openSort(): void {
     this.displaySort = true;
   }
@@ -69,4 +80,5 @@ export class ProductsComponent implements OnInit {
       alert('nooo');
     }
   }
+
 }

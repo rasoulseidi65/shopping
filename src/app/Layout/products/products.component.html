@@ -128,14 +128,7 @@
         </div>
 
 
-
-
-
-
-
-
-            <div *ngFor="let item of pageOfItems">
-              <div class="col-sm-12 col-md-6 col-lg-4" dir="ltr" *ngFor="let i of Products">
+              <div class="col-sm-12 col-md-6 col-lg-4" dir="ltr" *ngFor="let item of pageOfItems">
                 <div class="block-products-carousel-column" >
                   <div class="block-products-carousel-cell" >
                     <div class="product-card product-card-layout-grid" >
@@ -168,30 +161,30 @@
                       <div class="product-card-image">
                         <div class="image image-type-product">
                           <a class="image-body">
-                            <img class="image-tag" [src]="i['image']" alt="">
+                            <img class="image-tag" [src]="Products[item.id]['image']" alt="">
                           </a>
                         </div>
                       </div>
                       <div class="product-card-info text-right">
                         <div class="product-card-meta">
                           <div class="d-flex flex-row">
-                            <span class="product-catagory mr-auto">{{i['Seller'][0].name}}</span>
-                            <span class="product-catagory ">{{i['subCategory']}}</span>
+                            <span class="product-catagory mr-auto">{{Products[item.id]['Seller'][0].name}}</span>
+                            <span class="product-catagory ">{{Products[item.id]['subCategory']}}</span>
                           </div>
                         </div>
                         <div class="product-card-name">
                           <div>
                             <div class="product-card-badges">
                               <!--                        <div class="tag-badge tag-badge-sale">%15</div>-->
-                              <div class="tag-badge tag-badge-sale"*ngIf="i['offer']===true">%{{i['offerPercent']}}</div>
-                              <div class="tag-badge tag-badge-sale" *ngIf="i['offer']===false">{{i['topText']}}</div>
+                              <div class="tag-badge tag-badge-sale"*ngIf="Products[item.id]['offer']===true">%{{Products[item.id]['offerPercent']}}</div>
+                              <div class="tag-badge tag-badge-sale" *ngIf="Products[item.id]['offer']===false">{{Products[item.id]['topText']}}</div>
                             </div>
-                            <a>{{i['title']}}</a>
+                            <a>{{Products[item.id]['title']}}</a>
                           </div>
                         </div>
                       </div>
                       <div class="product-card-footer">
-                        <button class="product-card-addtocart-icon" type="button" aria-label="Add to cart" (click)="addCart(Products)" [disabled]="InventoryState">
+                        <button class="product-card-addtocart-icon" type="button" aria-label="Add to cart" (click)="addCart(Products[item.id])" [disabled]="InventoryState">
                           <svg width="20" height="20">
                             <circle cx="7" cy="17" r="2"></circle>
                             <circle cx="15" cy="17" r="2"></circle>
@@ -202,14 +195,14 @@
                         </button>
 
                         <div class="product-card-prices">
-                          <div class="product-card-price product-card-price-old">
-                            <small *ngIf="i['offer']===true">{{i['price']|number}}</small>
-                            <b *ngIf="i['offer']===false">{{i['price']|number}}</b>
-                          </div>
-                          <div class="product-card-price product-card-price-new">
-                            <b  *ngIf="i['offer']===true">{{i['price']-(i['price']*i['offerPercent'])/100|number}}</b>
-                            تومان</div>
+                          <div class="product-card-price product-card-price-old" *ngIf="Products[item.id]['offer']">
+                            <b class="ml-5" style="text-decoration: line-through;">{{Products[item.id]['price']|number}} تومان</b>
 
+                            <small class="text-danger" >{{Products[item.id]['price']-(Products[item.id]['price']*Products[item.id]['offerPercent'])/100|number}} تومان</small>
+                          </div>
+                          <div class="product-card-price product-card-price-new" *ngIf="!Products[item.id]['offer']">
+                            <b>{{Products[item.id]['price']|number}}</b>
+                            تومان</div>
 
                         </div>
 
@@ -226,7 +219,7 @@
             <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
           </div>
 
-      </div>
+
 
 
     </div>
