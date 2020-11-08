@@ -140,7 +140,7 @@ export class RegisterProductComponent implements OnInit {
     const category = this.form.controls.categoryID.value;
     this.form.controls.categoryID.setValue(category._id);
     console.log(this.form.value);
-    this.sellerService.updateSeller(this.userData.id, this.form.value).subscribe((response) => {
+    this.sellerService.addProduct(this.userData.id, this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
@@ -191,7 +191,7 @@ export class RegisterProductComponent implements OnInit {
     for (let i = 0; i < event.files.length; i++) {
       formData.append('files', event.files[i], event.files[i].name);
     }
-    this.sellerService.uploadFile(formData).subscribe((response) => {
+    this.sellerService.uploadFiles(formData).subscribe((response) => {
       if (response.success === true) {
         this.form.controls.gallery.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});

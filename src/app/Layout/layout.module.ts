@@ -44,7 +44,9 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
-
+import {SellerComponent} from './seller/seller.component';
+import {SellerRegisterComponent} from './seller/seller-register/seller-register.component';
+import {SellerLoginComponent} from './seller/seller-login/seller-login.component';
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
@@ -68,7 +70,6 @@ import {JwPaginationModule} from 'jw-angular-pagination';
     CallBackComponent,
     LoginRegisterComponent,
     WishlistComponent,
-
   ],
   imports: [
     CommonModule,

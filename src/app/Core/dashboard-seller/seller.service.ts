@@ -24,12 +24,15 @@ export class SellerService {
     return this.http.get('http://194.5.175.25:3005/api/v1/seller/products/' + id);
   }
 
-  addProduct(data: any): any{
-    return this.http.post('http://194.5.175.25:3005/api/v1/admin/product', data);
+  addProduct(id: any, data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/seller/product/' + id, data);
   }
 
   uploadFile(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/image', data);
   }
 
+  uploadFiles(data: any): any {
+    return this.http.post('http://194.5.175.25:3005/api/v1/seller/multipleimage', data);
+  }
 }
