@@ -43,6 +43,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
+import {JwPaginationModule} from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [IndexComponent,
@@ -92,7 +93,8 @@ import {OrderListModule} from 'primeng/orderlist';
     InputSwitchModule,
     SelectButtonModule,
     NgxImageZoomModule,
-    OrderListModule
+    OrderListModule,
+    JwPaginationModule
   ],
   exports: [
     IndexComponent,

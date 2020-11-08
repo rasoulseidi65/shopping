@@ -14,7 +14,7 @@
 
     </div>
   </div>
-  <!--  09039740635 برون-->
+
   <div class="row">
     <div class="col-sm-12">
       <div class="row">
@@ -28,21 +28,23 @@
               <ng-template pTemplate="item" let-item>
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
 
-                <ngx-image-zoom
-                  [thumbImage]=item.thumbnailImageSrc
-                  [fullImage]=item.previewImageSrc
-                  [magnification]="1"
-                  [enableScrollZoom]="true"
-                  [enableLens]="true"
-                  [lensWidth]="200"
-                ></ngx-image-zoom>
 
+<!--                <lib-ngx-image-zoom-->
+<!--                  [thumbImage]=item.thumbnailImageSrc-->
+<!--                  [fullImage]=item.previewImageSrc-->
+<!--                  [magnification]="1"-->
+<!--                  [enableScrollZoom]="true"-->
+<!--                  [enableLens]="true"-->
+<!--                  [lensWidth]="100">-->
+<!--                </lib-ngx-image-zoom>-->
               </ng-template>
+
               <ng-template pTemplate="thumbnail" let-item>
                 <div class="p-grid p-nogutter p-justify-center">
                   <img [src]="item.thumbnailImageSrc" style="width: 100px;height: 100px; display: block;"/>
                 </div>
               </ng-template>
+
             </p-galleria>
 
           </div>
@@ -112,7 +114,7 @@
                 </p>
               </div>
               <div class="col-sm-6 align-items-center">
-                <button class="btn-primary btn-block" (click)="addCart(product)" [disabled]="InventoryState">افزودن به
+                <button class="btn-primary btn-block" (click)="addCart(product)" [disabled]="!InventoryState">افزودن به
                   سبد خرید
                 </button>
               </div>

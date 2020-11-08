@@ -8,10 +8,11 @@ import { ProductsComponent } from './products/products.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HomepageComponent } from './homepage/homepage.component';
 import { CompanyComponent } from './company/company.component';
+import { ProductFeatureComponent } from './product-feature/product-feature.component';
 
 
 @NgModule({
-  declarations: [IndexComponent, ProductsComponent, HomepageComponent, CompanyComponent],
+  declarations: [IndexComponent, ProductsComponent, HomepageComponent, CompanyComponent, ProductFeatureComponent],
   imports: [
     CommonModule,
     DashboardAdminRoutingModule,

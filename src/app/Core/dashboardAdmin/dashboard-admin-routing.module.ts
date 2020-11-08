@@ -4,6 +4,7 @@ import {IndexComponent} from "./index/index.component";
 import {ProductsComponent} from "./products/products.component";
 import {HomepageComponent} from "./homepage/homepage.component";
 import {CompanyComponent} from "./company/company.component";
+import {ProductFeatureComponent} from './product-feature/product-feature.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,14 @@ const routes: Routes = [
     children: [{
       path: 'seller',
       component: CompanyComponent
+    }]
+  },
+  {
+    path: '',
+    component: IndexComponent,
+    children: [{
+      path: 'feature',
+      component: ProductFeatureComponent
     }]
   }
 ];

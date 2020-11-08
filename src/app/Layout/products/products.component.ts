@@ -13,6 +13,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 })
 export class ProductsComponent implements OnInit {
+  items = [];
+  pageOfItems: Array<any>;
 
   displaySort = false;
   displayFilter = false;
@@ -33,6 +35,7 @@ export class ProductsComponent implements OnInit {
   }
 
   constructor(private service: LayoutService, private serviceCart: CartService, private messageService: MessageService) {
+    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
   }
 
   ngOnInit(): void {
@@ -41,7 +44,10 @@ export class ProductsComponent implements OnInit {
 
     });
   }
-
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+  }
   openFilter(): void {
     this.displayFilter = true;
   }
