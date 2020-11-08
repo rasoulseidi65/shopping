@@ -138,11 +138,44 @@
 
         </div>
         <div class="p-grid p-fluid">
+        <div class="p-md-4">
+        <div class="p-field p-grid">
+          <label for="title" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">نام ویژگی:</label>
+          <div class="p-col-12 p-md-9">
+            <select id="inputState2" class="form-control" formControlName="featureID" [(ngModel)]="featureValue.featuresID" (change)="onDisplayFeatureValue($event.target.value)">
+              <option *ngFor="let i of Feature " [value]="i._id" >{{i.titleFarsi}}</option>
+            </select>
+            <!--                <input id="title" type="text" [(ngModel)]="product.title" pInputText formControlName="title">-->
+          </div>
+        </div>
+        </div>
+        <div class="p-md-4">
+          <div class="p-field p-grid">
+            <label for="title" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">مقدار ویژگی:</label>
+            <div class="p-col-12 p-md-9">
+              <select id="inputState3" class="form-control" formControlName="featuresID" [(ngModel)]="featureValue.featuresID">
+                <option *ngFor="let i of FeatureValue " [value]="i.featuresID" >{{i.value}}</option>
+              </select>
+              <!--                <input id="title" type="text" [(ngModel)]="product.title" pInputText formControlName="title">-->
+            </div>
+          </div>
+        </div>
+          <div class="p-md-4">
+            <div class="p-field p-grid">
+              <div class="p-col-12 p-md-9">
+                <button  pButton label="ثبت ویژگی" class="ui-button-success" icon="pi pi-check" iconPos="left" (click)="xx()"></button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="p-grid p-fluid">
           <div class="p-md-12">
             <div class="p-field p-grid">
-              <label  class="p-col-12 mb-3 p-md-12 p-mb-md-0">جزئیات محصول:</label>
+              <label  class="p-col-12 mb-3 p-md-12 p-mb-md-0">راهنما محصول:</label>
               <div class="p-col-12 p-md-12">
-                <p-editor [(ngModel)]="product.detail" [style]="{'height':'200px'}" formControlName="detail"></p-editor>
+                <p-editor [(ngModel)]="product.help" [style]="{'height':'200px'}" formControlName="help"></p-editor>
               </div>
             </div>
 

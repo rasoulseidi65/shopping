@@ -337,7 +337,7 @@ img.image-tag {
 }
 .product-card .product-card-price-old {
   font-weight: 400;
-  text-decoration: line-through;
+  /*text-decoration: line-through;*/
   color: #999;
 }
 .product-card-layout-grid .product-card-addtocart-icon {

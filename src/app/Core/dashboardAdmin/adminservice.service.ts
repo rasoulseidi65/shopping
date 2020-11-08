@@ -37,4 +37,20 @@ export class AdminserviceService {
   onDisplaySeller(){
     return this.http.get('http://194.5.175.25:3005/api/v1/seller/allseller');
   }
+  onRegisterFeature(data:any){
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/feature', data);
+  }
+  // productFeature
+  onRegisterProductFeature(data:any){
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/productFeature', data);
+  }
+  onRegisterFeatureValue(data:any){
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/featureValue', data);
+  }
+  onDisplayFeature(){
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/indexFeature');
+  }
+  onDisplayFeatureValue(data:any){
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/indexFeatureValue',data);
+  }
 }

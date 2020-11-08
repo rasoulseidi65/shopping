@@ -64,7 +64,7 @@ export class ProductDetailComponent implements OnInit {
   product: any[];
   category: any[];
   Inventory: any[];
-  InventoryState = false;
+  InventoryState :boolean=true;
   productID: string;
   subCategory: any;
   productFeature: any[] = [];
@@ -84,7 +84,6 @@ export class ProductDetailComponent implements OnInit {
     };
     this.images.indexOf(0, this.images.length);
     this.service.findProductID(data).subscribe((response) => {
-      console.log(response);
       if (response['success'] === true) {
         this.product = response['data'][0];
         this.subCategory = this.product['subCategory'];
@@ -95,9 +94,9 @@ export class ProductDetailComponent implements OnInit {
           this.productFeature.push(PFV[i]['Feature']);
           this.featureValue.push(PFV[i]['FeaturesValue']);
         }
-        console.log(this.featureValue);
+
         if (this.Inventory['count'] <= 0) {
-          this.InventoryState = true;
+          this.InventoryState = false;
         }
         let countGallery = this.product['gallery'];
         for (var i = 0; i < countGallery.length; i++) {
@@ -138,7 +137,8 @@ export class ProductDetailComponent implements OnInit {
       this.messageService.add({severity: 'success', summary: ' سبد خرید ', detail: 'کالا به سبد خرید اضافه شد'});
 
     } else {
-      alert('nooo');
+      this.messageService.add({severity: 'error', summary: ' موجودی کالا  ', detail: 'کالا موجود نیست'});
+
     }
   }
 
