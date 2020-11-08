@@ -1,5 +1,6 @@
 export class SellerModel {
   constructor(
+    public id: string,
     public sellerID?: string,
     public mobile?: string,
     public password?: string,

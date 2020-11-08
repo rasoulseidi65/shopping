@@ -9,12 +9,16 @@
     <mat-toolbar class="title-sidebar">فروشنده</mat-toolbar>
     <hr style="margin-top: -10px"/>
     <mat-nav-list>
-
-      <!--      <p-accordion>-->
-      <!--        <p-accordionTab header="وضعیت">-->
       <mat-list>
-        <mat-list-item [routerLink]="['/seller/profile']"> <i class="pi pi-user p-pl-4 text-white" style="font-size: 1rem"></i> اطلاعات کاربری</mat-list-item>
+        <mat-list-item class="iran" [routerLink]="['/seller/profile']"> <i class="pi pi-user p-pl-4 text-white" style="font-size: 1rem"></i> اطلاعات کاربری</mat-list-item>
         <mat-divider></mat-divider>
+
+          <mat-list-item [routerLink]="['/seller/product']"> <i class="pi pi-file p-pl-4 text-white" style="font-size: 1rem"></i> محصولات من</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item [routerLink]="['/seller/product/register']"> <i class="pi pi-plus p-pl-4 text-white" style="font-size: 1rem"></i> ثبت محصول جدید</mat-list-item>
+          <mat-divider></mat-divider>
+
+
       </mat-list>
 
     </mat-nav-list>
@@ -33,12 +37,11 @@
         </button>
       </div>
 
-      <div class="p-d-flex justify-content-center">
+      <div class="p-d-flex justify-content-center top-row">
         <div class="p-ml-5 text-white text-center">آخرین بازدید : 13 شهریور 1399 ( 10:59 )</div>
         <div class="p-mr-5">
-          <p class="text-white"><i class="pi pi-power-off text-white pl-2" style="font-size: 1rem"></i>خروج کاربر</p>
+          <p class="text-white"><i class="pi pi-power-off text-white pl-2"></i>خروج کاربر</p>
         </div>
-
       </div>
     </p-toolbar>
 

@@ -69,3 +69,21 @@ label,input{
   margin-right: unset;
   margin-left: 0.5rem;
 }
+
+
+:host ::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text{
+  margin: 0 1rem 0 0!important;
+}
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-error {
+  border-width: 0 6px 0 0px!important;
+}
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-success {
+  border-width: 0 6px 0 0px!important;
+}
+:host ::ng-deep .mat-step-text-label{
+  font-family: IRANSans_Bold;
+}
+:host ::ng-deep .mat-step-icon-selected, :host ::ng-deep .mat-step-icon-state-edit {
+  background-color: #CC3333;
+  color: #fff;
+}

@@ -1,0 +1,12 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: right!important;
+  font-family: IRANSans_Bold;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: right!important;
+  font-family: IRANSans_Light;
+}
+
+:host ::ng-deep .p-inputtext {
+  width: 100%;
+}

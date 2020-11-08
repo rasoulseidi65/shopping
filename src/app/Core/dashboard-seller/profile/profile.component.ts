@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MessageService, SelectItem} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {SellerModel} from '../SellerModel';
+import {SellerService} from '../seller.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -21,9 +23,7 @@ export class ProfileComponent implements OnInit {
   cities: any[];
   categories: any[];
   typesCompany: any[];
-  years: SelectItem[];
-  months: SelectItem[];
-  days: SelectItem[];
+  isCompany = false;
   userData: SellerModel = new SellerModel(
     null,
     null,
@@ -92,14 +92,11 @@ export class ProfileComponent implements OnInit {
       {type: 'required', message: 'آدرس را وارد کنید.'},
       {type: 'maxlength', message: 'آدرس نمی تواند از 1000 کاراکتر بیشتر باشد.'}
     ],
-    year: [
-      {type: 'required', message: 'سال را انتخاب کنید.'}
+    birthDay: [
+      {type: 'required', message: 'تاریخ تولد را انتخاب کنید.'}
     ],
-    month: [
-      {type: 'required', message: 'ماه را انتخاب کنید.'}
-    ],
-    day: [
-      {type: 'required', message: 'روز را انتخاب کنید.'}
+    imageNationalcard: [
+      {type: 'required', message: 'تصویر کارت ملی را بارگذاری کنید.'}
     ],
   };
   contactErrorMessages = {
@@ -135,9 +132,6 @@ export class ProfileComponent implements OnInit {
     imageSeller: [
       {type: 'required', message: 'تصویر فروشنده را بارگذاری کنید.'}
     ],
-    imageNationalcard: [
-      {type: 'required', message: 'تصویر کارت ملی را بارگذاری کنید.'}
-    ],
     imageCertificate: [
       {type: 'required', message: 'فایل تصویر فروشگاه را بارگذاری کنید.'}
     ],
@@ -150,73 +144,61 @@ export class ProfileComponent implements OnInit {
   };
 
   constructor(private formBuilder: FormBuilder,
-              private messageService: MessageService) {
+              private sellerService: SellerService,
+              private messageService: MessageService,
+              private router: Router) {
     this.states = [
-      {name: 'آذربایجان شرقی', code: '0'},
-      {name: 'آذربایجان غربی', code: '1'},
-      {name: 'اردبیل', code: '2'},
-      {name: 'اصفهان', code: '3'},
-      {name: 'البرز', code: '4'},
-      {name: 'ایلام', code: '5'},
-      {name: 'بوشهر', code: '6'},
-      {name: 'تهران', code: '7'},
-      {name: 'چهارمحال و بختیاری', code: '8'},
-      {name: 'خراسان جنوبی', code: '9'},
-      {name: 'خراسان رضوی', code: '10'},
-      {name: 'خراسان شمالی', code: '11'},
-      {name: 'خوزستان', code: '12'},
-      {name: 'زنجان', code: '13'},
-      {name: 'سمنان', code: '14'},
-      {name: 'سیستان و بلوچستان', code: '15'},
-      {name: 'فارس', code: '16'},
-      {name: 'قزوین', code: '17'},
-      {name: 'قم', code: '18'},
-      {name: 'گلستان', code: '19'},
-      {name: 'گیلان', code: '20'},
-      {name: 'لرستان', code: '21'},
-      {name: 'مازنداران', code: '22'},
-      {name: 'مرکزی', code: '23'},
-      {name: 'هرمزگان', code: '24'},
-      {name: 'همدان', code: '25'},
-      {name: 'کردستان', code: '26'},
-      {name: 'کرمان', code: '27'},
-      {name: 'کرمانشاه', code: '28'},
-      {name: 'کهگیلویه و بویراحمد', code: '29'},
-      {name: 'یزد', code: '30'},
-    ];
-
-    this.categories = [
       {label: 'آذربایجان شرقی', value: '0'},
       {label: 'آذربایجان غربی', value: '1'},
+      {label: 'اردبیل', value: '2'},
+      {label: 'اصفهان', value: '3'},
+      {label: 'البرز', value: '4'},
+      {label: 'ایلام', value: '5'},
+      {label: 'بوشهر', value: '6'},
+      {label: 'تهران', value: '7'},
+      {label: 'چهارمحال و بختیاری', value: '8'},
+      {label: 'خراسان جنوبی', value: '9'},
+      {label: 'خراسان رضوی', value: '10'},
+      {label: 'خراسان شمالی', value: '11'},
+      {label: 'خوزستان', value: '12'},
+      {label: 'زنجان', value: '13'},
+      {label: 'سمنان', value: '14'},
+      {label: 'سیستان و بلوچستان', value: '15'},
+      {label: 'فارس', value: '16'},
+      {label: 'قزوین', value: '17'},
+      {label: 'قم', value: '18'},
+      {label: 'گلستان', value: '19'},
+      {label: 'گیلان', value: '20'},
+      {label: 'لرستان', value: '21'},
+      {label: 'مازنداران', value: '22'},
+      {label: 'مرکزی', value: '23'},
+      {label: 'هرمزگان', value: '24'},
+      {label: 'همدان', value: '25'},
+      {label: 'کردستان', value: '26'},
+      {label: 'کرمان', value: '27'},
+      {label: 'کرمانشاه', value: '28'},
+      {label: 'کهگیلویه و بویراحمد', value: '29'},
+      {label: 'یزد', value: '30'},
     ];
+
+    this.getCategories();
+
     this.typesCompany = [
-      {label: 'آذربایجان شرقی', value: '0'},
-      {label: 'آذربایجان غربی', value: '1'},
+      {label: 'سهامی عام', value: 'سهامی عام'},
+      {label: 'سهامی خاص', value: 'سهامی خاص'},
+      {label: 'مسولیت محدود', value: 'مسولیت محدود'},
+      {label: 'تعاونی', value: 'تعاونی'}
     ];
-    this.years = [];
-    for (let i = 1310; i <= 1382; i++) {
-      this.years.push({label: i.toString(), value: i});
-    }
-
-    this.months = [];
-    for (let i = 1; i <= 12; i++) {
-      this.months.push({label: i.toString(), value: i});
-    }
-
-    this.days = [];
-    for (let i = 1; i <= 31; i++) {
-      this.days.push({label: i.toString(), value: i});
-    }
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
+    this.getSellerFromStorage();
+
     this.createPersonalForm();
     this.createContactForm();
     this.createBussinessForm();
   }
+
   createPersonalForm(): void {
     this.personalForm = this.formBuilder.group({
       firstName: new FormControl(
@@ -231,24 +213,6 @@ export class ProfileComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(200)
-        ]
-      ),
-      year: new FormControl(
-        null,
-        [
-          Validators.required
-        ]
-      ),
-      month: new FormControl(
-        null,
-        [
-          Validators.required
-        ]
-      ),
-      day: new FormControl(
-        null,
-        [
-          Validators.required
         ]
       ),
       gender: new FormControl(
@@ -300,10 +264,20 @@ export class ProfileComponent implements OnInit {
         ]
       ),
       birthDay: new FormControl(
-        this.userData.birthDay
+        this.userData.birthDay,
+        [
+          Validators.required
+        ]
+      ),
+      imageNationalcard: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
       ),
     });
   }
+
   createContactForm(): void {
     this.contactForm = this.formBuilder.group({
       shopName: new FormControl(
@@ -333,6 +307,7 @@ export class ProfileComponent implements OnInit {
       ),
     });
   }
+
   createBussinessForm(): void {
     this.businessForm = this.formBuilder.group({
       companyName: new FormControl(
@@ -373,12 +348,6 @@ export class ProfileComponent implements OnInit {
           Validators.required
         ]
       ),
-      imageNationalcard: new FormControl(
-        null,
-        [
-          Validators.required
-        ]
-      ),
       imageCertificate: new FormControl(
         null,
         [
@@ -399,75 +368,183 @@ export class ProfileComponent implements OnInit {
       ),
     });
   }
+
   stateOnChange(code: string): void {
     this.cities = [];
     if (code === '1') {
       this.cities = [
-        {name: '1', code: '0'},
-        {name: '1', code: '1'},
-        {name: '1', code: '2'}
+        {label: '1', value: '0'},
+        {label: '1', value: '1'},
+        {label: '1', value: '2'}
       ];
     }
     if (code === '2') {
       this.cities = [
-        {name: '2', code: '0'},
-        {name: '2', code: '1'},
-        {name: '2', code: '2'}
+        {label: '2', value: '0'},
+        {label: '2', value: '1'},
+        {label: '2', value: '2'}
       ];
     }
   }
-  monthOnChange(value: number): void {
-    this.days = [];
 
-    if (Number(value) <= 6) {
-      for (let i = 1; i <= 31; i++) {
-        this.days.push({label: i.toString(), value: i});
-      }
-    }
-    else {
-      for (let i = 1; i <= 30; i++) {
-        this.days.push({label: i.toString(), value: i});
-      }
-    }
-  }
   submitPersonalForm(): void {
-    console.log(this.personalForm.controls.year.value);
-    console.log(this.personalForm.controls.month.value);
-    console.log(this.personalForm.controls.day.value);
-    const birthday =
-      this.personalForm.controls.year.value + '/' +
-      this.personalForm.controls.month.value + '/' +
-      this.personalForm.controls.day.value;
+    const state = this.personalForm.controls.state.value;
+    this.personalForm.controls.state.setValue(state.label);
 
-    console.log(birthday);
-    this.personalForm.controls.birthDay.setValue(birthday);
-    console.log(this.personalForm.controls);
+    const city = this.personalForm.controls.city.value;
+    this.personalForm.controls.city.setValue(city.label);
+
+    this.sellerService.updateSeller(this.userData.id, this.personalForm.value).subscribe((response) => {
+      if (response.success === true) {
+        this.getSeller(this.userData.id);
+      }
+      else {
+        this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
+      }
+    });
   }
+
   submitContactForm(): void {
-    console.log(this.contactForm.controls);
+
+    const category = this.contactForm.controls.category.value;
+    this.contactForm.controls.category.setValue(category._id);
+
+    this.sellerService.updateSeller(this.userData.id, this.contactForm.value).subscribe((response) => {
+      if (response.success === true) {
+        this.getSeller(this.userData.id);
+      } else {
+        this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
+      }
+    });
   }
+
   submitBusinessForm(): void {
-    console.log(this.businessForm.controls);
+    this.sellerService.updateSeller(this.userData.id, this.businessForm.value).subscribe((response) => {
+      if (response.success === true) {
+        this.getSeller(this.userData.id);
+      } else {
+        this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
+      }
+    });
   }
+
+  getSeller(id: any): void{
+    this.sellerService.getSeller(id).subscribe((response) => {
+      if (response.success === true) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+
+        this.getSellerFromStorage();
+
+      } else {
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+      }
+    });
+  }
+
+  getCategories(): any{
+    this.sellerService.getCategories().subscribe((response) => {
+      if (response.success === true) {
+        this.categories = response.data;
+      } else {
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+      }
+    });
+  }
+
+  getSellerFromStorage(): void{
+    if (localStorage.getItem('user') !== null) {
+      this.userData = JSON.parse(localStorage.getItem('user'));
+    }
+    else{
+      this.router.navigateByUrl('/seller/login');
+    }
+  }
+
   logoUploader(event): void {
-    console.log(event);
-    console.log(event.files[0]);
-    this.contactForm.controls.logo.setValue(event.files[0]);
-    console.log(this.contactForm.controls);
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.contactForm.controls.logo.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود لوگو ', detail: 'تصویر با موفقیت آپلود شد.'});
+
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود لوگو ', detail: response.data});
+      }
+    });
   }
+
   imageSellerUploader(event): void {
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.businessForm.controls.imageSeller.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود تصویر فروشنده ', detail: 'تصویر با موفقیت آپلود شد.'});
 
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود تصویر فروشنده ', detail: response.data});
+      }
+    });
   }
+
   imageNationalcardUploader(event): void {
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.personalForm.controls.imageNationalcard.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود تصویر کارت ملی ', detail: 'تصویر با موفقیت آپلود شد.'});
 
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود تصویر کارت ملی ', detail: response.data});
+      }
+    });
   }
+
   imageCertificateUploader(event): void {
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.businessForm.controls.imageCertificate.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود گواهی ', detail: 'تصویر با موفقیت آپلود شد.'});
 
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود گواهی ', detail: response.data});
+      }
+    });
   }
+
   imageCompanyUploader(event): void {
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.businessForm.controls.imageCompany.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود تصویر فروشگاه ', detail: 'تصویر با موفقیت آپلود شد.'});
 
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود تصویر فروشگاه ', detail: response.data});
+      }
+    });
   }
-  resumeUploader(event): void {
 
+  resumeUploader(event): void {
+    const formData = new FormData();
+    formData.append('image', event.files[0], event.files[0].name);
+    this.sellerService.uploadFile(formData).subscribe((response) => {
+      if (response.success === true) {
+        this.businessForm.controls.resume.setValue(response.imagePath);
+        this.messageService.add({severity: 'success', summary: ' آپلود رزومه ', detail: 'فایل با موفقیت آپلود شد.'});
+
+      } else {
+        this.messageService.add({severity: 'error', summary: ' آپلود رزومه ', detail: response.data});
+      }
+    });
+  }
+
+  isCompanyOnChange(): void{
+    this.isCompany = !this.isCompany;
   }
 }
