@@ -42,6 +42,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import {OrderListModule} from 'primeng/orderlist';
 
 @NgModule({
   declarations: [IndexComponent,
@@ -90,7 +91,8 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     SidebarModule,
     InputSwitchModule,
     SelectButtonModule,
-    NgxImageZoomModule
+    NgxImageZoomModule,
+    OrderListModule
   ],
   exports: [
     IndexComponent,

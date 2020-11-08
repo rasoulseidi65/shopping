@@ -35,22 +35,12 @@
             <tr>
               <td class="text-center">{{rowIndex + 1}}</td>
               <td class="text-center">{{product['product']['cartList'].title}}</td>
-              <!--              {{product['product'].number}}-->
               <td class="text-center">
-
-                <!--                <p-inputNumber  data-value="{{product['product'].number}}" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="20">-->
-                <!--                </p-inputNumber>-->
-                <!--                <p-inputNumber [(ngModel)]="valueCountProduct[rowIndex]"  [min]="1" [showButtons]="true" buttonLayout="horizontal"-->
-                <!--                               inputId="horizontal" spinnerMode="horizontal" [step]="1" size="1"-->
-                <!--                               decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"-->
-                <!--                               incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" >-->
-                <!--                </p-inputNumber>-->
                 <input   type="text"  style="width: 100px" value="{{product['product'].number}}"   (change)="addCart(items[rowIndex],$event.target)"/>
-
               </td>
               <td class="text-center">{{product['product']['cartList'].price|number}}</td>
               <td class="text-center">{{product['product']['cartList'].price * product['product'].number|number}}</td>
-              <td class="text-center"><i class="pi pi-trash text-danger" (click)="deleteCart(product)"></i></td>
+              <td class="text-center"><i class="fas fa-times  text-danger" (click)="deleteCart(product)"></i></td>
 
             </tr>
           </ng-template>
@@ -528,8 +518,8 @@
               <div class="product-list-action">
                 <div class="d-flex flex-row">
                   <div class="mr-auto">
-                    <small class=" text-danger mr-3"
-                           *ngIf="product['product']['cartList'].offer===true">{{product['product']['cartList'].price|number}}</small>
+                    <small class="text-danger mr-3"
+                                *ngIf="product['product']['cartList'].offer===true">{{product['product']['cartList'].price|number}}</small>
                     <b class="text-muted"
                        *ngIf="product['product']['cartList'].offer===true">{{product['product']['cartList'].price - (product['product']['cartList'].price * product['product']['cartList'].offerPercent) / 100|number}}</b>
                     تومان
