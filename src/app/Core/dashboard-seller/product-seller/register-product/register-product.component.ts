@@ -140,6 +140,7 @@ export class RegisterProductComponent implements OnInit {
     const category = this.form.controls.categoryID.value;
     this.form.controls.categoryID.setValue(category._id);
     console.log(this.form.value);
+
     this.sellerService.addProduct(this.userData.id, this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
