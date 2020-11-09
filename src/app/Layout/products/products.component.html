@@ -184,7 +184,7 @@
                         </div>
                       </div>
                       <div class="product-card-footer">
-                        <button class="product-card-addtocart-icon" type="button" aria-label="Add to cart" (click)="addCart(Products[item.id])" [disabled]="InventoryState">
+                        <button class="product-card-addtocart-icon" type="button" aria-label="Add to cart" (click)="addCart(Products[item.id])">
                           <svg width="20" height="20">
                             <circle cx="7" cy="17" r="2"></circle>
                             <circle cx="15" cy="17" r="2"></circle>
@@ -215,12 +215,9 @@
 
             </div>
 
-          <div class="card-footer pb-0 pt-3">
-            <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+          <div class="d-flex justify-content-center">
+            <jw-pagination pageSize="9" class="text-center"   [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
           </div>
-
-
-
 
     </div>
   </div>
@@ -357,4 +354,18 @@
       </ul>
     </div>
   </div>
+</p-dialog>
+<p-dialog  [(visible)]="displayBasic" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
+  <p-header>
+    <p  class="mr-3">انجام شد</p>
+  </p-header>
+  <hr style="width: 100%;"/>
+  <p class="text-right text-success mt-2">محصول با موفقیت به سبد خرید اضافه شد</p>
+  <p class="text-right textDialog">برای ثبت نهایی سفارش بر روی دکمه ی مشاهده  سبد خرید کلیک کنید و برای افزودن دیگر محصولات به سبد خرید، بر روی دکمه ی ادامه کلیک کنید.</p>
+  <hr style="margin-bottom: -15px"/>
+  <ng-template pTemplate="footer" >
+    <button pButton pRipple type="button"  (click)="displayBasic=false" label="ادامه"  class="p-button-danger float-left"></button>
+    <button pButton pRipple type="button"  (click)="goCart()" label="مشاهده سبد خرید"  class="p-button-danger float-left"></button>
+
+  </ng-template>
 </p-dialog>

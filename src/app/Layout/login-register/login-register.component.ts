@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../Auth/user.service';
 import {MessageService} from 'primeng/api';
+import {Router} from '@angular/router';
+import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-login-register',
@@ -14,6 +16,7 @@ export class LoginRegisterComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   mobileRegix = /^0?9[123]\d{8}$/;
+
   loginErrorMessages = {
     mobile: [
       { type: 'required', message: 'شماره موبایل را وارد کنید.' },
@@ -35,14 +38,14 @@ export class LoginRegisterComponent implements OnInit {
     ],
     password: [
       { type: 'required', message: 'کلمه عبور را وارد کنید.' },
-      { type: 'minlength', message: 'کلمه عبور نمی تواند کمتر از 5 کاراکتر باشد.' }
+      { type: 'minlength', message: 'کلمه عبور نمی تواند کمتر از 6 کاراکتر باشد.' }
     ],
     confirmPassword: [
       { type: 'required', message: 'تکرار کلمه عبور را وارد کنید.' },
-      { type: 'minlength', message: 'تکرار کلمه عبور نمی تواند کمتر از 5 کاراکتر باشد.' }
+      { type: 'minlength', message: 'تکرار کلمه عبور نمی تواند کمتر از 6 کاراکتر باشد.' }
     ],
   };
-  constructor(private formBuilder: FormBuilder, private authService: UserService, private messageService: MessageService) { }
+  constructor(private formBuilder: FormBuilder, private authService: UserService, private messageService: MessageService,private  route:Router,private localStorage:LocalStorageService) { }
 
   ngOnInit(): void {
 
@@ -103,9 +106,11 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.onLogin(this.loginForm).subscribe((response) => {
+
+    this.authService.onLogin(this.loginForm.value).subscribe((response) => {
       if (response['success'] === true) {
-        localStorage.setItem('user', JSON.stringify( response['data'] ));
+        this.localStorage.saveCurrentUser(JSON.stringify( response['data'] ));
+        this.route.navigate(['/'])
       } else {
         this.messageService.add({severity: 'error', summary: ' ورود ', detail: response['data']});
       }
@@ -113,7 +118,7 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.onRegister(this.registerForm).subscribe((response) => {
+    this.authService.onRegister(this.registerForm.value).subscribe((response) => {
       if (response['success'] === true) {
         localStorage.setItem('user', JSON.stringify(this.registerForm));
       }

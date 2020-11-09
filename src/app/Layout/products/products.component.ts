@@ -1,20 +1,21 @@
-import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Options} from 'ng5-slider';
 import {LayoutService} from '../layout.service';
 import {MessageService, SelectItem} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
+import {Router} from '@angular/router';
+import * as  paginate from 'jw-paginate';
 
 @Component({
+
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   providers: [MessageService]
 
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnChanges {
 
-
-  pager: any = {};
   items = [];
   pageOfItems: Array<any>;
 
@@ -25,7 +26,7 @@ export class ProductsComponent implements OnInit {
   Products: any[];
   product: any[];
   displayBasic: boolean;
-  InventoryState = false;
+  InventoryState = true;
   options: Options = this.getOptions();
   countOfProduct: number = 7;
 
@@ -37,14 +38,14 @@ export class ProductsComponent implements OnInit {
     };
   }
 
-  constructor(private service: LayoutService, private serviceCart: CartService, private messageService: MessageService) {
+  constructor(private router: Router, private service: LayoutService, private serviceCart: CartService, private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
-      this.countOfProduct= response['data'].length;
+      this.countOfProduct = response['data'].length;
       this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
 
     });
@@ -52,11 +53,13 @@ export class ProductsComponent implements OnInit {
 
   }
 
+
+
   onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    console.log(pageOfItems);
+
     this.pageOfItems = pageOfItems;
   }
+
 
   openFilter(): void {
     this.displayFilter = true;
@@ -68,17 +71,22 @@ export class ProductsComponent implements OnInit {
 
 
   addCart(products: any): void {
-    if (this.InventoryState === true) {
-      const list = {
-        cartList: products,
-        number: 1
-      };
-      this.serviceCart.addToCart(list);
-      this.messageService.add({severity: 'success', summary: ' سبد خرید ', detail: 'کالا به سبد خرید اضافه شد'});
 
-    } else {
-      alert('nooo');
-    }
+    // if (this.InventoryState === true) {
+    const list = {
+      cartList: products,
+      number: 1
+    };
+    this.serviceCart.addToCart(list);
+    this.displayBasic = true;
+
+    // } else {
+    //   alert('nooo');
+    // }
   }
 
+  goCart() {
+    this.displayBasic = !this.displayBasic;
+    this.router.navigate(['/home/cart']);
+  }
 }
