@@ -578,3 +578,23 @@ label.color span {
  h3, .searchText, label{
    font-family: IRANSans_Bold;
  }
+.textDialog{
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 12px;
+  color: #EF2B2F;
+}
+:host::ng-deep.p-dialog .p-dialog-header {
+  font-size: 13px;
+  color: #777777!important;
+  padding: 0.2rem!important;
+  padding-top: 15px!important;
+}
+:host::ng-deep.p-dialog .p-dialog-footer {
+  padding: 0.5rem!important;
+
+}
+:host::ng-deep.p-dialog .p-dialog-content {
+  margin-top: -15px!important;
+}
+

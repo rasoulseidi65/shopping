@@ -10,27 +10,27 @@ const routes: Routes = [
   {
     path: 'profile',
     component: IndexComponent,
-    canActivate:[UserGuard],
+    // canActivate:[UserGuard],
     children: [{
       path: '',
       component: ProfileComponent
     }]
   },
   {
-    path: 'purchasesMy',
+    path: '',
     component: IndexComponent,
     canActivate:[UserGuard],
     children: [{
-      path: '',
+      path: 'purchasesMy',
       component: PurchasesComponent
     }]
   },
   {
-    path: 'payment',
+    path: '',
     component: IndexComponent,
     canActivate:[UserGuard],
     children: [{
-      path: '',
+      path: 'payment',
       component: PaymentUserComponent
     }]
   },

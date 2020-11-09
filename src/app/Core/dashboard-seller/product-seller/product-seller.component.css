@@ -1,0 +1,47 @@
+.pnl-content .box{
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: right!important;
+  font-family: IRANSans_Bold;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: right!important;
+  font-family: IRANSans_Light;
+}
+
+:host ::ng-deep .p-inputtext {
+  width: 100%;
+}
+button{
+  font-family: IRANSans_Light!important;
+  font-size: 13px;
+}
+
+:host ::ng-deep p-paginator-bottom{
+  direction: ltr;
+}
+:host ::ng-deep .p-inputtext {
+  background-color: #f8f9fa;
+}
+:host ::ng-deep .p-inputtext:focus {
+  background-color: #ffffff;
+}
+:host ::ng-deep .p-input-icon-left {
+  position: relative;
+  display: inline-block;
+}
+:host ::ng-deep .pi-chevron-right:before {
+  content: "\e902";
+}
+:host ::ng-deep .p-paginator-bottom{
+  direction: ltr;
+  text-align: right;
+}
+:host ::ng-deep .p-button-icon-left {
+  margin-left: 0.5rem;
+  margin-right: unset;
+}

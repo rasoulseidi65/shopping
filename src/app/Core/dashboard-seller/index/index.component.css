@@ -41,3 +41,10 @@ mat-nav-list a{
   color: antiquewhite;
 }
 
+:host ::ng-deep .mat-list-item-content{
+  font-family: IRANSans_Light;
+}
+.top-row{
+  font-family: IRANSans_Bold;
+  font-size: 13px;
+}

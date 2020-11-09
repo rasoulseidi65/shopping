@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {UserService} from "../User.service";
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 interface City {
   name: string,
@@ -32,7 +33,7 @@ export class ProfileComponent implements OnInit {
   };
   getInfoUser: any;
 
-  constructor(private  fb: FormBuilder, private messageService: MessageService, private userService: UserService) {
+  constructor(private localStorage:LocalStorageService, private  fb: FormBuilder, private messageService: MessageService, private userService: UserService) {
 
 
     this.cities = [
@@ -71,8 +72,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user') != null) {
-      this.getInfoUser = JSON.parse(localStorage.getItem('user'));
+    // if (this.localStorage.getCurrentUser() === true) {
+    if (this.localStorage.getCurrentUser() != null) {
+      this.getInfoUser = this.localStorage.userJson;
       let data = {
         mobile: this.getInfoUser['mobile']
       }

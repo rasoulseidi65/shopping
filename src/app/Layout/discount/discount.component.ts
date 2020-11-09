@@ -79,12 +79,6 @@ export class DiscountComponent implements OnInit {
 
   goCart() {
     this.displayBasic = !this.displayBasic;
-    // if (localStorage.getItem('user') === null) {
-    //   this.displayLogin=true;
-    // } else {
-
     this.router.navigate(['/home/cart']);
-
-    // }
   }
 }

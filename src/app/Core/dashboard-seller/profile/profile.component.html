@@ -61,7 +61,7 @@
                 </ul>
               </div>
               <div class="p-field p-col">
-                <label for="phone">تلفن</label>
+                <label for="phone">تلفن ثابت</label>
                 <input id="phone" type="text" pKeyFilter="int"
                        pInputText formControlName="phone" minlength="11" maxlength="11">
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.phone">
@@ -75,93 +75,17 @@
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
-              <input type="hidden" formControlName="birthDay" id="birthDay">
               <div class="p-field p-col">
-                <label class="d-block">سال تولد</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="years" formControlName="year"></p-dropdown>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.year">
+                <label for="birthDay">تاریخ تولد</label>
+                <input type="text" #datepickerInput
+                       formControlName="birthDay" id="birthDay" pInputText/>
+                <ng-persian-datepicker [timeEnable]="false"
+                  [input]="datepickerInput"></ng-persian-datepicker>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('year').hasError(error.type)
-                            && (personalForm.get('year').dirty
-                            || personalForm.get('year').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
-              <div class="p-field p-col">
-                <label class="d-block">ماه</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="months" formControlName="month"
-                (onChange)="monthOnChange(personalForm.controls['month'].value)"></p-dropdown>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.month">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('month').hasError(error.type)
-                            && (personalForm.get('month').dirty
-                            || personalForm.get('month').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
-              <div class="p-field p-col">
-                <label class="d-block">روز</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="days" formControlName="day"></p-dropdown>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.day">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('day').hasError(error.type)
-                            && (personalForm.get('day').dirty
-                            || personalForm.get('day').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col">
-                <label class="d-block">استان</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="states" formControlName="state"
-                            optionLabel="name" [filter]="true" [showClear]="true"
-                            (onChange)="stateOnChange(personalForm.controls['state'].value.code)">
-                  <ng-template pTemplate="selectedItem">
-                    <div class="state-item state-item-value"
-                         *ngIf="personalForm.controls['state'].value">
-                      <div>{{personalForm.controls['state'].value.name}}</div>
-                    </div>
-                  </ng-template>
-                  <ng-template let-state pTemplate="item">
-                    <div class="state-item text-right">
-                      <div class="text-right">{{state.value.name}}</div>
-                    </div>
-                  </ng-template>
-                </p-dropdown>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.state">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('state').hasError(error.type)
-                            && (personalForm.get('state').dirty
-                            || personalForm.get('state').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
-              <div class="p-field p-col">
-                <label class="d-block">شهر</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" [options]="cities" formControlName="city"
-                            optionLabel="name" [filter]="true" [showClear]="true">
-                  <ng-template pTemplate="selectedItem">
-                    <div class="city-item city-item-value"
-                         *ngIf="personalForm.controls['city'].value">
-                      <div>{{personalForm.controls['city'].value.name}}</div>
-                    </div>
-                  </ng-template>
-                  <ng-template let-city pTemplate="item">
-                    <div class="city-item text-right">
-                      <div class="text-right">{{city.value.name}}</div>
-                    </div>
-                  </ng-template>
-                </p-dropdown>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.city">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('city').hasError(error.type)
-                            && (personalForm.get('city').dirty
-                            || personalForm.get('city').touched)">
+                      *ngIf="personalForm.get('birthDay').hasError(error.type)
+                            && (personalForm.get('birthDay').dirty
+                            || personalForm.get('birthDay').touched)">
                     {{ error.message }}
                   </li>
                 </ul>
@@ -184,6 +108,85 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
+                <label class="d-block">استان</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"  [options]="states"
+                            formControlName="state"
+                            optionLabel="label" [filter]="true" [showClear]="true"
+                            (onChange)="stateOnChange(personalForm.controls['state'].value.value)">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="state-item state-item-value"
+                         *ngIf="personalForm.controls['state'].value">
+                      <div>{{personalForm.controls['state'].value.label}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-state pTemplate="item">
+                    <div class="state-item text-right">
+                      <div class="text-right">{{state.value.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.state">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('state').hasError(error.type)
+                            && (personalForm.get('state').dirty
+                            || personalForm.get('state').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+              <div class="p-field p-col">
+                <label class="d-block">شهر</label>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد" [options]="cities" formControlName="city"
+                            optionLabel="label" [filter]="true" [showClear]="true">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="city-item city-item-value"
+                         *ngIf="personalForm.controls['city'].value">
+                      <div>{{personalForm.controls['city'].value.label}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-city pTemplate="item">
+                    <div class="city-item text-right">
+                      <div class="text-right">{{city.value.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.city">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('city').hasError(error.type)
+                            && (personalForm.get('city').dirty
+                            || personalForm.get('city').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label>آپلود تصویر کارت ملی</label>
+                <p-fileUpload
+                  chooseLabel="انتخاب تصویر"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="imageNationalcardUploader($event)"
+                  invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept="image/jpeg,image/png " maxFileSize="2000000">
+                </p-fileUpload>
+
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.imageNationalcard">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="personalForm.get('imageNationalcard').hasError(error.type)
+                            && (personalForm.get('imageNationalcard').dirty
+                            || personalForm.get('imageNationalcard').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
                 <label for="address">آدرس</label>
                 <textarea rows="5" cols="30" pInputTextarea id="address"
                           autoResize="autoResize" formControlName="address">
@@ -200,7 +203,7 @@
               </div>
             </div>
             <div class="float-left">
-              <button mat-button matStepperNext [disabled]="personalForm.invalid">بعدی</button>
+              <button mat-button [disabled]="personalForm.invalid" matStepperNext>ثبت</button>
             </div>
           </form>
         </mat-step>
@@ -209,7 +212,7 @@
             <ng-template matStepLabel>اطلاعات فروشگاه</ng-template>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-                <label for="shopName">نام</label>
+                <label for="shopName">نام فروشگاه</label>
                 <input id="shopName" type="text" pInputText
                        formControlName="shopName">
                 <ul class="mt-1 text-right list-inline"
@@ -225,9 +228,25 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-                <label class="d-block">دسته بندی</label>
+                <label class="d-block">قصد فروش چه کالاهایی را دارید؟</label>
+
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                            [options]="categories" formControlName="category"></p-dropdown>
+                            [options]="categories"
+                            formControlName="category"
+                            optionLabel="title" [filter]="true" [showClear]="true">
+                  <ng-template pTemplate="selectedItem">
+                    <div class="state-item state-item-value"
+                         *ngIf="contactForm.controls['category'].value">
+                      <div>{{contactForm.controls['category'].value.title}}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-category pTemplate="item">
+                    <div class="state-item text-right">
+                      <div class="text-right">{{category.value.title}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of contactErrorMessages.category">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
@@ -239,9 +258,10 @@
                 </ul>
               </div>
               <div class="p-field p-col">
-                <label for="shabaNumber">شماره شبا</label>
+                <label for="shabaNumber">شماره شبا (به نام شخص یا شرکت ثبت نام کننده)</label>
                 <input id="shabaNumber" type="text" pInputText
-                       formControlName="shabaNumber">
+                       formControlName="shabaNumber"
+                       mask="IR99-9999-9999-9999-9999-9999-99">
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of contactErrorMessages.shabaNumber">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
@@ -255,6 +275,7 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
+                <label>آپلود لوگو</label>
                 <p-fileUpload
                   formControlName="logo"
                   chooseLabel="انتخاب تصویر"
@@ -262,18 +283,35 @@
                   cancelLabel="انصراف"
                   customUpload="true"
                   (uploadHandler)="logoUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
+                  invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept="image/jpeg,image/png " maxFileSize="2000000">
                 </p-fileUpload>
+
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of contactErrorMessages.logo">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="contactForm.get('logo').hasError(error.type)
+                            && (contactForm.get('logo').dirty
+                            || contactForm.get('logo').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
               </div>
             </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col">
+                <label>آیا فروشگاه شما، حقوقی است؟</label>
+                <p-checkbox (onChange)="isCompanyOnChange()"></p-checkbox>
+              </div>
+            </div>
+
             <div class="float-left">
-              <button mat-button [disabled]="contactForm.invalid" matStepperNext>بعدی</button>
+              <button mat-button [disabled]="contactForm.invalid" matStepperNext>ثبت</button>
             </div>
           </form>
         </mat-step>
-        <mat-step>
+        <mat-step *ngIf="isCompany" label="اطلاعات حقوقی">
           <form [formGroup]="businessForm" (ngSubmit)="submitBusinessForm()">
-            <ng-template matStepLabel>اطلاعات حقوقی</ng-template>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
                 <label for="companyName">نام سازمان</label>
@@ -306,7 +344,7 @@
                 </ul>
               </div>
               <div class="p-field p-col">
-                <label class="d-block">نوع سازمان</label>
+                <label class="d-block">نوع شرکت</label>
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="typesCompany" formControlName="typeCompany"></p-dropdown>
                 <ul class="mt-1 text-right list-inline"
@@ -336,7 +374,7 @@
                 </ul>
               </div>
               <div class="p-field p-col">
-                <label for="economicCompany">شماره اقتصادی</label>
+                <label for="economicCompany">کد اقتصادی</label>
                 <input id="economicCompany" type="text" pInputText
                        formControlName="economicCompany">
                 <ul class="mt-1 text-right list-inline"
@@ -352,66 +390,101 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
+                <label>آپلود فایل رزومه</label>
                 <p-fileUpload
-                  chooseLabel="انتخاب تصویر"
+                  chooseLabel="انتخاب فایل"
                   uploadLabel="آپلود تصویر"
                   cancelLabel="انصراف"
                   customUpload="true"
                   (uploadHandler)="resumeUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
+                  invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept=".pdf" maxFileSize="2000000">
                 </p-fileUpload>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of businessErrorMessages.resume">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('resume').hasError(error.type)
+                            && (businessForm.get('resume').dirty
+                            || businessForm.get('resume').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-                <p-fileUpload
-                  chooseLabel="انتخاب تصویر"
-                  uploadLabel="آپلود تصویر"
-                  cancelLabel="انصراف"
-                  customUpload="true"
-                  (uploadHandler)="imageNationalcardUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
-                </p-fileUpload>
-              </div>
-            </div>
-            <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col">
+                <label>آپلود تصویر فروشنده</label>
                 <p-fileUpload
                   chooseLabel="انتخاب تصویر"
                   uploadLabel="آپلود تصویر"
                   cancelLabel="انصراف"
                   customUpload="true"
                   (uploadHandler)="imageSellerUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
+                  invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept=".pdf" maxFileSize="2000000">
                 </p-fileUpload>
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.imageSeller">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('imageSeller').hasError(error.type)
+                            && (businessForm.get('imageSeller').dirty
+                            || businessForm.get('imageSeller').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
+                <label>آپلود تصویر گواهی</label>
                 <p-fileUpload
                   chooseLabel="انتخاب تصویر"
                   uploadLabel="آپلود تصویر"
                   cancelLabel="انصراف"
                   customUpload="true"
                   (uploadHandler)="imageCertificateUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
+                  invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept=".pdf" maxFileSize="2000000">
                 </p-fileUpload>
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.imageCertificate">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('imageCertificate').hasError(error.type)
+                            && (businessForm.get('imageCertificate').dirty
+                            || businessForm.get('imageCertificate').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
+                <label>آپلود تصویر فروشگاه</label>
                 <p-fileUpload
                   chooseLabel="انتخاب تصویر"
                   uploadLabel="آپلود تصویر"
                   cancelLabel="انصراف"
                   customUpload="true"
                   (uploadHandler)="imageCompanyUploader($event)"
-                  accept="image/*" maxFileSize="1000000">
+                  invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept=".pdf" maxFileSize="2000000">
                 </p-fileUpload>
+                <ul class="mt-1 text-right list-inline"
+                    *ngFor="let error of businessErrorMessages.imageCompany">
+                  <li class="font-small text-danger font-weight-bold list-inline-item"
+                      *ngIf="businessForm.get('imageCompany').hasError(error.type)
+                            && (businessForm.get('imageCompany').dirty
+                            || businessForm.get('imageCompany').touched)">
+                    {{ error.message }}
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="float-left">
-              <button mat-button matStepperNext [disabled]="businessForm.invalid">بعدی</button>
+              <button mat-button matStepperNext [disabled]="businessForm.invalid">ثبت</button>
             </div>
           </form>
         </mat-step>

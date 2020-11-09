@@ -268,6 +268,7 @@ export class CartComponent implements OnInit {
   deleteCart(item: any) {
     this.serviceCart.deleteItem(item);
     this.items = this.serviceCart.getItems();
+    this.refreshCart();
   }
 
   refreshCart() {
@@ -284,7 +285,6 @@ export class CartComponent implements OnInit {
   }
 
   addCart(item: any, count: any) {
-    console.log(item)
     if (count <= 0) {
       alert('موجود نمی باشد');
     } else {
