@@ -28,6 +28,10 @@ export class SellerService {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/product/' + id, data);
   }
 
+  getFeatures(): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/indexFeature');
+  }
+
   uploadFile(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/image', data);
   }

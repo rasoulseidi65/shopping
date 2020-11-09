@@ -4,6 +4,7 @@ import {IndexComponent} from './index/index.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ProductSellerComponent} from './product-seller/product-seller.component';
 import {RegisterProductComponent} from './product-seller/register-product/register-product.component';
+import {FeatureComponent} from './feature/feature.component';
 
 const routes: Routes = [
   {
@@ -27,13 +28,21 @@ const routes: Routes = [
     }]
   },
   {
-    path: 'product/register',
+    path: 'product/add',
     component: IndexComponent,
     children: [{
       path: '',
       component: RegisterProductComponent
     }]
   },
+  {
+    path: 'feature',
+    component: IndexComponent,
+    children: [{
+      path: '',
+      component: FeatureComponent
+    }]
+  }
 ];
 
 @NgModule({

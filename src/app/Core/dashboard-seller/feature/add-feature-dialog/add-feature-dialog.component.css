@@ -1,0 +1,8 @@
+:host::ng-deep .p-dialog{
+  direction: rtl!important;
+  text-align: right!important;
+}
+:host::ng-deep .p-dialog-header{
+  direction: rtl!important;
+  text-align: right!important;
+}
