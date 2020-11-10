@@ -1,8 +1,9 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 <div class="pnl-content p-3">
   <div class="box text-right" dir="rtl">
 
     <p-table #dt [value]="features" dataKey="id"
-             [rows]="5" [showCurrentPageReport]="true"
+             [rows]="10" [showCurrentPageReport]="true"
              [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
              styleClass="p-datatable-customers"
              [paginator]="true"
@@ -66,13 +67,13 @@
           </td>
           <td>
             <button pButton pRipple icon="pi pi-plus"
-                    (click)="showAddFeatureValueDialog(feature.titleFarsi, feature.titleLatin)"
+                    (click)="showAddFeatureValueDialog(feature.id, feature.titleFarsi, feature.titleLatin)"
                     class="p-button-rounded p-button-success p-ml-2 text-white"></button>
 
-            <button pButton pRipple icon="pi pi-pencil"
+            <button pButton pRipple icon="pi pi-pencil" [disabled]="feature._id !== userData.id"
                     (click)="showEditFeatureDialog(feature.id, feature.titleFarsi, feature.titleLatin)"
                     class="p-button-rounded p-button-warning p-ml-2 text-white"></button>
-            <button pButton pRipple (click)="deleteFeature(feature.id)"
+            <button pButton pRipple (click)="deleteFeature(0)" [disabled]="feature._id !== userData.id"
                     icon="pi pi-trash" class="p-button-rounded p-button-danger text-white"></button>
           </td>
         </tr>
