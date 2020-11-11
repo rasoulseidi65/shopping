@@ -79,8 +79,8 @@
                 <label for="birthDay">تاریخ تولد</label>
                 <input type="text" #datepickerInput
                        formControlName="birthDay" id="birthDay" pInputText/>
-                <ng-persian-datepicker [timeEnable]="false"
-                  [input]="datepickerInput"></ng-persian-datepicker>
+<!--                <ng-persian-datepicker [timeEnable]="false"-->
+<!--                  [input]="datepickerInput"></ng-persian-datepicker>-->
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
                       *ngIf="personalForm.get('birthDay').hasError(error.type)
