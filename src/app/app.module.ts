@@ -11,24 +11,26 @@ import {SharedmoduleModule} from './SharedModule/sharedmodule.module';
 import {SharedcomponentModule} from './SharedComponent/sharedcomponent.module';
 import {Ng5SliderModule} from 'ng5-slider';
 import {ClickOutsideModule} from 'ng-click-outside';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule.withServerTransition({appId: 'serverApp'}),
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    ReactiveFormsModule,
-    SharedmoduleModule,
-    CarouselModule,
-    SharedcomponentModule,
-    Ng5SliderModule,
-    ClickOutsideModule
-  ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'serverApp'}),
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        SharedmoduleModule,
+        CarouselModule,
+        SharedcomponentModule,
+        Ng5SliderModule,
+        ClickOutsideModule,
+        ProgressSpinnerModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

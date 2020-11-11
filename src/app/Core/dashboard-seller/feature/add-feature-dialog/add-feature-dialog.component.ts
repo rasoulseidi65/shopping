@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {SellerService} from '../../seller.service';
+import {MessageService} from 'primeng/api';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-add-feature-dialog',
   templateUrl: './add-feature-dialog.component.html',
-  styleUrls: ['./add-feature-dialog.component.css']
+  styleUrls: ['./add-feature-dialog.component.css'],
+  providers: [
+    MessageService
+  ]
 })
 export class AddFeatureDialogComponent implements OnInit {
 
@@ -20,7 +26,11 @@ export class AddFeatureDialogComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              public sellerService: SellerService,
+              public messageService: MessageService,
+              public config: DynamicDialogConfig,
+              public dialogRef: DynamicDialogRef) { }
 
   ngOnInit(): void {
     this.createform();
@@ -28,6 +38,9 @@ export class AddFeatureDialogComponent implements OnInit {
 
   createform(): void {
     this.form = this.formBuilder.group({
+      _id: new FormControl(
+        this.config.data._id
+      ),
       titleFarsi: new FormControl(
         null,
         [
@@ -43,9 +56,17 @@ export class AddFeatureDialogComponent implements OnInit {
         ]
       )
     });
+
   }
 
   submitForm(): void {
-    console.log('done');
+    this.sellerService.addFeature(this.form.value).subscribe((response) => {
+      if (response.success === true) {
+        this.dialogRef.close(true);
+      } else {
+        this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
+      }
+    });
   }
+
 }

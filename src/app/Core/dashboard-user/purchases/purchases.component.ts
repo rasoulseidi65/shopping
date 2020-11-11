@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../User.model";
 import {UserService} from "../User.service";
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-purchases',
@@ -8,10 +9,11 @@ import {UserService} from "../User.service";
   styleUrls: ['./purchases.component.css']
 })
 export class PurchasesComponent implements OnInit {
-  public UserModels: UserModel[] = [];
+  public listProducts: any[];
+  spinnerSuccess:boolean=true;
   cols: any[];
   userID:any;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private serviceStorage:LocalStorageService) {
     this.cols = [
       {field: 'candidateNumber', header: 'شماره داوطلب'},
       {field: 'nationalCode', header: 'شماره ملی'},
@@ -26,16 +28,17 @@ export class PurchasesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user') != null) {
-      this.userID = JSON.parse(localStorage.getItem('user'));
+    if (this.serviceStorage.getCurrentUser() === true) {
       let data = {
-        userID: this.userID['id']
+        userID: this.serviceStorage.userJson['_id']
       }
       this.userService.onDisplayBasket(data).subscribe((response) => {
-        console.log(response)
         if (response['success'] === true) {
-          this.UserModels = response['data']
+          this.spinnerSuccess=false
+          this.listProducts = response['data'];
+
         }
+
       })
     }
   }

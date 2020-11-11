@@ -11,17 +11,19 @@ import {SellerComponent} from './seller.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {SidebarModule} from 'primeng/sidebar';
+import {ToastModule} from 'primeng/toast';
 
 
 @NgModule({
   declarations: [SellerLoginComponent, SellerRegisterComponent, SellerFooterComponent,SellerHeaderComponent,SellerFeatureComponent,SellerComponent],
-  imports: [
-    CommonModule,
-    SellerRoutingModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    SidebarModule
-  ],
+    imports: [
+        CommonModule,
+        SellerRoutingModule,
+        ReactiveFormsModule,
+        MatExpansionModule,
+        SidebarModule,
+        ToastModule
+    ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],

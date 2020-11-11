@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
 import {LayoutService} from '../layout.service';
 import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
+import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
 
 @Component({
   selector: 'app-discount',
@@ -12,7 +13,7 @@ import {Router} from '@angular/router';
   providers: [MessageService]
 })
 export class DiscountComponent implements OnInit {
-
+  @ViewChild("NavHeaderComponent") nav: NavHeaderComponent;
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -54,7 +55,7 @@ export class DiscountComponent implements OnInit {
       if (response['success'] === true) {
         this.hottestProduct = response['data'];
         this.Inventory = response['data'][0]['Inventory'][0];
-        console.log(this.Inventory);
+
       }
 
     });
@@ -72,6 +73,7 @@ export class DiscountComponent implements OnInit {
 
       this.serviceCart.addToCart(list);
       this.displayBasic = true;
+
       // this.messageService.add({severity: 'success', summary: ' سبد خرید ', detail: 'کالا به سبد خرید اضافه شد'});
 
     }

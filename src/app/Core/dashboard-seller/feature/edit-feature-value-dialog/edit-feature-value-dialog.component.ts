@@ -18,7 +18,6 @@ export class EditFeatureValueDialogComponent implements OnInit {
   };
 
   constructor(private formBuilder: FormBuilder,
-              public ref: DynamicDialogRef,
               public config: DynamicDialogConfig) { }
 
   ngOnInit(): void {

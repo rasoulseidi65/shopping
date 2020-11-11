@@ -1,7 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {CartService} from '../../../serviceCart/cart.service';
-import {LoginRegisterComponent} from '../../../Layout/login-register/login-register.component';
 
 
 @Component({
@@ -14,7 +13,7 @@ export class NavHeaderComponent implements OnInit {
   @ViewChild('departments') departments: ElementRef;
   @ViewChild('category1') category1: ElementRef;
   @ViewChild('category2') category2: ElementRef;
-  @ViewChild(LoginRegisterComponent) childComponent: LoginRegisterComponent;
+  // @ViewChild(LoginRegisterComponent) childComponent: LoginRegisterComponent;
   status = false;
   cartlist: any;
   sumOfPrice = 0;
@@ -24,7 +23,10 @@ export class NavHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllPrice();
+    setInterval(()=>{
+      this.getAllPrice();
+    },1000);
+    // this.getAllPrice();
   }
 
   toggleBasketDropDown(): void {
@@ -109,9 +111,11 @@ export class NavHeaderComponent implements OnInit {
     }
   }
 
+
   onDeleteCart(item: any): void {
     this.serviceCart.deleteItem(item);
     this.cartlist = this.serviceCart.getItems();
     this.getAllPrice();
   }
+
 }

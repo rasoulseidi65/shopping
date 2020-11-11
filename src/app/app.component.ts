@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
+import {OverlayService} from './overlay.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,10 @@ import {Meta, Title} from '@angular/platform-browser';
 })
 export class AppComponent  implements OnInit{
   title = 'فروشگاه به قیمت';
+
   private metaTagService: Meta;
   private titleService: Title;
-  constructor() {
+  constructor(public overlayService: OverlayService) {
   }
 ngOnInit(): void {
   // this.titleService.setTitle(this.title);

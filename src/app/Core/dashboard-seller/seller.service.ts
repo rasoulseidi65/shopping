@@ -23,19 +23,36 @@ export class SellerService {
   getProducts(id: any): any{
     return this.http.get('http://194.5.175.25:3005/api/v1/seller/products/' + id);
   }
-
   addProduct(id: any, data: any): any{
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/product/' + id, data);
   }
+  deleteProduct(id: any, data: any): any{
+    return this.http.delete('http://194.5.175.25:3005/api/v1/seller/deleteProduct/' + id, data);
+  }
+  editProduct(id: any, data: any): any{
+    return this.http.put('http://194.5.175.25:3005/api/v1/seller/updateProduct/' + id, data);
+  }
+  addProductFeature(data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/seller/productFeature', data);
+  }
 
   getFeatures(): any{
-    return this.http.get('http://194.5.175.25:3005/api/v1/admin/indexFeature');
+    return this.http.get('http://194.5.175.25:3005/api/v1/seller/indexFeature');
+  }
+  addFeature(data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/seller/feature', data);
+  }
+
+  getFeatureValues(): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/seller/indexFeatureValue');
+  }
+  addFeatureValue(data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/seller/featureValue', data);
   }
 
   uploadFile(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/image', data);
   }
-
   uploadFiles(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/multipleimage', data);
   }

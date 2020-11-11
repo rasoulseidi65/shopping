@@ -17,4 +17,10 @@ export class UserService {
   onfindUser(data: any) {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/user', data);
   }
+ updateUser(id:any,data: any) {
+    return this.http.put('http://194.5.175.25:3005/api/v1/user/updateUser/'+id, data);
+  }
+  changePasswordUser(id:any,data: any) {
+    return this.http.put('http://194.5.175.25:3005/api/v1/user/changePassword/'+id, data);
+  }
 }

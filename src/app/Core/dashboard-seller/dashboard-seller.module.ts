@@ -21,6 +21,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { EditFeatureDialogComponent } from './feature/edit-feature-dialog/edit-feature-dialog.component';
 import { AddFeatureValueDialogComponent } from './feature/add-feature-value-dialog/add-feature-value-dialog.component';
 import { EditFeatureValueDialogComponent } from './feature/edit-feature-value-dialog/edit-feature-value-dialog.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -47,7 +48,8 @@ import { EditFeatureValueDialogComponent } from './feature/edit-feature-value-di
     MatNativeDateModule,
     NgPersianDatepickerModule,
     InputSwitchModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ConfirmDialogModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -106,7 +106,6 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   login(): void {
-
     this.authService.onLogin(this.loginForm.value).subscribe((response) => {
       if (response['success'] === true) {
         this.localStorage.saveCurrentUser(JSON.stringify( response['data'] ));
@@ -120,7 +119,7 @@ export class LoginRegisterComponent implements OnInit {
   register(): void {
     this.authService.onRegister(this.registerForm.value).subscribe((response) => {
       if (response['success'] === true) {
-        localStorage.setItem('user', JSON.stringify(this.registerForm));
+        this.localStorage.saveCurrentUser(JSON.stringify( this.registerForm ));
       }
       else {
         this.messageService.add({severity: 'error', summary: 'ثبت نام ', detail: response['data'] });

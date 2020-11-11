@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {map, shareReplay} from "rxjs/operators";
 import {UserService} from "../User.service";
 import {Router} from "@angular/router";
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-index',
@@ -20,14 +21,14 @@ export class IndexComponent implements OnInit {
   firstName;
   lastName;
 
-  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService, private route:Router) {
+  constructor(private serviceStorage:LocalStorageService,private breakpointObserver: BreakpointObserver, private userService: UserService, private route:Router) {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user') != null) {
-      this.getInfoUser = JSON.parse(localStorage.getItem('user'));
+    if (this.serviceStorage.getCurrentUser() ===true) {
+      this.getInfoUser = this.serviceStorage.userJson;
       let data = {
-        mobile: this.getInfoUser['mobile']
+        mobile: this.serviceStorage.userJson['mobile']
       }
       this.userService.onfindUser(data).subscribe((response) => {
         if (response['success'] === true) {
@@ -40,7 +41,7 @@ export class IndexComponent implements OnInit {
 
   }
   exitUser(){
-    localStorage.removeItem('user');
+   this.serviceStorage.removeCurrentUser();
     this.route.navigate(['/home'])
   }
 }
