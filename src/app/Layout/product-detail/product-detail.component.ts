@@ -64,7 +64,7 @@ export class ProductDetailComponent implements OnInit {
   product: any[];
   category: any[];
   Inventory: any[];
-  InventoryState :boolean=true;
+  InventoryState: boolean = true;
   productID: string;
   subCategory: any;
   productFeature: any[] = [];
@@ -98,11 +98,12 @@ export class ProductDetailComponent implements OnInit {
         if (this.Inventory['count'] <= 0) {
           this.InventoryState = false;
         }
+
         let countGallery = this.product['gallery'];
         for (var i = 0; i < countGallery.length; i++) {
           this.images.push({
-            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination + '/' + countGallery[i].filename,
-            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination + '/' + countGallery[i].filename
+            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i],
+            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i]
           });
         }
 

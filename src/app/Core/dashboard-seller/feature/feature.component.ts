@@ -112,6 +112,7 @@ export class FeatureComponent implements OnInit {
       data: {
         featureId
       },
+      rtl: false,
       header: 'ثبت مقدار برای ویژگی محصول ' + titleFarsi + '( ' + titleLatin + ' )',
       width: '70%'
     });

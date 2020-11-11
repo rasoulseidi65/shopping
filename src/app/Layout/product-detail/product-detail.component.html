@@ -21,7 +21,7 @@
         <div class="col-sm-12 col-lg-5 col-lg-5">
           <div class="box d-block mx-auto">
 
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions"
+            <p-galleria [value]="images" [responsiveOptions]="responsiveOptions"
                         [containerStyle]="{'max-width': '660px', 'margin-top':'2em'}" [numVisible]="5"
                         dir="ltr" thumbnailsPosition="bottom" [autoPlay]="true" [transitionInterval]="2000"
                         [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
@@ -29,14 +29,14 @@
                 <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
 
 
-<!--                <lib-ngx-image-zoom-->
-<!--                  [thumbImage]=item.thumbnailImageSrc-->
-<!--                  [fullImage]=item.previewImageSrc-->
-<!--                  [magnification]="1"-->
-<!--                  [enableScrollZoom]="true"-->
-<!--                  [enableLens]="true"-->
-<!--                  [lensWidth]="100">-->
-<!--                </lib-ngx-image-zoom>-->
+                <!--                <lib-ngx-image-zoom-->
+                <!--                  [thumbImage]=item.thumbnailImageSrc-->
+                <!--                  [fullImage]=item.previewImageSrc-->
+                <!--                  [magnification]="1"-->
+                <!--                  [enableScrollZoom]="true"-->
+                <!--                  [enableLens]="true"-->
+                <!--                  [lensWidth]="100">-->
+                <!--                </lib-ngx-image-zoom>-->
               </ng-template>
 
               <ng-template pTemplate="thumbnail" let-item>
@@ -125,9 +125,7 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="container-fluid text-right" dir="rtl">
   <div class="row">
     <div class="col-12">
       <div class="box">
@@ -157,7 +155,7 @@
               </tr>
               </tbody>
             </table>
-                  </div>
+          </div>
           <div aria-labelledby="pills-guide-tab" class="tab-pane fade" id="pills-guide" role="tabpanel">
             <div [innerHTML]="product['help']"></div>
 

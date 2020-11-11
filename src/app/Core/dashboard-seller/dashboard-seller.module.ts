@@ -18,10 +18,14 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {FeatureComponent} from './feature/feature.component';
 import {AddFeatureDialogComponent} from './feature/add-feature-dialog/add-feature-dialog.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import { EditFeatureDialogComponent } from './feature/edit-feature-dialog/edit-feature-dialog.component';
-import { AddFeatureValueDialogComponent } from './feature/add-feature-value-dialog/add-feature-value-dialog.component';
-import { EditFeatureValueDialogComponent } from './feature/edit-feature-value-dialog/edit-feature-value-dialog.component';
+import {EditFeatureDialogComponent} from './feature/edit-feature-dialog/edit-feature-dialog.component';
+import {AddFeatureValueDialogComponent} from './feature/add-feature-value-dialog/add-feature-value-dialog.component';
+import {EditFeatureValueDialogComponent} from './feature/edit-feature-value-dialog/edit-feature-value-dialog.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
+import {ListboxModule} from 'primeng/listbox';
+import { AddProductFeatureComponent } from './product-seller/add-product-feature/add-product-feature.component';
+
 @NgModule({
   declarations: [
     IndexComponent,
@@ -32,7 +36,9 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     AddFeatureDialogComponent,
     EditFeatureDialogComponent,
     AddFeatureValueDialogComponent,
-    EditFeatureValueDialogComponent
+    EditFeatureValueDialogComponent,
+    EditProductComponent,
+    AddProductFeatureComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +55,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     NgPersianDatepickerModule,
     InputSwitchModule,
     DynamicDialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ListboxModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -58,7 +65,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     AddFeatureDialogComponent,
     EditFeatureDialogComponent,
     AddFeatureValueDialogComponent,
-    EditFeatureValueDialogComponent
+    EditFeatureValueDialogComponent,
+    AddProductFeatureComponent
   ]
 })
 export class DashboardSellerModule {
