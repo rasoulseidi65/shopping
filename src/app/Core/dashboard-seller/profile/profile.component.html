@@ -4,10 +4,8 @@
   <div class="col-12">
     <div class="box text-right" dir="rtl">
       <mat-horizontal-stepper [linear]="true" #stepper>
-        <mat-step>
+        <mat-step label="اطلاعات فروشگاه">
           <form [formGroup]="shopForm" (ngSubmit)="submitShopForm()">
-            <ng-template matStepLabel>اطلاعات فروشگاه</ng-template>
-
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
                 <label for="shopName">نام فروشگاه</label>
@@ -27,11 +25,11 @@
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
                 <label class="d-block">قصد فروش چه کالاهایی را دارید؟</label>
-
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="categories"
+                            placeholder="-- انتخاب کنید --"
                             formControlName="category"
-                            optionLabel="title" [filter]="true" [showClear]="true">
+                            optionLabel="title" [filter]="true">
                   <ng-template pTemplate="selectedItem">
                     <div class="state-item state-item-value"
                          *ngIf="shopForm.controls['category'].value">
@@ -44,7 +42,6 @@
                     </div>
                   </ng-template>
                 </p-dropdown>
-
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of shopErrorMessages.category">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
@@ -73,29 +70,6 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-<<<<<<< HEAD
-                <label for="birthDay">تاریخ تولد</label>
-                <input type="text" #datepickerInput
-                       formControlName="birthDay" id="birthDay" pInputText/>
-<!--                <ng-persian-datepicker [timeEnable]="false"-->
-<!--                  [input]="datepickerInput"></ng-persian-datepicker>-->
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('birthDay').hasError(error.type)
-                            && (personalForm.get('birthDay').dirty
-                            || personalForm.get('birthDay').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
-              <div class="p-field p-col">
-                <label class="d-block">جنسیت</label>
-                <mat-radio-group aria-label="جنسیت" formControlName="gender">
-                  <mat-radio-button class="mt-2" value="male">آقا</mat-radio-button>
-                  <mat-radio-button class="mt-2" value="female" class="mr-3">خانم</mat-radio-button>
-                </mat-radio-group>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.gender">
-=======
                 <label>آپلود لوگو</label>
                 <p-fileUpload
                   formControlName="logo"
@@ -111,7 +85,6 @@
 
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of shopErrorMessages.logo">
->>>>>>> 92cb45596a78748014aae97ae554c1e5001d87b6
                   <li class="font-small text-danger font-weight-bold list-inline-item"
                       *ngIf="shopForm.get('logo').hasError(error.type)
                             && (shopForm.get('logo').dirty
@@ -121,23 +94,21 @@
                 </ul>
               </div>
             </div>
-
-
             <div class="float-left">
               <button mat-button [disabled]="shopForm.invalid" matStepperNext>ثبت</button>
             </div>
           </form>
         </mat-step>
-        <mat-step>
+        <mat-step label="اطلاعات تماس">
           <form [formGroup]="contactForm" (ngSubmit)="submitContactForm()">
-            <ng-template matStepLabel>اطلاعات تماس</ng-template>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
                 <label class="d-block">استان</label>
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="states"
+                            placeholder="-- انتخاب کنید --"
                             formControlName="state"
-                            optionLabel="label" [filter]="true" [showClear]="true"
+                            optionLabel="label" [filter]="true"
                             (onChange)="stateOnChange(contactForm.controls['state'].value.value)">
                   <ng-template pTemplate="selectedItem">
                     <div class="state-item state-item-value"
@@ -164,8 +135,9 @@
                 <label class="d-block">شهر</label>
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="cities"
+                            placeholder="-- انتخاب کنید --"
                             formControlName="city"
-                            optionLabel="label" [filter]="true" [showClear]="true">
+                            optionLabel="label" [filter]="true">
                   <ng-template pTemplate="selectedItem">
                     <div class="city-item city-item-value"
                          *ngIf="contactForm.controls['city'].value">
@@ -228,7 +200,7 @@
             <div class="p-field p-col">
               <label class="m-0 pl-3">آیا فروشنده حقوقی هستید؟</label>
               <p-checkbox (onChange)="isCompanyOnChange()"></p-checkbox>
-              <p>
+              <p class="pt-3">
                 شخص حقیقی فردی است که دارای خصوصیاتی مختص به خود مانند نام، نام خانوادگی، تاریخ تولد، کد ملی، شماره
                 شناسنامه و غیره می باشد.
               </p>
@@ -389,7 +361,9 @@
               </div>
               <div class="p-field p-col">
                 <label class="d-block">نوع شرکت</label>
-                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                <p-dropdown appendTo="body"
+                            placeholder="-- انتخاب کنید --"
+                            emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="typesCompany" formControlName="typeCompany"></p-dropdown>
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of businessErrorMessages.typeCompany">

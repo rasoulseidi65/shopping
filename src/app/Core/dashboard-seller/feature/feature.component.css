@@ -6,3 +6,7 @@
 :host ::ng-deep .p-inputtext:focus {
   background-color: #ffffff;
 }
+:host ::ng-deep .p-dialog.p-dynamic-dialog {
+  direction: rtl;
+  background-color: rgba(0, 0, 0, 0.4);
+}
