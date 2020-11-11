@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SellerModel} from '../SellerModel';
 import {SellerService} from '../seller.service';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AddFeatureDialogComponent} from './add-feature-dialog/add-feature-dialog.component';
@@ -15,7 +15,8 @@ import {AddFeatureValueDialogComponent} from './add-feature-value-dialog/add-fea
   styleUrls: ['./feature.component.css'],
   providers: [
     MessageService,
-    DialogService
+    DialogService,
+    ConfirmationService
   ]
 })
 export class FeatureComponent implements OnInit {
@@ -24,8 +25,10 @@ export class FeatureComponent implements OnInit {
   userData: SellerModel;
   ref: DynamicDialogRef;
   loading = false;
+
   constructor(private sellerService: SellerService,
               private messageService: MessageService,
+              private confirmationService: ConfirmationService,
               public dialogService: DialogService,
               private router: Router) {
   }
@@ -35,16 +38,15 @@ export class FeatureComponent implements OnInit {
     this.getFeatures();
   }
 
-  getSellerFromStorage(): void{
+  getSellerFromStorage(): void {
     if (localStorage.getItem('user') !== null) {
       this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    else{
+    } else {
       this.router.navigateByUrl('/seller/login');
     }
   }
 
-  getFeatures(): any{
+  getFeatures(): any {
     this.sellerService.getFeatures().subscribe((response) => {
       if (response.success === true) {
         this.features = response.data;
@@ -56,13 +58,17 @@ export class FeatureComponent implements OnInit {
 
   showAddFeatureDialog(): void {
     const ref = this.dialogService.open(AddFeatureDialogComponent, {
+      data: {
+        _id: this.userData.id
+      },
       header: 'ثبت ویژگی محصول جدید',
       width: '70%'
     });
-  }
-
-  addFeature(sellerId: any): any{
-
+    ref.onClose.subscribe(res => {
+      if (res === true){
+        this.getFeatures();
+      }
+    });
   }
 
   showEditFeatureDialog(id: string, titleFarsi: string, titleLatin: string): void {
@@ -75,26 +81,46 @@ export class FeatureComponent implements OnInit {
       header: 'ویرایش ویژگی محصول',
       width: '70%'
     });
-  }
 
-  editFeature(id: any): any{
-
-  }
-
-  deleteFeature(id: any): any{
-
-  }
-
-
-  showAddFeatureValueDialog(titleFarsi: string, titleLatin: string): void {
-    const ref = this.dialogService.open(AddFeatureValueDialogComponent, {
-      header: 'ثبت مقدار برای ویژگی محصول ' + titleFarsi + '( ' + titleLatin + ' )',
-      width: '70%'
+    ref.onClose.subscribe(res => {
+      if (res === true){
+        this.getFeatures();
+      }
     });
   }
 
-  addFeatureValue(featureId: any): any{
+  deleteFeature(featureId: any): any {
+    this.confirmationService.confirm({
+      message: 'آیا از حذف رکورد انتخابی مطمین هستید؟',
+      header: 'تایید حذف',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'خیر',
+      acceptLabel: 'بله',
+      defaultFocus: 'reject',
+      accept: () => {
+        // delete from db
+      },
+      reject: () => {
+        // close
+        this.confirmationService.close();
+      }
+    });
+  }
 
+  showAddFeatureValueDialog(featureId: string, titleFarsi: string, titleLatin: string): void {
+    const ref = this.dialogService.open(AddFeatureValueDialogComponent, {
+      data: {
+        featureId
+      },
+      header: 'ثبت مقدار برای ویژگی محصول ' + titleFarsi + '( ' + titleLatin + ' )',
+      width: '70%'
+    });
+
+    ref.onClose.subscribe(res => {
+      if (res === true){
+        this.getFeatures();
+      }
+    });
   }
 
   showEditFeatureValueDialog(id: string, value: string): void {
@@ -106,13 +132,29 @@ export class FeatureComponent implements OnInit {
       header: 'ویرایش مقدار ویژگی محصول',
       width: '70%'
     });
+
+    ref.onClose.subscribe(res => {
+      if (res === true){
+        this.getFeatures();
+      }
+    });
   }
 
-  editFeatureValue(id: any): any{
-
-  }
-
-  deleteFeatureValue(id: any): any{
-
+  deleteFeatureValue(featureValueId: any): any {
+    this.confirmationService.confirm({
+      message: 'آیا از حذف رکورد انتخابی مطمین هستید؟',
+      header: 'تایید حذف',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'خیر',
+      acceptLabel: 'بله',
+      defaultFocus: 'reject',
+      accept: () => {
+        // delete from db
+      },
+      reject: () => {
+        // close
+        this.confirmationService.close();
+      }
+    });
   }
 }

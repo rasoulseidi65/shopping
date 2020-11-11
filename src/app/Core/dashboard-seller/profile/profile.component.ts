@@ -4,6 +4,8 @@ import {MessageService} from 'primeng/api';
 import {SellerModel} from '../SellerModel';
 import {SellerService} from '../seller.service';
 import {Router} from '@angular/router';
+import {AppComponent} from '../../../app.component';
+import {OverlayService} from '../../../overlay.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,9 +18,16 @@ import {Router} from '@angular/router';
 
 export class ProfileComponent implements OnInit {
 
-  public personalForm: FormGroup;
+  appComponent: AppComponent;
+  business: any[];
+  shop: any[];
+  contact: any[];
+  personal: any[];
+
+  public shopForm: FormGroup;
   public contactForm: FormGroup;
   public businessForm: FormGroup;
+  public personalForm: FormGroup;
   states: any[];
   cities: any[];
   categories: any[];
@@ -52,6 +61,7 @@ export class ProfileComponent implements OnInit {
     null,
     null
   );
+
   persoanlErrorMessages = {
     firstName: [
       {type: 'required', message: 'نام را وارد کنید.'},
@@ -77,6 +87,14 @@ export class ProfileComponent implements OnInit {
       {type: 'minlength', message: 'کدملی باید 10 رقم باشد.'},
       {type: 'maxlength', message: 'کدملی باید 10 رقم باشد.'}
     ],
+    birthDay: [
+      {type: 'required', message: 'تاریخ تولد را انتخاب کنید.'}
+    ],
+    imageNationalcard: [
+      {type: 'required', message: 'تصویر کارت ملی را بارگذاری کنید.'}
+    ]
+  };
+  contactErrorMessages = {
     phone: [
       {type: 'required', message: 'تلفن را وارد کنید.'},
       {type: 'minlength', message: 'تلفن باید 11 رقم باشد.'},
@@ -91,15 +109,9 @@ export class ProfileComponent implements OnInit {
     address: [
       {type: 'required', message: 'آدرس را وارد کنید.'},
       {type: 'maxlength', message: 'آدرس نمی تواند از 1000 کاراکتر بیشتر باشد.'}
-    ],
-    birthDay: [
-      {type: 'required', message: 'تاریخ تولد را انتخاب کنید.'}
-    ],
-    imageNationalcard: [
-      {type: 'required', message: 'تصویر کارت ملی را بارگذاری کنید.'}
-    ],
+    ]
   };
-  contactErrorMessages = {
+  shopErrorMessages = {
     shopName: [
       {type: 'required', message: 'نام فروشگاه را وارد کنید.'}
     ],
@@ -111,7 +123,7 @@ export class ProfileComponent implements OnInit {
     ],
     logo: [
       {type: 'required', message: 'لوگو را وارد کنید.'}
-    ],
+    ]
   };
   businessErrorMessages = {
     companyName: [
@@ -140,13 +152,14 @@ export class ProfileComponent implements OnInit {
     ],
     resume: [
       {type: 'required', message: 'فایل رزومه را بارگذاری کنید.'}
-    ],
+    ]
   };
 
   constructor(private formBuilder: FormBuilder,
               private sellerService: SellerService,
               private messageService: MessageService,
-              private router: Router) {
+              private router: Router,
+              public overlayService: OverlayService) {
     this.states = [
       {label: 'آذربایجان شرقی', value: '0'},
       {label: 'آذربایجان غربی', value: '1'},
@@ -194,92 +207,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getSellerFromStorage();
 
-    this.createPersonalForm();
+    this.createShopForm();
     this.createContactForm();
     this.createBussinessForm();
+    this.createPersonalForm();
   }
 
-  createPersonalForm(): void {
-    this.personalForm = this.formBuilder.group({
-      firstName: new FormControl(
-        this.userData.firstName,
-        [
-          Validators.required,
-          Validators.maxLength(200)
-        ]
-      ),
-      lastName: new FormControl(
-        this.userData.lastName,
-        [
-          Validators.required,
-          Validators.maxLength(200)
-        ]
-      ),
-      gender: new FormControl(
-        this.userData.gender,
-        [
-          Validators.required
-        ]
-      ),
-      idNumber: new FormControl(
-        this.userData.idNumber,
-        [
-          Validators.required,
-          Validators.maxLength(10)
-        ]
-      ),
-      nationalCode: new FormControl(
-        this.userData.nationalCode,
-        [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.minLength(10)
-        ]
-      ),
-      phone: new FormControl(
-        this.userData.phone,
-        [
-          Validators.required,
-          Validators.maxLength(11),
-          Validators.minLength(11)
-        ]
-      ),
-      state: new FormControl(
-        this.userData.state,
-        [
-          Validators.required
-        ]
-      ),
-      city: new FormControl(
-        this.userData.city,
-        [
-          Validators.required
-        ]
-      ),
-      address: new FormControl(
-        this.userData.address,
-        [
-          Validators.required,
-          Validators.maxLength(1000)
-        ]
-      ),
-      birthDay: new FormControl(
-        this.userData.birthDay,
-        [
-          Validators.required
-        ]
-      ),
-      imageNationalcard: new FormControl(
-        null,
-        [
-          Validators.required
-        ]
-      ),
-    });
-  }
-
-  createContactForm(): void {
-    this.contactForm = this.formBuilder.group({
+  createShopForm(): void {
+    this.shopForm = this.formBuilder.group({
       shopName: new FormControl(
         this.userData.shopName,
         [
@@ -307,7 +242,37 @@ export class ProfileComponent implements OnInit {
       ),
     });
   }
-
+  createContactForm(): void {
+    this.contactForm = this.formBuilder.group({
+      phone: new FormControl(
+        this.userData.phone,
+        [
+          Validators.required,
+          Validators.maxLength(11),
+          Validators.minLength(11)
+        ]
+      ),
+      state: new FormControl(
+        this.userData.state,
+        [
+          Validators.required
+        ]
+      ),
+      city: new FormControl(
+        this.userData.city,
+        [
+          Validators.required
+        ]
+      ),
+      address: new FormControl(
+        this.userData.address,
+        [
+          Validators.required,
+          Validators.maxLength(1000)
+        ]
+      )
+    });
+  }
   createBussinessForm(): void {
     this.businessForm = this.formBuilder.group({
       companyName: new FormControl(
@@ -368,6 +333,57 @@ export class ProfileComponent implements OnInit {
       ),
     });
   }
+  createPersonalForm(): void {
+    this.personalForm = this.formBuilder.group({
+      firstName: new FormControl(
+        this.userData.firstName,
+        [
+          Validators.required,
+          Validators.maxLength(200)
+        ]
+      ),
+      lastName: new FormControl(
+        this.userData.lastName,
+        [
+          Validators.required,
+          Validators.maxLength(200)
+        ]
+      ),
+      gender: new FormControl(
+        this.userData.gender,
+        [
+          Validators.required
+        ]
+      ),
+      idNumber: new FormControl(
+        this.userData.idNumber,
+        [
+          Validators.required,
+          Validators.maxLength(10)
+        ]
+      ),
+      nationalCode: new FormControl(
+        this.userData.nationalCode,
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10)
+        ]
+      ),
+      birthDay: new FormControl(
+        this.userData.birthDay,
+        [
+          Validators.required
+        ]
+      ),
+      imageNationalcard: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
+    });
+  }
 
   stateOnChange(code: string): void {
     this.cities = [];
@@ -387,14 +403,20 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  submitPersonalForm(): void {
-    const state = this.personalForm.controls.state.value;
-    this.personalForm.controls.state.setValue(state.label);
+  submitShopForm(): void {
+    const category = this.shopForm.controls.category.value;
+    this.shopForm.controls.category.setValue(category.id);
 
-    const city = this.personalForm.controls.city.value;
-    this.personalForm.controls.city.setValue(city.label);
+    const shop = this.shopForm.value;
+    const contact = this.contactForm.value;
+    const personal = this.personalForm.value;
+    const bussiness = this.businessForm.value;
 
-    this.sellerService.updateSeller(this.userData.id, this.personalForm.value).subscribe((response) => {
+    const formData = {
+      ...shop, ...contact, ...personal, ...bussiness
+    };
+
+    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.userData.id);
       }
@@ -403,13 +425,23 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-
   submitContactForm(): void {
+    const state = this.contactForm.controls.state.value;
+    this.contactForm.controls.state.setValue(state.label);
 
-    const category = this.contactForm.controls.category.value;
-    this.contactForm.controls.category.setValue(category._id);
+    const city = this.contactForm.controls.city.value;
+    this.contactForm.controls.city.setValue(city.label);
 
-    this.sellerService.updateSeller(this.userData.id, this.contactForm.value).subscribe((response) => {
+    const shop = this.shopForm.value;
+    const contact = this.contactForm.value;
+    const personal = this.personalForm.value;
+    const bussiness = this.businessForm.value;
+
+    const formData = {
+      ...shop, ...contact, ...personal, ...bussiness
+    };
+
+    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.userData.id);
       } else {
@@ -417,9 +449,36 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+  submitPersonalForm(): void {
 
+    const shop = this.shopForm.value;
+    const contact = this.contactForm.value;
+    const personal = this.personalForm.value;
+
+    const formData = {
+      ...shop, ...contact, ...personal
+    };
+
+    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
+      if (response.success === true) {
+        this.getSeller(this.userData.id);
+      }
+      else {
+        this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
+      }
+    });
+  }
   submitBusinessForm(): void {
-    this.sellerService.updateSeller(this.userData.id, this.businessForm.value).subscribe((response) => {
+
+    const shop = this.shopForm.value;
+    const contact = this.contactForm.value;
+    const business = this.businessForm.value;
+
+    const formData = {
+      ...shop, ...contact, ...business
+    };
+
+    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.userData.id);
       } else {
@@ -461,13 +520,14 @@ export class ProfileComponent implements OnInit {
   }
 
   logoUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
-        this.contactForm.controls.logo.setValue(response.imagePath);
+        this.overlayService.showOverlay = false;
+        this.shopForm.controls.logo.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود لوگو ', detail: 'تصویر با موفقیت آپلود شد.'});
-
       } else {
         this.messageService.add({severity: 'error', summary: ' آپلود لوگو ', detail: response.data});
       }
@@ -475,10 +535,12 @@ export class ProfileComponent implements OnInit {
   }
 
   imageSellerUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.businessForm.controls.imageSeller.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر فروشنده ', detail: 'تصویر با موفقیت آپلود شد.'});
 
@@ -489,10 +551,12 @@ export class ProfileComponent implements OnInit {
   }
 
   imageNationalcardUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.personalForm.controls.imageNationalcard.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر کارت ملی ', detail: 'تصویر با موفقیت آپلود شد.'});
 
@@ -503,10 +567,12 @@ export class ProfileComponent implements OnInit {
   }
 
   imageCertificateUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.businessForm.controls.imageCertificate.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود گواهی ', detail: 'تصویر با موفقیت آپلود شد.'});
 
@@ -517,10 +583,12 @@ export class ProfileComponent implements OnInit {
   }
 
   imageCompanyUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.businessForm.controls.imageCompany.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر فروشگاه ', detail: 'تصویر با موفقیت آپلود شد.'});
 
@@ -531,10 +599,12 @@ export class ProfileComponent implements OnInit {
   }
 
   resumeUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.businessForm.controls.resume.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود رزومه ', detail: 'فایل با موفقیت آپلود شد.'});
 
