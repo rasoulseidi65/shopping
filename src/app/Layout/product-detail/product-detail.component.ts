@@ -62,6 +62,7 @@ export class ProductDetailComponent implements OnInit {
   images: any[] = [];
   relatedProducts: any[];
   product: any[];
+  briefFeature: any[];
   category: any[];
   Inventory: any[];
   InventoryState: boolean = true;
@@ -86,6 +87,7 @@ export class ProductDetailComponent implements OnInit {
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
         this.product = response['data'][0];
+        this.briefFeature=this.product['briefFeature'];
         this.subCategory = this.product['subCategory'];
         this.category = response['data'][0]['Category'][0];
         this.Inventory = response['data'][0]['Inventory'][0];
