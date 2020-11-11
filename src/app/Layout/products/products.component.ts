@@ -4,7 +4,7 @@ import {LayoutService} from '../layout.service';
 import {MessageService, SelectItem} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
 import {Router} from '@angular/router';
-import * as  paginate from 'jw-paginate';
+
 
 @Component({
 
@@ -14,7 +14,7 @@ import * as  paginate from 'jw-paginate';
   providers: [MessageService]
 
 })
-export class ProductsComponent implements OnInit, OnChanges {
+export class ProductsComponent implements OnInit {
 
   items = [];
   pageOfItems: Array<any>;
@@ -52,7 +52,6 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   }
-
 
 
   onChangePage(pageOfItems: Array<any>) {

@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PaymentUserComponent } from './payment-user/payment-user.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 @NgModule({
   declarations: [IndexComponent, ProfileComponent, PurchasesComponent, PaymentUserComponent],
   imports: [
@@ -17,7 +18,7 @@ import { PaymentUserComponent } from './payment-user/payment-user.component';
     SharedmoduleModule,
     SharedcomponentModule,
     ReactiveFormsModule,
-
+    ProgressSpinnerModule,
 
 
   ],

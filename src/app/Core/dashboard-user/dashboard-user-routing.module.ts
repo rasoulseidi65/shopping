@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: IndexComponent,
-    // canActivate:[UserGuard],
+    canActivate:[UserGuard],
     children: [{
       path: '',
       component: ProfileComponent

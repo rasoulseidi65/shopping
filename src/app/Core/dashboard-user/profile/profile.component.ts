@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {MessageService} from "primeng/api";
-import {UserService} from "../User.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MessageService} from 'primeng/api';
+import {UserService} from '../User.service';
 import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 interface City {
@@ -17,25 +17,31 @@ interface City {
 })
 export class ProfileComponent implements OnInit {
   public formGroup: FormGroup;
+  displayBasic: boolean = false;
+  spinnerSuccess: boolean = true;
   cities: City[];
   user = {
-    id: '',
+    _id: '',
     firstName: '',
     lastName: '',
-    nationalCode:'',
+    nationalCode: '',
     mobile: '',
     phone: '',
     state: '',
     city: '',
     postalCode: '',
     plaque: '',
-    address: ''
+    address: '',
+    accountNumber:'',
+    cardNumber:''
   };
+  changePassword={
+    password:'',
+    rPass:''
+  }
   getInfoUser: any;
 
-  constructor(private localStorage:LocalStorageService, private  fb: FormBuilder, private messageService: MessageService, private userService: UserService) {
-
-
+  constructor(private localStorage: LocalStorageService, private  fb: FormBuilder, private messageService: MessageService, private userService: UserService) {
     this.cities = [
       {name: 'آذربایجان شرقی', code: '0'},
       {name: 'آذربایجان غربی', code: '1'},
@@ -72,25 +78,30 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this.localStorage.getCurrentUser() === true) {
-    if (this.localStorage.getCurrentUser() != null) {
-      this.getInfoUser = this.localStorage.userJson;
+
+
+    if (this.localStorage.getCurrentUser() === true) {
       let data = {
-        mobile: this.getInfoUser['mobile']
-      }
+        mobile: this.localStorage.userJson['mobile']
+      };
       this.userService.onfindUser(data).subscribe((response) => {
         if (response['success'] === true) {
-          this.user.firstName=response['data']['firstName'];
-          this.user.lastName=response['data']['lastName'];
-          this.user.mobile=response['data']['mobile'];
-          this.user.phone=response['data']['phone'];
-          this.user.state=response['data']['state'];
-          this.user.city=response['data']['city'];
-          this.user.postalCode=response['data']['postalCode'];
-          this.user.plaque=response['data']['plaque'];
-          this.user.address=response['data']['address'];
+          this.spinnerSuccess=false;
+          this.user._id = response['data']['_id'];
+          this.user.firstName = response['data']['firstName'];
+          this.user.lastName = response['data']['lastName'];
+          this.user.mobile = response['data']['mobile'];
+          this.user.phone = response['data']['phone'];
+          this.user.state = response['data']['state'];
+          this.user.city = response['data']['city'];
+          this.user.nationalCode = response['data']['nationalCode'];
+          this.user.postalCode = response['data']['postalCode'];
+          this.user.plaque = response['data']['plaque'];
+          this.user.address = response['data']['address'];
+          this.user.accountNumber = response['data']['accountNumber'];
+          this.user.cardNumber = response['data']['cardNumber'];
         }
-      })
+      });
     }
 
     this.formGroup = this.fb.group({
@@ -104,9 +115,25 @@ export class ProfileComponent implements OnInit {
       postalCode: new FormControl('', Validators.required),
       plaque: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
-    });
+      cardNumber:new FormControl(''),
+      accountNumber:new FormControl(''),
 
+    });
   }
 
+  updateUser() {
 
+    this.userService.updateUser(this.user._id, this.formGroup.value).subscribe((response) => {
+      if (response['success'] === true) {
+        this.displayBasic = true;
+      }
+    });
+  }
+  changePasswordUser() {
+    this.userService.changePasswordUser(this.user._id,this.changePassword).subscribe((response) => {
+      if (response['success'] === true) {
+        this.displayBasic = true;
+      }
+    });
+  }
 }

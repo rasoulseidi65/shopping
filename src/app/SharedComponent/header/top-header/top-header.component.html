@@ -27,7 +27,7 @@
             <!--
 
                       <i class="fa fa-user ml-2" style="font-size: 1rem;color: #777777"></i> -->
-            <span style="font-size: 14px">
+            <span style="font-size: 14px" >
               حساب کاربری
             </span>
 
@@ -41,7 +41,7 @@
               <ul class="menu__list">
                 <li class="menu__item">
                   <div class="menu__item-submenu-offset"></div>
-                  <a class="menu__item-link"> <i class="fa fa-user fa-1x ml-3" style="color:#777"></i>پنل کاربری</a>
+                  <a class="menu__item-link" [routerLink]="['/user/profile']"> <i class="fa fa-user fa-1x ml-3" style="color:#777"></i>پنل کاربری</a>
                 </li>
                 <li class="menu__item" *ngIf="loginStause">
                   <div class="menu__item-submenu-offset"></div>

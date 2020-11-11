@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../User.service";
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-payment-user',
@@ -8,22 +9,24 @@ import {UserService} from "../User.service";
 })
 export class PaymentUserComponent implements OnInit {
   payment: any[] = [];
+  spinnerSuccess:boolean=true
   cols: any[];
   user:any;
   userID:string;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,  private serviceStorage:LocalStorageService) {
   }
 
 
   ngOnInit(): void {
-    if (localStorage.getItem('user') != null) {
-      this.userID = JSON.parse(localStorage.getItem('user'));
+    if (this.serviceStorage.getCurrentUser() ===true) {
       let data = {
-        userID: this.userID['id']
+        userID:this.serviceStorage.userJson['id']
       }
       this.userService.getPayment(data).subscribe((response) => {
         if (response['success'] === true) {
+          this.spinnerSuccess=false
           this.payment = response['data'];
+
         }
       })
     }
