@@ -73,12 +73,12 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-<<<<<<< HEAD
+                <<<<<<< HEAD
                 <label for="birthDay">تاریخ تولد</label>
                 <input type="text" #datepickerInput
                        formControlName="birthDay" id="birthDay" pInputText/>
-<!--                <ng-persian-datepicker [timeEnable]="false"-->
-<!--                  [input]="datepickerInput"></ng-persian-datepicker>-->
+                  <ng-persian-datepicker [timeEnable]="false"
+                              [input]="datepickerInput"></ng-persian-datepicker>
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
                       *ngIf="personalForm.get('birthDay').hasError(error.type)
@@ -95,30 +95,30 @@
                   <mat-radio-button class="mt-2" value="female" class="mr-3">خانم</mat-radio-button>
                 </mat-radio-group>
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.gender">
-=======
-                <label>آپلود لوگو</label>
-                <p-fileUpload
-                  formControlName="logo"
-                  chooseLabel="انتخاب تصویر"
-                  uploadLabel="آپلود تصویر"
-                  cancelLabel="انصراف"
-                  customUpload="true"
-                  (uploadHandler)="logoUploader($event)"
-                  invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
-                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
-                  accept="image/jpeg,image/png " maxFileSize="2000000">
-                </p-fileUpload>
+                  =======
+                  <label>آپلود لوگو</label>
+                  <p-fileUpload
+                    formControlName="logo"
+                    chooseLabel="انتخاب تصویر"
+                    uploadLabel="آپلود تصویر"
+                    cancelLabel="انصراف"
+                    customUpload="true"
+                    (uploadHandler)="logoUploader($event)"
+                    invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                    invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                    accept="image/jpeg,image/png " maxFileSize="2000000">
+                  </p-fileUpload>
 
-                <ul class="mt-1 text-right list-inline"
-                    *ngFor="let error of shopErrorMessages.logo">
->>>>>>> 92cb45596a78748014aae97ae554c1e5001d87b6
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="shopForm.get('logo').hasError(error.type)
+                  <ul class="mt-1 text-right list-inline"
+                      *ngFor="let error of shopErrorMessages.logo">
+                    >>>>>>> 92cb45596a78748014aae97ae554c1e5001d87b6
+                    <li class="font-small text-danger font-weight-bold list-inline-item"
+                        *ngIf="shopForm.get('logo').hasError(error.type)
                             && (shopForm.get('logo').dirty
                             || shopForm.get('logo').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
+                      {{ error.message }}
+                    </li>
+                  </ul>
               </div>
             </div>
 
@@ -537,5 +537,3 @@
     </div>
   </div>
 </div>
-
-
