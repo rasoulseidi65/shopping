@@ -30,7 +30,7 @@ export class PurchasesComponent implements OnInit {
   ngOnInit(): void {
     if (this.serviceStorage.getCurrentUser() === true) {
       let data = {
-        userID: this.serviceStorage.userJson['id']
+        userID: this.serviceStorage.userJson['_id']
       }
       this.userService.onDisplayBasket(data).subscribe((response) => {
         if (response['success'] === true) {

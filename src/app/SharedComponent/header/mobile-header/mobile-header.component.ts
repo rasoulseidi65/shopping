@@ -131,7 +131,10 @@ export class MobileHeaderComponent implements OnInit {
   }
   // mobile-links__item mobile-links__item--open collapse-item-1
   ngOnInit(): void {
-    this.getAllPrice();
+    setInterval(()=>{
+      this.getAllPrice();
+    },1000)
+    // this.getAllPrice();
     this.formUser = this.fb.group({
       mobile: new FormControl(['', Validators.required]),
       password: new FormControl(['', Validators.required]),

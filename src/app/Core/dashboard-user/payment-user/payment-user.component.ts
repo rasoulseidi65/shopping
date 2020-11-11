@@ -20,7 +20,7 @@ export class PaymentUserComponent implements OnInit {
   ngOnInit(): void {
     if (this.serviceStorage.getCurrentUser() ===true) {
       let data = {
-        userID:this.serviceStorage.userJson['id']
+        userID:this.serviceStorage.userJson['_id']
       }
       this.userService.getPayment(data).subscribe((response) => {
         if (response['success'] === true) {
