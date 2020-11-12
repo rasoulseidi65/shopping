@@ -23,7 +23,6 @@ import {EditFeatureValueDialogComponent} from './feature/edit-feature-value-dial
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
 import {ListboxModule} from 'primeng/listbox';
-import { AddProductFeatureComponent } from './product-seller/add-product-feature/add-product-feature.component';
 import {DpDatePickerModule} from 'ng2-jalali-date-picker';
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import {DpDatePickerModule} from 'ng2-jalali-date-picker';
     EditFeatureDialogComponent,
     AddFeatureValueDialogComponent,
     EditFeatureValueDialogComponent,
-    EditProductComponent,
-    AddProductFeatureComponent
+    EditProductComponent
   ],
   imports: [
     CommonModule,
@@ -64,8 +62,7 @@ import {DpDatePickerModule} from 'ng2-jalali-date-picker';
     AddFeatureDialogComponent,
     EditFeatureDialogComponent,
     AddFeatureValueDialogComponent,
-    EditFeatureValueDialogComponent,
-    AddProductFeatureComponent
+    EditFeatureValueDialogComponent
   ]
 })
 export class DashboardSellerModule {

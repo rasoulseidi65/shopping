@@ -42,3 +42,26 @@ label,input{
   margin-right: unset;
   margin-left: 0.5rem;
 }
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  direction: rtl;
+  text-align: right;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  direction: rtl;
+  text-align: right;
+}
+:host ::ng-deep .p-listbox{
+  width: 100%!important;
+}
+:host ::ng-deep .p-dropdown-item{
+  text-align: right!important;
+}
+:host ::ng-deep .p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
+  margin-right: unset;
+  margin-left: 0.5rem;
+}
+:host ::ng-deep .p-dialog .p-dialog-header {
+  direction: rtl!important;
+  text-align: right!important;
+}

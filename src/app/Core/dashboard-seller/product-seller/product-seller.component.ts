@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SellerService} from '../seller.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
-import {SellerModel} from '../SellerModel';
 import {DialogService} from 'primeng/dynamicdialog';
-import {AddProductFeatureComponent} from './add-product-feature/add-product-feature.component';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-product-seller',
@@ -19,34 +18,23 @@ import {AddProductFeatureComponent} from './add-product-feature/add-product-feat
 export class ProductSellerComponent implements OnInit {
 
   products: any[];
-  userData: SellerModel;
 
   loading = false;
   constructor(private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
               private dialogService: DialogService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    this.getSellerFromStorage();
+    this.localStorage.getCurrentUser();
     this.getProducts();
-
-    console.log(this.products);
-  }
-
-  getSellerFromStorage(): void{
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    else{
-      this.router.navigateByUrl('/seller/login');
-    }
   }
 
   getProducts(): any{
-    this.sellerService.getProducts(this.userData.id).subscribe((response) => {
+    this.sellerService.getProducts(this.localStorage.userJson.id).subscribe((response) => {
       if (response.success === true) {
         this.products = response.data;
       } else {
@@ -69,21 +57,6 @@ export class ProductSellerComponent implements OnInit {
       reject: () => {
         // close
         this.confirmationService.close();
-      }
-    });
-  }
-
-  showAddFeatureDialog(id: string): void {
-    const ref = this.dialogService.open(AddProductFeatureComponent, {
-      data: {
-        id
-      },
-      header: 'ثبت ویژگی محصول',
-      width: '70%'
-    });
-    ref.onClose.subscribe(res => {
-      if (res === true){
-        this.getProducts();
       }
     });
   }

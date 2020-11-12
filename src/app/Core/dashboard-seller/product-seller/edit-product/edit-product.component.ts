@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SellerModel} from '../../SellerModel';
 import {SellerService} from '../../seller.service';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LocalStorageService} from '../../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -16,9 +17,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditProductComponent implements OnInit {
 
   public form: FormGroup;
-  userData: SellerModel;
   productId: string;
-  categories: any[];
+  categories: any[] = [];
   errorMessages = {
     title: [
       {type: 'required', message: 'عنوان محصول را وارد کنید.'},
@@ -51,17 +51,22 @@ export class EditProductComponent implements OnInit {
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
     ]
   };
+  product: any;
+  products: any[];
 
   constructor(private formBuilder: FormBuilder,
               private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private localStorage: LocalStorageService) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params =>
       this.productId = params.get('id'));
-    this.getSellerFromStorage();
+
+    this.getProduct();
     this.getCategories();
     this.createform();
   }
@@ -69,10 +74,10 @@ export class EditProductComponent implements OnInit {
   createform(): void {
     this.form = this.formBuilder.group({
       sellerID: new FormControl(
-        this.userData.id
+        this.product.sellerID
       ),
       title: new FormControl(
-        null,
+        this.product.title,
         [
           Validators.required,
           Validators.maxLength(200)
@@ -85,45 +90,45 @@ export class EditProductComponent implements OnInit {
         ]
       ),
       subCategory: new FormControl(
-        null,
+        this.product.subCategory,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       count: new FormControl(
-        null,
+        this.product.count,
         [
           Validators.required
         ]
       ),
       price: new FormControl(
-        null,
+        this.product.price,
         [
           Validators.required
         ]
       ),
       topText: new FormControl(
-        null,
+        this.product.topText,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       offer: new FormControl(
-        false,
+        this.product.offer,
         [
           Validators.required
         ]
       ),
       offerPercent: new FormControl(
-        0
+        this.product.offerPercent,
       ),
       offerText: new FormControl(
-        null
+        this.product.offerText,
       ),
       detail: new FormControl(
-        null,
+        this.product.detail,
         [
           Validators.required
         ]
@@ -145,7 +150,7 @@ export class EditProductComponent implements OnInit {
     this.form.controls.categoryID.setValue(category._id);
     console.log(this.form.value);
 
-    this.sellerService.editProduct(this.userData.id, this.form.value).subscribe((response) => {
+    this.sellerService.editProduct(this.productId, this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
@@ -155,19 +160,20 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  getSellerFromStorage(): void{
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    else{
-      this.router.navigateByUrl('/seller/login');
-    }
-  }
-
-  getCategories(): any{
+  getCategories(): void {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
+      } else {
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+      }
+    });
+  }
+
+  getProduct(): void {
+    this.sellerService.getProductById(this.productId).subscribe((response) => {
+      if (response.success) {
+        this.product = response.data;
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }
@@ -182,8 +188,7 @@ export class EditProductComponent implements OnInit {
       if (response.success === true) {
         this.form.controls.image.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});
-      }
-      else {
+      } else {
         this.messageService.add({severity: 'error', summary: ' آپلود تصویر محصول ', detail: response.data});
       }
     });

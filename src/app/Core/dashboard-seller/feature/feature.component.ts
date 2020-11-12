@@ -8,6 +8,7 @@ import {AddFeatureDialogComponent} from './add-feature-dialog/add-feature-dialog
 import {EditFeatureDialogComponent} from './edit-feature-dialog/edit-feature-dialog.component';
 import {EditFeatureValueDialogComponent} from './edit-feature-value-dialog/edit-feature-value-dialog.component';
 import {AddFeatureValueDialogComponent} from './add-feature-value-dialog/add-feature-value-dialog.component';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-feature',
@@ -22,7 +23,6 @@ import {AddFeatureValueDialogComponent} from './add-feature-value-dialog/add-fea
 export class FeatureComponent implements OnInit {
 
   features: any[];
-  userData: SellerModel;
   ref: DynamicDialogRef;
   loading = false;
 
@@ -30,20 +30,13 @@ export class FeatureComponent implements OnInit {
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               public dialogService: DialogService,
-              private router: Router) {
+              private router: Router,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    this.getSellerFromStorage();
+    this.localStorage.getCurrentUser();
     this.getFeatures();
-  }
-
-  getSellerFromStorage(): void {
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    } else {
-      this.router.navigateByUrl('/seller/login');
-    }
   }
 
   getFeatures(): any {
@@ -59,7 +52,7 @@ export class FeatureComponent implements OnInit {
   showAddFeatureDialog(): void {
     const ref = this.dialogService.open(AddFeatureDialogComponent, {
       data: {
-        _id: this.userData.id
+        _id: this.localStorage.userJson.id
       },
       header: 'ثبت ویژگی محصول جدید',
       width: '70%'

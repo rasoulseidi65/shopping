@@ -20,8 +20,14 @@ import {LocalStorageService} from '../../../../Auth/localStorageLogin/local-stor
 export class RegisterProductComponent implements OnInit {
 
   public form: FormGroup;
-  userData: SellerModel;
   categories: any[];
+
+  showSelectedFeatures: any[] = [];
+  features: any[];
+  selectedFeature: any;
+  values: any[] = [];
+  selectedValues: any[] = [];
+  finalSelectedValues: any[] = [];
 
   errorMessages = {
     title: [
@@ -61,19 +67,20 @@ export class RegisterProductComponent implements OnInit {
               private messageService: MessageService,
               private router: Router,
               public overlayService: OverlayService,
-              private localstorage:LocalStorageService) {
+              private localstorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    this.getSellerFromStorage();
+    this.localstorage.getCurrentUser();
     this.getCategories();
+    this.getFeatures();
     this.createform();
   }
 
   createform(): void {
     this.form = this.formBuilder.group({
       sellerID: new FormControl(
-        this.userData.id
+        this.localstorage.userJson.id
       ),
       title: new FormControl(
         null,
@@ -152,19 +159,38 @@ export class RegisterProductComponent implements OnInit {
     this.sellerService.addProduct(this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
+
+        let featureValue: any[] = [];
+
+        this.finalSelectedValues.forEach(item => {
+
+          featureValue.push({
+            'featuresID':  item.featuresID,
+            'valueID': item.id
+          });
+
+        });
+
+        let value = {
+          productID: response.result._id,
+          productFeature: featureValue,
+        };
+
+        console.log(value);
+        this.sellerService.addProductFeature(value).subscribe((res) => {
+          console.log(res);
+          if (res.success === true) {
+            console.log(res.success);
+          } else {
+            this.messageService.add({severity: 'error', summary: ' ثبت محصول ', detail: res.data});
+          }
+        });
+
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت محصول ', detail: response.data});
       }
     });
-  }
-
-  getSellerFromStorage(): void {
-    if (this.localstorage.getCurrentUser() !== true) {
-      this.userData = this.localstorage.userJson;
-    } else {
-      this.router.navigateByUrl('/seller/login');
-    }
   }
 
   getCategories(): any {
@@ -194,9 +220,8 @@ export class RegisterProductComponent implements OnInit {
 
   onMultipleUpload(event): void {
     this.overlayService.showOverlay = true;
-    const formData = new FormData();
 
-    // tslint:disable-next-line:prefer-for-of
+    const formData = new FormData();
     for (let i = 0; i < event.files.length; i++) {
       formData.append('files', event.files[i], event.files[i].name);
     }
@@ -210,4 +235,39 @@ export class RegisterProductComponent implements OnInit {
       }
     });
   }
+
+  getFeatures(): any {
+    this.sellerService.getFeatures().subscribe((response) => {
+      if (response.success === true) {
+        this.features = response.data;
+      } else {
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+      }
+    });
+  }
+  getFeatureValues(event): void {
+    this.values = this.features.find(x => x.id === event.value._id).FeaturesValue;
+  }
+
+  addSelectedValues(event: any): void {
+    if (event.value !== null) {
+      this.finalSelectedValues = [];
+      this.finalSelectedValues.push(...event.value);
+
+      this.showSelectedFeatures = [];
+      event.value.forEach(item => {
+        const parent = this.features.find(x => x.id === item.featuresID).titleFarsi;
+
+        this.showSelectedFeatures.push(
+          {
+            featureId: item.featureID,
+            title: parent,
+            valueId: item.id,
+            value: item.value
+          }
+        );
+      });
+    }
+  }
+
 }

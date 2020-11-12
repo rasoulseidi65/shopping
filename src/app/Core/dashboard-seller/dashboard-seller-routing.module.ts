@@ -6,49 +6,50 @@ import {ProductSellerComponent} from './product-seller/product-seller.component'
 import {RegisterProductComponent} from './product-seller/register-product/register-product.component';
 import {FeatureComponent} from './feature/feature.component';
 import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
+import {ProductDetailComponent} from '../../Layout/product-detail/product-detail.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: IndexComponent
   },
   {
-    path: 'profile',
+    path: '',
     component: IndexComponent,
     children: [{
-      path: '',
+      path: 'profile',
       component: ProfileComponent
     }]
   },
   {
-    path: 'product',
+    path: '',
     component: IndexComponent,
     children: [{
-      path: '',
+      path: 'product',
       component: ProductSellerComponent
     }]
   },
   {
-    path: 'product/add',
+    path: '',
     component: IndexComponent,
     children: [{
-      path: '',
+      path: 'product/add',
       component: RegisterProductComponent
     }]
   },
   {
-    path: 'product/edit',
+    path: '',
     component: IndexComponent,
     children: [{
-      path: '',
+      path: 'product/edit/:id',
       component: EditProductComponent
     }]
   },
   {
-    path: 'feature',
+    path: '',
     component: IndexComponent,
     children: [{
-      path: '',
+      path: 'feature',
       component: FeatureComponent
     }]
   }
