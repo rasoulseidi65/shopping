@@ -17,7 +17,7 @@ import {OverlayService} from '../../../overlay.service';
 })
 
 export class ProfileComponent implements OnInit {
-
+  dateObject = "";
   appComponent: AppComponent;
   business: any[];
   shop: any[];

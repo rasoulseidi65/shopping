@@ -72,22 +72,30 @@
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col">
-                <<<<<<< HEAD
-                <label for="birthDay">تاریخ تولد</label>
-                <input type="text" #datepickerInput
-                       formControlName="birthDay" id="birthDay" pInputText/>
-<!--                  <ng-persian-datepicker [timeEnable]="false"-->
-<!--                              [input]="datepickerInput"></ng-persian-datepicker>-->
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
-                  <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('birthDay').hasError(error.type)
-                            && (personalForm.get('birthDay').dirty
-                            || personalForm.get('birthDay').touched)">
-                    {{ error.message }}
-                  </li>
-                </ul>
-              </div>
+<!--              <div class="p-field p-col">-->
+
+<!--                <label for="birthDay">تاریخ تولد</label>-->
+<!--                <dp-date-picker-->
+<!--                  dir="rtl"-->
+<!--                  formControlName="date"-->
+<!--                  [(ngModel)]="dateObject"-->
+<!--                  mode="day"-->
+<!--                  placeholder="تاریخ"-->
+<!--                  theme="dp-material">-->
+<!--                </dp-date-picker>-->
+<!--&lt;!&ndash;                <input type="text" #datepickerInput&ndash;&gt;-->
+<!--&lt;!&ndash;                       formControlName="birthDay" id="birthDay" pInputText/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ng-persian-datepicker [timeEnable]="false"&ndash;&gt;-->
+<!--&lt;!&ndash;                              [input]="datepickerInput"></ng-persian-datepicker>&ndash;&gt;-->
+<!--                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">-->
+<!--                  <li class="font-small text-danger font-weight-bold list-inline-item"-->
+<!--                      *ngIf="personalForm.get('birthDay').hasError(error.type)-->
+<!--                            && (personalForm.get('birthDay').dirty-->
+<!--                            || personalForm.get('birthDay').touched)">-->
+<!--                    {{ error.message }}-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
               <div class="p-field p-col">
                 <label class="d-block">جنسیت</label>
                 <mat-radio-group aria-label="جنسیت" formControlName="gender">
@@ -95,7 +103,7 @@
                   <mat-radio-button class="mt-2" value="female" class="mr-3">خانم</mat-radio-button>
                 </mat-radio-group>
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.gender">
-                  =======
+
                   <label>آپلود لوگو</label>
                   <p-fileUpload
                     formControlName="logo"
@@ -111,7 +119,7 @@
 
                   <ul class="mt-1 text-right list-inline"
                       *ngFor="let error of shopErrorMessages.logo">
-                    >>>>>>> 92cb45596a78748014aae97ae554c1e5001d87b6
+
                     <li class="font-small text-danger font-weight-bold list-inline-item"
                         *ngIf="shopForm.get('logo').hasError(error.type)
                             && (shopForm.get('logo').dirty
@@ -295,12 +303,15 @@
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col">
-                <label for="birthDay">تاریخ تولد</label>
-                <input type="text" #datepickerInput
-                       formControlName="birthDay" id="birthDay" pInputText/>
-<!--                <ng-persian-datepicker [timeEnable]="false"-->
-<!--                                       [input]="datepickerInput"></ng-persian-datepicker>-->
+              <div class="p-field p-col p-grid">
+                <div class=" p-col-9">
+                  <label for="birthDay">تاریخ تولد:</label>
+                  <input matInput class="form-control" formControlName="birthDay" [matDatepicker]="picker6" placeholder="" [(ngModel)]="dateObject">
+                  <mat-datepicker #picker6 ></mat-datepicker>
+                </div>
+                <div class=" p-col-2 mt-4">
+                  <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                </div>
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
                       *ngIf="personalForm.get('birthDay').hasError(error.type)
@@ -538,3 +549,4 @@
     </div>
   </div>
 </div>
+

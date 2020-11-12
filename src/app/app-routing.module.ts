@@ -20,13 +20,13 @@ const routes: Routes = [
     loadChildren: () => import('./Auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'seller',
+    path: 'sellerBe',
     loadChildren: () => import('./layout/seller/seller.module').then(m => m.SellerModule),
   },
-  // {
-  //   path: 'user',
-  //   loadChildren: () => import('./Core/dashboard-user/dashboard-user.module').then(m => m.DashboardUserModule),
-  // },
+  {
+    path: 'user',
+    loadChildren: () => import('./Core/dashboard-user/dashboard-user.module').then(m => m.DashboardUserModule),
+  },
   {
     path: 'admin',
     loadChildren: () => import('./Core/dashboardAdmin/dashboard-admin.module').then(m => m.DashboardAdminModule),
@@ -38,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabled', scrollPositionRestoration:'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -70,10 +70,12 @@ export class ProductDetailComponent implements OnInit {
   subCategory: any;
   productFeature: any[] = [];
   featureValue: any[] = [];
+
   constructor(private service: LayoutService,
               private serviceCart: CartService,
               private messageService: MessageService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -83,11 +85,14 @@ export class ProductDetailComponent implements OnInit {
     let data = {
       _id: this.productID
     };
+    this.productFeature.indexOf(0,this.productFeature.length);
+    this.featureValue.indexOf(0,this.featureValue.length);
+
     this.images.indexOf(0, this.images.length);
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
         this.product = response['data'][0];
-        this.briefFeature=this.product['briefFeature'];
+        this.briefFeature = this.product['briefFeature'];
         this.subCategory = this.product['subCategory'];
         this.category = response['data'][0]['Category'][0];
         this.Inventory = response['data'][0]['Inventory'][0];
@@ -145,4 +150,9 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  goDetail(id: any) {
+    window.location.assign('./#/home/detail/' + id);
+    // this.router.navigate(['/home/detail/' + id]);
+    window.location.reload();
+  }
 }

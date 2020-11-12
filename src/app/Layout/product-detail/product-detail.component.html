@@ -248,7 +248,8 @@
               </div>
               <div class="product-card__image">
                 <div class="image image--type--product">
-                  <a [routerLink]="['detail',i['_id']]" class="image__body">
+<!--                  [routerLink]="['/home/detail',i['_id']]"-->
+                  <a (click)="goDetail(i['_id'])" class="image__body">
                     <img class="image__tag" [src]="i['image']" alt="">
                   </a>
                 </div>
@@ -266,10 +267,10 @@
               <div class="product-card__footer">
                              <div class="product-card__prices">
                   <div class="product-card__price product-card__price--old">
-                    {{i['price']}}
+                    {{i['price']|number}}
                   </div>
-                  <div class="product-card__price product-card__price--new">
-                    {{i['price']-(i['price']*i['offerPercent'])/100}}  تومان
+                  <div class="product-card__price product-card__price--new text-danger">
+                    {{i['price']-(i['price']*i['offerPercent'])/100|number}}  تومان
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import {SellerModel} from '../../SellerModel';
 import {OverlayService} from '../../../../overlay.service';
 import {AddFeatureDialogComponent} from '../../feature/add-feature-dialog/add-feature-dialog.component';
 import {DialogService} from 'primeng/dynamicdialog';
+import {LocalStorageService} from '../../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-register-product',
@@ -59,7 +60,8 @@ export class RegisterProductComponent implements OnInit {
               private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
-              public overlayService: OverlayService) {
+              public overlayService: OverlayService,
+              private localstorage:LocalStorageService) {
   }
 
   ngOnInit(): void {
@@ -158,8 +160,8 @@ export class RegisterProductComponent implements OnInit {
   }
 
   getSellerFromStorage(): void {
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
+    if (this.localstorage.getCurrentUser() !== true) {
+      this.userData = this.localstorage.userJson;
     } else {
       this.router.navigateByUrl('/seller/login');
     }

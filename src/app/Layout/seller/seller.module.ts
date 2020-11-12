@@ -1,7 +1,7 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 
-import { SellerRoutingModule } from './seller-routing.module';
+import {SellerRoutingModule} from './seller-routing.module';
 import {SellerLoginComponent} from './seller-login/seller-login.component';
 import {SellerRegisterComponent} from './seller-register/seller-register.component';
 import {SellerFooterComponent} from './seller-footer/seller-footer.component';
@@ -15,17 +15,30 @@ import {ToastModule} from 'primeng/toast';
 
 
 @NgModule({
-  declarations: [SellerLoginComponent, SellerRegisterComponent, SellerFooterComponent,SellerHeaderComponent,SellerFeatureComponent,SellerComponent],
-    imports: [
-        CommonModule,
-        SellerRoutingModule,
-        ReactiveFormsModule,
-        MatExpansionModule,
-        SidebarModule,
-        ToastModule
-    ],
+  declarations: [SellerLoginComponent,
+    SellerRegisterComponent,
+    SellerFooterComponent,
+    SellerHeaderComponent,
+    SellerFeatureComponent,
+    SellerComponent],
+  imports: [
+    CommonModule,
+    SellerRoutingModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    SidebarModule,
+    ToastModule
+  ],
+  // exports: [
+  //   SellerRegisterComponent,
+  //   SellerFooterComponent,
+  //   SellerHeaderComponent,
+  //   SellerFeatureComponent,
+  //   SellerComponent
+  // ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
-export class SellerModule { }
+export class SellerModule {
+}

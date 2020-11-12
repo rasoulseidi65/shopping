@@ -87,3 +87,21 @@ label,input{
   background-color: #CC3333;
   color: #fff;
 }
+/*datePicker*/
+::ng-deep.mat-calendar-table-header{
+  font-family: IRANSans_Bold!important;
+
+}
+::ng-deep.mat-calendar-body-label{
+  font-family: IRANSans_Bold!important;
+  color: #2e6da4!important;
+
+}
+::ng-deep.mat-calendar-body{
+  font-family: IRANSans_Bold!important;
+
+}
+::ng-deep.mat-calendar-body-selected {
+  background-color: #CC3333!important;
+  color: #fff;
+}
