@@ -11,7 +11,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
+// import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 import {ProductSellerComponent} from './product-seller/product-seller.component';
 import {RegisterProductComponent} from './product-seller/register-product/register-product.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
@@ -46,7 +46,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgPersianDatepickerModule,
+    // NgPersianDatepickerModule,
     InputSwitchModule,
     DynamicDialogModule,
     ConfirmDialogModule

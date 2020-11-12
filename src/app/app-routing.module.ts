@@ -23,10 +23,10 @@ const routes: Routes = [
     path: 'seller',
     loadChildren: () => import('./layout/seller/seller.module').then(m => m.SellerModule),
   },
-  {
-    path: 'user',
-    loadChildren: () => import('./Core/dashboard-user/dashboard-user.module').then(m => m.DashboardUserModule),
-  },
+  // {
+  //   path: 'user',
+  //   loadChildren: () => import('./Core/dashboard-user/dashboard-user.module').then(m => m.DashboardUserModule),
+  // },
   {
     path: 'admin',
     loadChildren: () => import('./Core/dashboardAdmin/dashboard-admin.module').then(m => m.DashboardAdminModule),
