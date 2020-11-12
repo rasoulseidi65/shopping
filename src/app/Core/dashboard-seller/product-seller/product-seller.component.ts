@@ -3,6 +3,8 @@ import {SellerService} from '../seller.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {SellerModel} from '../SellerModel';
+import {DialogService} from 'primeng/dynamicdialog';
+import {AddProductFeatureComponent} from './add-product-feature/add-product-feature.component';
 
 @Component({
   selector: 'app-product-seller',
@@ -10,6 +12,7 @@ import {SellerModel} from '../SellerModel';
   styleUrls: ['./product-seller.component.css'],
   providers: [
     MessageService,
+    DialogService,
     ConfirmationService
   ]
 })
@@ -22,12 +25,13 @@ export class ProductSellerComponent implements OnInit {
   constructor(private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
+              private dialogService: DialogService,
               private confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
     this.getSellerFromStorage();
-    this.getProducts(this.userData.id);
+    this.getProducts();
 
     console.log(this.products);
   }
@@ -41,8 +45,8 @@ export class ProductSellerComponent implements OnInit {
     }
   }
 
-  getProducts(id: any): any{
-    this.sellerService.getProducts(id).subscribe((response) => {
+  getProducts(): any{
+    this.sellerService.getProducts(this.userData.id).subscribe((response) => {
       if (response.success === true) {
         this.products = response.data;
       } else {
@@ -68,4 +72,20 @@ export class ProductSellerComponent implements OnInit {
       }
     });
   }
+
+  showAddFeatureDialog(id: string): void {
+    const ref = this.dialogService.open(AddProductFeatureComponent, {
+      data: {
+        id
+      },
+      header: 'ثبت ویژگی محصول',
+      width: '70%'
+    });
+    ref.onClose.subscribe(res => {
+      if (res === true){
+        this.getProducts();
+      }
+    });
+  }
+
 }

@@ -10,7 +10,8 @@
              [paginator]="true"
              currentPageReportTemplate="نمایش {first} تا {last} از {totalRecords} صفحه"
              [filterDelay]="0"
-             [globalFilterFields]="['titleFarsi','titleLatin']">
+             [globalFilterFields]="['title','Category.title', 'subCategory', 'count',
+             'price', 'topText', 'offer', 'offerPercent', 'offerText' ]">
       <ng-template pTemplate="caption">
         <div class="table-header row">
           <div class="col-sm-6"> لیست ویژگی های محصول
@@ -34,48 +35,112 @@
       <ng-template pTemplate="header">
         <tr>
           <th style="width: 3rem"></th>
-          <th pSortableColumn="">عنوان فارسی
-            <p-sortIcon field=""></p-sortIcon>
+          <th pSortableColumn="title">عنوان
+            <p-sortIcon field="title"></p-sortIcon>
           </th>
-          <th pSortableColumn="">عنوان انگلیسی
-            <p-sortIcon field=""></p-sortIcon>
+          <th pSortableColumn="Category.title">عنوان دسته
+            <p-sortIcon field="Category.title"></p-sortIcon>
           </th>
-          <th>عملیات</th>
-        </tr>
-        <tr>
+
+          <th pSortableColumn="subCategory">عنوان زیر دسته
+            <p-sortIcon field="subCategory"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="price">قیمت
+            <p-sortIcon field="price"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="count">تعداد
+            <p-sortIcon field="count"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="offer">محصول شما تخفیف دارد؟
+            <p-sortIcon field="offer"></p-sortIcon>
+          </th>
           <th></th>
-          <th>
-            <input pInputText type="text" (input)="dt.filter($event.target.value, 'titleFarsi', 'contains')"
-                   placeholder="" class="p-column-filter">
-          </th>
-          <th>
-            <input pInputText type="text" (input)="dt.filter($event.target.value, 'titleLatin', 'contains')"
-                   placeholder="" class="p-column-filter">
-          </th>
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-product  let-expanded="expanded">
         <tr>
           <td>
-
+            <button type="button" pButton pRipple [pRowToggler]="product"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
           </td>
           <td>
-
+            {{product.title}}
           </td>
           <td>
-            <button pButton pRipple icon="pi pi-plus"
-                    class="p-button-rounded p-button-success p-ml-2 text-white"></button>
-
+            {{product.Category.title}}
+          </td>
+          <td>
+            {{product.subCategory}}
+          </td>
+          <td>
+            {{product.price}}
+          </td>
+          <td>
+            {{product.count}}
+          </td>
+          <td>
+            {{product.offer ? 'بله' : 'خیر'}}
+          </td>
+          <td>
+            <button pButton pRipple label="ثبت ویژگی"
+                    (click)="showAddFeatureDialog(product.id)"
+                    class="p-button-success p-ml-2 text-white"></button>
+          </td>
+          <td>
             <button pButton pRipple icon="pi pi-pencil"
                     class="p-button-rounded p-button-warning p-ml-2 text-white"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger text-white"></button>
           </td>
         </tr>
       </ng-template>
+
+      <ng-template pTemplate="rowexpansion" let-product>
+        <tr>
+          <td colspan="9">
+            <div class="p-p-3">
+              <p-table [value]="product.ProductFeature" dataKey="id">
+
+                <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="Feature.titleFarsi">ویژگی <p-sortIcon field="Feature.titleFarsi"></p-sortIcon></th>
+          <th pSortableColumn="FeaturesValue.value">مقدار <p-sortIcon field="FeaturesValue.value"></p-sortIcon></th>
+          <th>عملیات</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-feature>
+        <tr>
+          <td>{{feature.Feature.titleFarsi}}</td>
+          <td>{{feature.FeaturesValue.value}}</td>
+          <td>
+            <button pButton pRipple
+                    icon="pi pi-trash" class="p-button-rounded p-button-secondary text-white"></button>
+          </td>
+        </tr>
+      </ng-template>
+
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="3">هیچ رکوردی یافت نشد.</td>
+          <td colspan="9">هیچ مقداری ثبت نشده است.</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  </td>
+  </tr>
+  </ng-template>
+
+
+
+  <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="11">هیچ رکوردی یافت نشد.</td>
         </tr>
       </ng-template>
     </p-table>

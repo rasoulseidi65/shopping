@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SellerService} from '../../seller.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {SellerModel} from '../../SellerModel';
+import {OverlayService} from '../../../../overlay.service';
+import {AddFeatureDialogComponent} from '../../feature/add-feature-dialog/add-feature-dialog.component';
+import {DialogService} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-register-product',
@@ -18,6 +21,7 @@ export class RegisterProductComponent implements OnInit {
   public form: FormGroup;
   userData: SellerModel;
   categories: any[];
+
   errorMessages = {
     title: [
       {type: 'required', message: 'عنوان محصول را وارد کنید.'},
@@ -45,7 +49,7 @@ export class RegisterProductComponent implements OnInit {
     ],
     detail: [
       {type: 'required', message: 'جزئیات محصول را وارد کنید.'}
-      ],
+    ],
     image: [
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
     ]
@@ -54,7 +58,9 @@ export class RegisterProductComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private sellerService: SellerService,
               private messageService: MessageService,
-              private router: Router) { }
+              private router: Router,
+              public overlayService: OverlayService) {
+  }
 
   ngOnInit(): void {
     this.getSellerFromStorage();
@@ -132,7 +138,7 @@ export class RegisterProductComponent implements OnInit {
       ),
       gallery: new FormControl(
         null
-      ),
+      )
     });
   }
 
@@ -141,7 +147,7 @@ export class RegisterProductComponent implements OnInit {
     this.form.controls.categoryID.setValue(category._id);
     console.log(this.form.value);
 
-    this.sellerService.addProduct(this.userData.id, this.form.value).subscribe((response) => {
+    this.sellerService.addProduct(this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
@@ -151,16 +157,15 @@ export class RegisterProductComponent implements OnInit {
     });
   }
 
-  getSellerFromStorage(): void{
+  getSellerFromStorage(): void {
     if (localStorage.getItem('user') !== null) {
       this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    else{
+    } else {
       this.router.navigateByUrl('/seller/login');
     }
   }
 
-  getCategories(): any{
+  getCategories(): any {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
@@ -171,21 +176,22 @@ export class RegisterProductComponent implements OnInit {
   }
 
   imageUploader(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
     formData.append('image', event.files[0], event.files[0].name);
     this.sellerService.uploadFile(formData).subscribe((response) => {
-      console.log(response.success);
+      this.overlayService.showOverlay = false;
       if (response.success === true) {
         this.form.controls.image.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});
-      }
-      else {
+      } else {
         this.messageService.add({severity: 'error', summary: ' آپلود تصویر محصول ', detail: response.data});
       }
     });
   }
 
   onMultipleUpload(event): void {
+    this.overlayService.showOverlay = true;
     const formData = new FormData();
 
     // tslint:disable-next-line:prefer-for-of
@@ -194,6 +200,7 @@ export class RegisterProductComponent implements OnInit {
     }
     this.sellerService.uploadFiles(formData).subscribe((response) => {
       if (response.success === true) {
+        this.overlayService.showOverlay = false;
         this.form.controls.gallery.setValue(response.imagePath);
         this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});
       } else {

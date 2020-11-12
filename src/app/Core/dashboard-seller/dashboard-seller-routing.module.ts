@@ -5,6 +5,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {ProductSellerComponent} from './product-seller/product-seller.component';
 import {RegisterProductComponent} from './product-seller/register-product/register-product.component';
 import {FeatureComponent} from './feature/feature.component';
+import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,14 @@ const routes: Routes = [
     children: [{
       path: '',
       component: RegisterProductComponent
+    }]
+  },
+  {
+    path: 'product/edit',
+    component: IndexComponent,
+    children: [{
+      path: '',
+      component: EditProductComponent
     }]
   },
   {

@@ -62,9 +62,10 @@ export class ProductDetailComponent implements OnInit {
   images: any[] = [];
   relatedProducts: any[];
   product: any[];
+  briefFeature: any[];
   category: any[];
   Inventory: any[];
-  InventoryState :boolean=true;
+  InventoryState: boolean = true;
   productID: string;
   subCategory: any;
   productFeature: any[] = [];
@@ -86,6 +87,7 @@ export class ProductDetailComponent implements OnInit {
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
         this.product = response['data'][0];
+        this.briefFeature=this.product['briefFeature'];
         this.subCategory = this.product['subCategory'];
         this.category = response['data'][0]['Category'][0];
         this.Inventory = response['data'][0]['Inventory'][0];
@@ -98,11 +100,12 @@ export class ProductDetailComponent implements OnInit {
         if (this.Inventory['count'] <= 0) {
           this.InventoryState = false;
         }
+
         let countGallery = this.product['gallery'];
         for (var i = 0; i < countGallery.length; i++) {
           this.images.push({
-            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination + '/' + countGallery[i].filename,
-            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination + '/' + countGallery[i].filename
+            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i],
+            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i]
           });
         }
 

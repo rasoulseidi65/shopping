@@ -1,0 +1,215 @@
+<p-toast position="center"></p-toast>
+
+<div class="pnl-content p-3">
+  <div class="box text-right" dir="rtl">
+
+    <div class="row border-bottom pb-2 titlepage">
+      <div class="col-sm-12">
+        <a routerLink="[seller/product]">لیست محصولات</a>
+        /
+        <span>ثبت محصول جدید</span>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submitForm()" class="w-100 mt-3">
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="title">عنوان محصول</label>
+          <input id="title" type="text" pInputText
+                 formControlName="title">
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.title">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('title').hasError(error.type)
+                            && (form.get('title').dirty
+                            || form.get('title').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label class="d-block">عنوان دسته</label>
+          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                      [options]="categories"
+                      formControlName="categoryID"
+                      optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
+            <ng-template pTemplate="selectedItem">
+              <div class="state-item state-item-value"
+                   *ngIf="form.controls['categoryID'].value">
+                <div>{{form.controls['categoryID'].value.title}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-category pTemplate="item">
+              <div class="state-item text-right">
+                <div class="text-right">{{category.value.title}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.categoryID">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('categoryID').hasError(error.type)
+                            && (form.get('categoryID').dirty
+                            || form.get('categoryID').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+        <div class="p-field p-col">
+          <label for="subCategory">عنوان زیر دسته</label>
+          <input id="subCategory" type="text" pInputText
+                 formControlName="subCategory">
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.subCategory">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('subCategory').hasError(error.type)
+                            && (form.get('subCategory').dirty
+                            || form.get('subCategory').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="price">قیمت</label>
+          <p-inputNumber id="price" formControlName="price">
+          </p-inputNumber>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.price">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('price').hasError(error.type)
+                            && (form.get('price').dirty
+                            || form.get('price').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+        <div class="p-field p-col">
+          <label for="count">تعداد</label>
+          <p-inputNumber id="count" formControlName="count">
+          </p-inputNumber>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.count">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('count').hasError(error.type)
+                            && (form.get('count').dirty
+                            || form.get('count').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="topText">متن بالای محصول</label>
+          <input id="topText" type="text" pInputText
+                 formControlName="topText">
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.topText">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('topText').hasError(error.type)
+                            && (form.get('topText').dirty
+                            || form.get('topText').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+        <div class="p-field p-col">
+          <label class="d-block">محصول شما تخفیف دارد؟ {{form.controls.offer.value === true ? 'بله' : 'خیر'}}</label>
+          <!--          <mat-radio-group aria-label="تخفیف" formControlName="offer">-->
+          <!--            <mat-radio-button class="mt-2" value="true">دارد</mat-radio-button>-->
+          <!--            <mat-radio-button class="mt-2" value="false" class="mr-3">ندارد</mat-radio-button>-->
+          <!--          </mat-radio-group>-->
+          <p-inputSwitch formControlName="offer"></p-inputSwitch>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid" *ngIf="form.controls.offer.value === true">
+        <div class="p-field p-col">
+          <label for="offerPercent">درصد تخفیف</label>
+          <p-inputNumber id="offerPercent" formControlName="offerPercent" prefix="%">
+          </p-inputNumber>
+        </div>
+        <div class="p-field p-col">
+          <label for="offerText">متن تخفیف</label>
+          <input id="offerText" type="text" pInputText
+                 formControlName="offerText">
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="detail">جزئیات محصول</label>
+          <p-editor formControlName="detail" id="detail" [style]="{'height':'200px'}"></p-editor>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.detail">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('detail').hasError(error.type)
+                            && (form.get('detail').dirty
+                            || form.get('detail').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label>آپلود تصویر محصول</label>
+          <p-fileUpload
+            chooseLabel="انتخاب تصویر"
+            uploadLabel="آپلود تصویر"
+            cancelLabel="انصراف"
+            customUpload="true"
+            (uploadHandler)="imageUploader($event)"
+            invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+            invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+            accept="image/jpeg,image/png" maxFileSize="2000000">
+          </p-fileUpload>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.image">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('image').hasError(error.type)
+                            && (form.get('image').dirty
+                            || form.get('image').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label>آپلود تصاویر گالری محصول</label>
+          <p-fileUpload
+            chooseLabel="انتخاب تصویر"
+            uploadLabel="آپلود تصویر"
+            cancelLabel="انصراف"
+            customUpload="true"
+            multiple="multiple"
+            (uploadHandler)="onMultipleUpload($event)"
+            invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+            invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+            accept="image/jpeg,image/png" maxFileSize="2000000">
+          </p-fileUpload>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <div class="float-left">
+            <button pButton label="ثبت محصول جدید" class="ui-button-success"
+                    icon="pi pi-check" iconPos="left" [disabled]="form.invalid"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
