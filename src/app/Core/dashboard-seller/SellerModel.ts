@@ -29,7 +29,6 @@ export class SellerModel {
     public resume?: string,
     public logo?: string,
     public active?: boolean
-
   ) {
   }
 

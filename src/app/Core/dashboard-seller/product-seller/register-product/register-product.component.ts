@@ -57,6 +57,9 @@ export class RegisterProductComponent implements OnInit {
     detail: [
       {type: 'required', message: 'جزئیات محصول را وارد کنید.'}
     ],
+    briefFeature: [
+      {type: 'required', message: 'خلاصه ویژگی های محصول را وارد کنید.'}
+    ],
     image: [
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
     ]
@@ -134,6 +137,12 @@ export class RegisterProductComponent implements OnInit {
         null
       ),
       detail: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
+      briefFeature: new FormControl(
         null,
         [
           Validators.required

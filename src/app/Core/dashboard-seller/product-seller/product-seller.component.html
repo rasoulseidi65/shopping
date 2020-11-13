@@ -89,7 +89,9 @@
             <button pButton pRipple icon="pi pi-pencil"
                     [routerLink]="['/seller/product/edit', product.id]"
                     class="p-button-rounded p-button-warning p-ml-2 text-white"></button>
-            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger text-white"></button>
+            <button pButton pRipple icon="pi pi-trash"
+                    (click)="delete(product.id)"
+                    class="p-button-rounded p-button-danger text-white"></button>
           </td>
         </tr>
       </ng-template>
