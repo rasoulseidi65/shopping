@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-index',
@@ -17,9 +18,17 @@ export class IndexComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
+    this.localStorage.getCurrentUser();
+  }
+
+  logOut(): void{
+    this.localStorage.removeCurrentUser();
+    this.router.navigateByUrl('/');
   }
 }
