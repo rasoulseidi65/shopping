@@ -158,9 +158,10 @@
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 30px;
   color: #ffffff;
   font-weight: 700;
+  font-family: Kalameh;
 }
 
 .site-nav .site-navigation .site-menu {

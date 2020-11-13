@@ -29,8 +29,8 @@ export class SellerService {
   addProduct(data: any): any{
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/registerProduct', data);
   }
-  deleteProduct(id: any, data: any): any{
-    return this.http.delete('http://194.5.175.25:3005/api/v1/seller/deleteProduct/' + id, data);
+  deleteProduct(id: any): any{
+    return this.http.delete('http://194.5.175.25:3005/api/v1/seller/deleteProduct/' + id);
   }
   editProduct(id: any, data: any): any{
     return this.http.put('http://194.5.175.25:3005/api/v1/seller/updateProduct/' + id, data);

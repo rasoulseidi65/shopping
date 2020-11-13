@@ -53,6 +53,15 @@ export class ProductSellerComponent implements OnInit {
       defaultFocus: 'reject',
       accept: () => {
         // delete from db
+        this.sellerService.deleteProduct(id).subscribe((response) => {
+          if (response.success === true) {
+            this.confirmationService.close();
+            this.messageService.add({severity: 'success', summary: ' حذف اطلاعات ', detail: response.data});
+            this.getProducts();
+          } else {
+            this.messageService.add({severity: 'error', summary: ' حذف اطلاعات ', detail: response.data});
+          }
+        });
       },
       reject: () => {
         // close

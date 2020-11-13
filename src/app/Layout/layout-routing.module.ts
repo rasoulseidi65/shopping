@@ -9,10 +9,6 @@ import {ProductsComponent} from './products/products.component';
 import {CallBackComponent} from './call-back/call-back.component';
 import {LoginRegisterComponent} from './login-register/login-register.component';
 import {WishlistComponent} from './wishlist/wishlist.component';
-import {SellerComponent} from './seller/seller.component';
-import {SellerRegisterComponent} from './seller/seller-register/seller-register.component';
-import {SellerLoginComponent} from './seller/seller-login/seller-login.component';
-
 const routes: Routes = [
   {
     path: '' ,

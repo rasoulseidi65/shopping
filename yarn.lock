@@ -6777,7 +6777,7 @@ ng-otp-input@^1.7.1:
   dependencies:
     tslib "^1.9.0"
 
-ng2-jalali-date-picker@^2.4.2:
+ng2-jalali-date-picker@2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/ng2-jalali-date-picker/-/ng2-jalali-date-picker-2.4.2.tgz#328b39be965f60aec1482b79937c795393b79711"
   integrity sha512-z3xBQuY7LrSHll4p9b3SnZH2QKu06Ym3jmx+iD2Ogj+YeUu6ZRLE9zwTtxUo9hVh/Dbn04KsNR+K9TvuBaG75Q==

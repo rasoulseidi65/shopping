@@ -5,6 +5,7 @@ import {SellerService} from '../../seller.service';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from '../../../../Auth/localStorageLogin/local-storage.service';
+import {ProductModel} from '../../../dashboardAdmin/Product.model';
 
 @Component({
   selector: 'app-edit-product',
@@ -19,6 +20,8 @@ export class EditProductComponent implements OnInit {
   public form: FormGroup;
   productId: string;
   categories: any[] = [];
+  selectedCategory: any;
+  product: any;
   errorMessages = {
     title: [
       {type: 'required', message: 'عنوان محصول را وارد کنید.'},
@@ -47,12 +50,13 @@ export class EditProductComponent implements OnInit {
     detail: [
       {type: 'required', message: 'جزئیات محصول را وارد کنید.'}
     ],
+    briefFeature: [
+      {type: 'required', message: 'خلاصه ویژگی های محصول را وارد کنید.'}
+    ],
     image: [
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
     ]
   };
-  product: any;
-  products: any[];
 
   constructor(private formBuilder: FormBuilder,
               private sellerService: SellerService,
@@ -67,8 +71,6 @@ export class EditProductComponent implements OnInit {
       this.productId = params.get('id'));
 
     this.getProduct();
-    this.getCategories();
-    this.createform();
   }
 
   createform(): void {
@@ -133,14 +135,20 @@ export class EditProductComponent implements OnInit {
           Validators.required
         ]
       ),
+      briefFeature: new FormControl(
+        this.product.briefFeature,
+        [
+          Validators.required
+        ]
+      ),
       image: new FormControl(
-        null,
+        this.product.image,
         [
           Validators.required
         ]
       ),
       gallery: new FormControl(
-        null
+        this.product.gallery,
       ),
     });
   }
@@ -164,16 +172,29 @@ export class EditProductComponent implements OnInit {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
+        this.getSelectedCategory();
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }
     });
   }
 
+  getSelectedCategory(): void {
+    this.selectedCategory = null;
+    this.selectedCategory = this.categories.filter(x => x.value === this.form.controls.categoryID)[0];
+
+    console.log(this.form.controls.categoryID.value);
+    this.form.controls.categoryID.setValue(this.selectedCategory);
+  }
+
   getProduct(): void {
     this.sellerService.getProductById(this.productId).subscribe((response) => {
       if (response.success) {
-        this.product = response.data;
+        this.product = response.data[0];
+
+        this.createform();
+        this.getCategories();
+
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }

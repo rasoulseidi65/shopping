@@ -194,6 +194,22 @@
 
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
+          <label for="briefFeature">جزئیات محصول</label>
+          <p-editor formControlName="briefFeature" id="briefFeature" [style]="{'height':'200px'}"></p-editor>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.briefFeature">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('briefFeature').hasError(error.type)
+                            && (form.get('briefFeature').dirty
+                            || form.get('briefFeature').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
           <label for="selectedFeature">ویژگی</label>
           <p-dropdown [options]="features" appendTo="body" id="selectedFeature"
                       [(ngModel)]="selectedFeature"
