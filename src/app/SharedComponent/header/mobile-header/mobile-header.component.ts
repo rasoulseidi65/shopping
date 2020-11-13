@@ -115,7 +115,7 @@ export class MobileHeaderComponent implements OnInit {
         {
           label: 'فروشنده شو',
           icon: 'fas fa-shopping-basket',
-          command: event => this.route.navigate(['/seller'])
+          command: event => this.route.navigate(['/sellerBe'])
         },
         {
           label: 'سوال داری؟',

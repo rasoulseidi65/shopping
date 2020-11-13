@@ -31,7 +31,8 @@
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="categories"
                             formControlName="category"
-                            optionLabel="title" [filter]="true" [showClear]="true">
+                            placeholder="-- انتخاب کنید --"
+                            optionLabel="title" [filter]="true">
                   <ng-template pTemplate="selectedItem">
                     <div class="state-item state-item-value"
                          *ngIf="shopForm.controls['category'].value">
@@ -73,56 +74,27 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
-                <<<<<<< HEAD
-                <label for="birthDay">تاریخ تولد</label>
-                <input type="text" #datepickerInput
-                       formControlName="birthDay" id="birthDay" pInputText/>
-<!--                  <ng-persian-datepicker [timeEnable]="false"-->
-<!--                              [input]="datepickerInput"></ng-persian-datepicker>-->
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
+                <label>آپلود فایل لوگو</label>
+                <p-fileUpload
+                  chooseLabel="انتخاب فایل"
+                  uploadLabel="آپلود تصویر"
+                  cancelLabel="انصراف"
+                  customUpload="true"
+                  (uploadHandler)="logoUploader($event)"
+                  invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                  invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                  accept="image/jpeg,image/png" maxFileSize="2000000">
+                </p-fileUpload>
+                <ul class="mt-1 text-right list-inline" *ngFor="let error of shopErrorMessages.logo">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
-                      *ngIf="personalForm.get('birthDay').hasError(error.type)
-                            && (personalForm.get('birthDay').dirty
-                            || personalForm.get('birthDay').touched)">
+                      *ngIf="shopForm.get('logo').hasError(error.type)
+                            && (shopForm.get('logo').dirty
+                            || shopForm.get('logo').touched)">
                     {{ error.message }}
                   </li>
                 </ul>
               </div>
-              <div class="p-field p-col">
-                <label class="d-block">جنسیت</label>
-                <mat-radio-group aria-label="جنسیت" formControlName="gender">
-                  <mat-radio-button class="mt-2" value="male">آقا</mat-radio-button>
-                  <mat-radio-button class="mt-2" value="female" class="mr-3">خانم</mat-radio-button>
-                </mat-radio-group>
-                <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.gender">
-                  =======
-                  <label>آپلود لوگو</label>
-                  <p-fileUpload
-                    formControlName="logo"
-                    chooseLabel="انتخاب تصویر"
-                    uploadLabel="آپلود تصویر"
-                    cancelLabel="انصراف"
-                    customUpload="true"
-                    (uploadHandler)="logoUploader($event)"
-                    invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
-                    invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
-                    accept="image/jpeg,image/png " maxFileSize="2000000">
-                  </p-fileUpload>
-
-                  <ul class="mt-1 text-right list-inline"
-                      *ngFor="let error of shopErrorMessages.logo">
-                    >>>>>>> 92cb45596a78748014aae97ae554c1e5001d87b6
-                    <li class="font-small text-danger font-weight-bold list-inline-item"
-                        *ngIf="shopForm.get('logo').hasError(error.type)
-                            && (shopForm.get('logo').dirty
-                            || shopForm.get('logo').touched)">
-                      {{ error.message }}
-                    </li>
-                  </ul>
-                </ul>
-              </div>
             </div>
-
 
             <div class="float-left">
               <button mat-button [disabled]="shopForm.invalid" matStepperNext>ثبت</button>
@@ -138,7 +110,7 @@
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="states"
                             formControlName="state"
-                            optionLabel="label" [filter]="true" [showClear]="true"
+                            optionLabel="label" [filter]="true"
                             (onChange)="stateOnChange(contactForm.controls['state'].value.value)">
                   <ng-template pTemplate="selectedItem">
                     <div class="state-item state-item-value"
@@ -166,7 +138,7 @@
                 <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                             [options]="cities"
                             formControlName="city"
-                            optionLabel="label" [filter]="true" [showClear]="true">
+                            optionLabel="label" [filter]="true">
                   <ng-template pTemplate="selectedItem">
                     <div class="city-item city-item-value"
                          *ngIf="contactForm.controls['city'].value">
@@ -229,7 +201,7 @@
             <div class="p-field p-col">
               <label class="m-0 pl-3">آیا فروشنده حقوقی هستید؟</label>
               <p-checkbox (onChange)="isCompanyOnChange()"></p-checkbox>
-              <p>
+              <p class="pt-3">
                 شخص حقیقی فردی است که دارای خصوصیاتی مختص به خود مانند نام، نام خانوادگی، تاریخ تولد، کد ملی، شماره
                 شناسنامه و غیره می باشد.
               </p>
@@ -295,12 +267,17 @@
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col">
-                <label for="birthDay">تاریخ تولد</label>
-                <input type="text" #datepickerInput
-                       formControlName="birthDay" id="birthDay" pInputText/>
-                <ng-persian-datepicker [timeEnable]="false"
-                                       [input]="datepickerInput"></ng-persian-datepicker>
+              <div class="p-field p-col p-grid">
+                <div class=" p-col-9">
+                  <label for="birthDay">تاریخ تولد:</label>
+                  <input matInput class="form-control"
+                         formControlName="birthDay" id="birthDay"
+                         [matDatepicker]="picker6" placeholder="" [(ngModel)]="dateObject">
+                  <mat-datepicker #picker6 ></mat-datepicker>
+                </div>
+                <div class=" p-col-2 mt-4">
+                  <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                </div>
                 <ul class="mt-1 text-right list-inline" *ngFor="let error of persoanlErrorMessages.birthDay">
                   <li class="font-small text-danger font-weight-bold list-inline-item"
                       *ngIf="personalForm.get('birthDay').hasError(error.type)
@@ -467,7 +444,7 @@
                   (uploadHandler)="imageSellerUploader($event)"
                   invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
                   invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
-                  accept=".pdf" maxFileSize="2000000">
+                  accept="image/jpeg,image/png" maxFileSize="2000000">
                 </p-fileUpload>
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of businessErrorMessages.imageSeller">
@@ -491,7 +468,7 @@
                   (uploadHandler)="imageCertificateUploader($event)"
                   invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
                   invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
-                  accept=".pdf" maxFileSize="2000000">
+                  accept="image/jpeg,image/png" maxFileSize="2000000">
                 </p-fileUpload>
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of businessErrorMessages.imageCertificate">
@@ -515,7 +492,7 @@
                   (uploadHandler)="imageCompanyUploader($event)"
                   invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
                   invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
-                  accept=".pdf" maxFileSize="2000000">
+                  accept="image/jpeg,image/png" maxFileSize="2000000">
                 </p-fileUpload>
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of businessErrorMessages.imageCompany">
@@ -538,3 +515,4 @@
     </div>
   </div>
 </div>
+

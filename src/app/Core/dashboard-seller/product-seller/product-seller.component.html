@@ -58,7 +58,6 @@
             <p-sortIcon field="offer"></p-sortIcon>
           </th>
           <th></th>
-          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product  let-expanded="expanded">
@@ -87,12 +86,8 @@
             {{product.offer ? 'بله' : 'خیر'}}
           </td>
           <td>
-            <button pButton pRipple label="ثبت ویژگی"
-                    (click)="showAddFeatureDialog(product.id)"
-                    class="p-button-success p-ml-2 text-white"></button>
-          </td>
-          <td>
             <button pButton pRipple icon="pi pi-pencil"
+                    [routerLink]="['/seller/product/edit', product.id]"
                     class="p-button-rounded p-button-warning p-ml-2 text-white"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger text-white"></button>
           </td>
@@ -101,34 +96,34 @@
 
       <ng-template pTemplate="rowexpansion" let-product>
         <tr>
-          <td colspan="9">
+          <td colspan="8">
             <div class="p-p-3">
               <p-table [value]="product.ProductFeature" dataKey="id">
 
                 <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="Feature.titleFarsi">ویژگی <p-sortIcon field="Feature.titleFarsi"></p-sortIcon></th>
-          <th pSortableColumn="FeaturesValue.value">مقدار <p-sortIcon field="FeaturesValue.value"></p-sortIcon></th>
-          <th>عملیات</th>
-        </tr>
-      </ng-template>
+                  <tr>
+                    <th pSortableColumn="featuresID">ویژگی <p-sortIcon field="Feature.titleFarsi"></p-sortIcon></th>
+                    <th pSortableColumn="valueID">مقدار <p-sortIcon field="FeaturesValue.value"></p-sortIcon></th>
+                    <th>عملیات</th>
+                  </tr>
+                </ng-template>
 
-      <ng-template pTemplate="body" let-feature>
-        <tr>
-          <td>{{feature.Feature.titleFarsi}}</td>
-          <td>{{feature.FeaturesValue.value}}</td>
-          <td>
-            <button pButton pRipple
-                    icon="pi pi-trash" class="p-button-rounded p-button-secondary text-white"></button>
-          </td>
-        </tr>
-      </ng-template>
+                <ng-template pTemplate="body" let-feature>
+                  <tr>
+                    <td>{{feature.Feature.length > 0 ? feature.Feature[0].titleFarsi : '--'}}</td>
+                    <td>{{feature.FeaturesValue[0].value}}</td>
+                    <td>
+                      <button pButton pRipple
+                              icon="pi pi-trash" class="p-button-rounded p-button-secondary text-white"></button>
+                    </td>
+                  </tr>
+                </ng-template>
 
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="9">هیچ مقداری ثبت نشده است.</td>
-        </tr>
-      </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="8">هیچ مقداری ثبت نشده است.</td>
+                  </tr>
+                </ng-template>
 
     </p-table>
   </div>

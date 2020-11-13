@@ -6,6 +6,7 @@ import {SellerService} from '../seller.service';
 import {Router} from '@angular/router';
 import {AppComponent} from '../../../app.component';
 import {OverlayService} from '../../../overlay.service';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,50 +18,25 @@ import {OverlayService} from '../../../overlay.service';
 })
 
 export class ProfileComponent implements OnInit {
-
+  dateObject = '';
   appComponent: AppComponent;
-  business: any[];
-  shop: any[];
-  contact: any[];
-  personal: any[];
+  business: any[] = [];
+  shop: any[] = [];
+  contact: any[] = [];
+  personal: any[] = [];
 
   public shopForm: FormGroup;
   public contactForm: FormGroup;
   public businessForm: FormGroup;
   public personalForm: FormGroup;
-  states: any[];
-  cities: any[];
-  categories: any[];
-  typesCompany: any[];
+  states: any[] = [];
+  selectedState: any;
+  cities: any[] = [];
+  selectedCity: any;
+  categories: any[] = [];
+  selectedCategory: any;
+  typesCompany: any[] = [];
   isCompany = false;
-  userData: SellerModel = new SellerModel(
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-  );
 
   persoanlErrorMessages = {
     firstName: [
@@ -159,43 +135,136 @@ export class ProfileComponent implements OnInit {
               private sellerService: SellerService,
               private messageService: MessageService,
               private router: Router,
-              public overlayService: OverlayService) {
+              public overlayService: OverlayService,
+              private localStorage: LocalStorageService) {
+
     this.states = [
-      {label: 'آذربایجان شرقی', value: '0'},
-      {label: 'آذربایجان غربی', value: '1'},
-      {label: 'اردبیل', value: '2'},
-      {label: 'اصفهان', value: '3'},
-      {label: 'البرز', value: '4'},
-      {label: 'ایلام', value: '5'},
-      {label: 'بوشهر', value: '6'},
-      {label: 'تهران', value: '7'},
-      {label: 'چهارمحال و بختیاری', value: '8'},
-      {label: 'خراسان جنوبی', value: '9'},
-      {label: 'خراسان رضوی', value: '10'},
-      {label: 'خراسان شمالی', value: '11'},
-      {label: 'خوزستان', value: '12'},
-      {label: 'زنجان', value: '13'},
-      {label: 'سمنان', value: '14'},
-      {label: 'سیستان و بلوچستان', value: '15'},
-      {label: 'فارس', value: '16'},
-      {label: 'قزوین', value: '17'},
-      {label: 'قم', value: '18'},
-      {label: 'گلستان', value: '19'},
-      {label: 'گیلان', value: '20'},
-      {label: 'لرستان', value: '21'},
-      {label: 'مازنداران', value: '22'},
-      {label: 'مرکزی', value: '23'},
-      {label: 'هرمزگان', value: '24'},
-      {label: 'همدان', value: '25'},
-      {label: 'کردستان', value: '26'},
-      {label: 'کرمان', value: '27'},
-      {label: 'کرمانشاه', value: '28'},
-      {label: 'کهگیلویه و بویراحمد', value: '29'},
-      {label: 'یزد', value: '30'},
+      {
+        value: '1',
+        label: 'آذربایجان شرقی'
+      },
+      {
+        value: '2',
+        label: 'آذربایجان غربی'
+      },
+      {
+        value: '3',
+        label: 'اردبیل'
+      },
+      {
+        value: '4',
+        label: 'اصفهان'
+      },
+      {
+        value: '5',
+        label: 'ایلام'
+      },
+      {
+        value: '6',
+        label: 'بوشهر'
+      },
+      {
+        value: '7',
+        label: 'تهران'
+      },
+      {
+        value: '8',
+        label: 'چهارمحال و بختیاری'
+      },
+      {
+        value: '9',
+        label: 'خراسان جنوبی'
+      },
+      {
+        value: '10',
+        label: 'خراسان رضوی'
+      },
+      {
+        value: '11',
+        label: 'خراسان شمالی'
+      },
+      {
+        value: '12',
+        label: 'خوزستان'
+      },
+      {
+        value: '13',
+        label: 'زنجان'
+      },
+      {
+        value: '14',
+        label: 'سمنان'
+      },
+      {
+        value: '15',
+        label: 'سیستان و بلوچستان'
+      },
+      {
+        value: '16',
+        label: 'فارس'
+      },
+      {
+        value: '17',
+        label: 'قزوین'
+      },
+      {
+        value: '18',
+        label: 'قم'
+      },
+      {
+        value: '19',
+        label: 'گلستان'
+      },
+      {
+        value: '20',
+        label: 'گیلان'
+      },
+      {
+        value: '21',
+        label: 'لرستان'
+      },
+      {
+        value: '22',
+        label: 'مازندران'
+      },
+      {
+        value: '23',
+        label: 'مرکزی'
+      },
+      {
+        value: '24',
+        label: 'هرمزگان'
+      },
+      {
+        value: '25',
+        label: 'همدان'
+      },
+      {
+        value: '26',
+        label: 'کردستان'
+      },
+      {
+        value: '27',
+        label: 'کرمان'
+      },
+      {
+        value: '28',
+        label: 'کرمانشاه'
+      },
+      {
+        value: '29',
+        label: 'کهگیلویه و بویر احمد'
+      },
+      {
+        value: '30',
+        label: 'یزد'
+      },
+      {
+        value: '31',
+        label: 'البرز'
+      }
+
     ];
-
-    this.getCategories();
-
     this.typesCompany = [
       {label: 'سهامی عام', value: 'سهامی عام'},
       {label: 'سهامی خاص', value: 'سهامی خاص'},
@@ -205,47 +274,59 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSellerFromStorage();
+    this.localStorage.getCurrentUser();
+    this.getSeller(this.localStorage.userJson.id);
+
+    if (this.localStorage.userJson.companyName !== null) {
+      this.isCompany = true;
+    } else {
+      this.isCompany = false;
+    }
+
+    this.getCategories();
 
     this.createShopForm();
     this.createContactForm();
     this.createBussinessForm();
     this.createPersonalForm();
+    this.getSelectedState();
+    this.getSelectedCity();
   }
 
   createShopForm(): void {
     this.shopForm = this.formBuilder.group({
       shopName: new FormControl(
-        this.userData.shopName,
+        this.localStorage.userJson.shopName,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       category: new FormControl(
-        this.userData.category,
+        this.localStorage.userJson.category,
         [
           Validators.required
         ]
       ),
       shabaNumber: new FormControl(
-        this.userData.shabaNumber,
+        this.localStorage.userJson.shabaNumber,
         [
           Validators.required
         ]
       ),
       logo: new FormControl(
-        null,
+        this.localStorage.userJson.logo,
         [
           Validators.required
         ]
       ),
     });
   }
+
   createContactForm(): void {
     this.contactForm = this.formBuilder.group({
       phone: new FormControl(
-        this.userData.phone,
+        this.localStorage.userJson.phone,
         [
           Validators.required,
           Validators.maxLength(11),
@@ -253,19 +334,19 @@ export class ProfileComponent implements OnInit {
         ]
       ),
       state: new FormControl(
-        this.userData.state,
+        this.localStorage.userJson.state,
         [
           Validators.required
         ]
       ),
       city: new FormControl(
-        this.userData.city,
+        this.localStorage.userJson.city,
         [
           Validators.required
         ]
       ),
       address: new FormControl(
-        this.userData.address,
+        this.localStorage.userJson.address,
         [
           Validators.required,
           Validators.maxLength(1000)
@@ -273,97 +354,127 @@ export class ProfileComponent implements OnInit {
       )
     });
   }
+
+  getSelectedState(): void {
+    this.selectedState = null;
+    if (this.localStorage.userJson.state !== null) {
+      this.selectedState = this.states.filter(x => x.label === this.localStorage.userJson.state)[0];
+    }
+    this.contactForm.controls.state.setValue(this.selectedState);
+  }
+
+  getSelectedCity(): void {
+    this.selectedCity = null;
+
+    if (this.localStorage.userJson.city !== null) {
+      let selectedState = this.states.filter(x => x.label === this.localStorage.userJson.state)[0];
+      this.stateOnChange(selectedState.value);
+      this.selectedCity = this.cities.filter(x => x.label === this.localStorage.userJson.city)[0];
+    }
+    this.contactForm.controls.city.setValue(this.selectedCity);
+  }
+
+  getSelectedCategory(): void {
+    this.selectedCategory = null;
+
+    if (this.localStorage.userJson.category !== null) {
+      this.selectedCategory = this.categories.filter(x => x.title === this.localStorage.userJson.category)[0];
+    }
+    this.shopForm.controls.category.setValue(this.selectedCategory);
+  }
+
   createBussinessForm(): void {
     this.businessForm = this.formBuilder.group({
       companyName: new FormControl(
-        this.userData.companyName,
+        this.localStorage.userJson.companyName,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       signCompany: new FormControl(
-        this.userData.signCompany,
+        this.localStorage.userJson.signCompany,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       regNumCompany: new FormControl(
-        this.userData.regNumCompany,
+        this.localStorage.userJson.regNumCompany,
         [
           Validators.required
         ]
       ),
       economicCompany: new FormControl(
-        this.userData.economicCompany,
+        this.localStorage.userJson.economicCompany,
         [
           Validators.required
         ]
       ),
       typeCompany: new FormControl(
-        this.userData.typeCompany,
+        this.localStorage.userJson.typeCompany,
         [
           Validators.required
         ]
       ),
       imageSeller: new FormControl(
-        null,
+        this.localStorage.userJson.imageSeller,
         [
           Validators.required
         ]
       ),
       imageCertificate: new FormControl(
-        null,
+        this.localStorage.userJson.imageCertificate,
         [
           Validators.required
         ]
       ),
       imageCompany: new FormControl(
-        null,
+        this.localStorage.userJson.imageCompany,
         [
           Validators.required
         ]
       ),
       resume: new FormControl(
-        null,
+        this.localStorage.userJson.resume,
         [
           Validators.required
         ]
       ),
     });
   }
+
   createPersonalForm(): void {
     this.personalForm = this.formBuilder.group({
       firstName: new FormControl(
-        this.userData.firstName,
+        this.localStorage.userJson.firstName,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       lastName: new FormControl(
-        this.userData.lastName,
+        this.localStorage.userJson.lastName,
         [
           Validators.required,
           Validators.maxLength(200)
         ]
       ),
       gender: new FormControl(
-        this.userData.gender,
+        this.localStorage.userJson.gender,
         [
           Validators.required
         ]
       ),
       idNumber: new FormControl(
-        this.userData.idNumber,
+        this.localStorage.userJson.idNumber,
         [
           Validators.required,
           Validators.maxLength(10)
         ]
       ),
       nationalCode: new FormControl(
-        this.userData.nationalCode,
+        this.localStorage.userJson.nationalCode,
         [
           Validators.required,
           Validators.maxLength(10),
@@ -371,13 +482,13 @@ export class ProfileComponent implements OnInit {
         ]
       ),
       birthDay: new FormControl(
-        this.userData.birthDay,
+        this.localStorage.userJson.birthDay,
         [
           Validators.required
         ]
       ),
       imageNationalcard: new FormControl(
-        null,
+        this.localStorage.userJson.imageNationalcard,
         [
           Validators.required
         ]
@@ -387,25 +498,221 @@ export class ProfileComponent implements OnInit {
 
   stateOnChange(code: string): void {
     this.cities = [];
-    if (code === '1') {
-      this.cities = [
-        {label: '1', value: '0'},
-        {label: '1', value: '1'},
-        {label: '1', value: '2'}
-      ];
-    }
-    if (code === '2') {
-      this.cities = [
-        {label: '2', value: '0'},
-        {label: '2', value: '1'},
-        {label: '2', value: '2'}
-      ];
+    switch (code) {
+      case '1': {
+        this.cities = [
+          {
+            value: '1',
+            label: 'آذرشهر'
+          },
+          {
+            value: '2',
+            label: 'اسکو'
+          },
+          {
+            value: '3',
+            label: 'اهر'
+          },
+          {
+            value: '4',
+            label: 'بستان آباد'
+          },
+          {
+            value: '5',
+            label: 'بناب'
+          },
+          {
+            value: '6',
+            label: 'تبریز'
+          },
+          {
+            value: '7',
+            label: 'جلفا'
+          },
+          {
+            value: '8',
+            label: 'چار اویماق'
+          },
+          {
+            value: '9',
+            label: 'سراب'
+          },
+          {
+            value: '10',
+            label: 'شبستر'
+          },
+          {
+            value: '11',
+            label: 'عجب شیر'
+          },
+          {
+            value: '12',
+            label: 'مراغه'
+          },
+          {
+            value: '13',
+            label: 'مرند'
+          },
+          {
+            value: '14',
+            label: 'ملکان'
+          },
+          {
+            value: '15',
+            label: 'میانه'
+          },
+          {
+            value: '16',
+            label: 'هریس'
+          },
+          {
+            value: '17',
+            label: 'هشترود'
+          },
+          {
+            value: '18',
+            label: 'ورزقان'
+          },
+          {
+            value: '19',
+            label: 'کلیبر'
+          },
+          {
+            value: '20',
+            label: 'خدا آفرین'
+          }
+        ];
+        break;
+      }
+      case '2': {
+        this.cities = [
+          {
+            value: '21',
+            label: 'ارومیه'
+          },
+          {
+            value: '22',
+            label: 'اشنویه'
+          },
+          {
+            value: '23',
+            label: 'بوکان'
+          },
+          {
+            value: '24',
+            label: 'پیرانشهر'
+          },
+          {
+            value: '25',
+            label: 'تکاب'
+          },
+          {
+            value: '26',
+            label: 'چالدران'
+          },
+          {
+            value: '27',
+            label: 'خوی'
+          },
+          {
+            value: '28',
+            label: 'سردشت'
+          },
+          {
+            value: '29',
+            label: 'سلماس'
+          },
+          {
+            value: '30',
+            label: 'شاهین دژ'
+          },
+          {
+            value: '31',
+            label: 'ماکو'
+          },
+          {
+            value: '32',
+            label: 'مهاباد'
+          },
+          {
+            value: '33',
+            label: 'میاندوآب'
+          },
+          {
+            value: '34',
+            label: 'نقده'
+          },
+          {
+            value: '35',
+            label: 'شوط'
+          },
+          {
+            value: '36',
+            label: 'پلدشت'
+          },
+          {
+            value: '37',
+            label: 'چابیاره'
+          }
+        ];
+        break;
+      }
+      case '3': {
+        this.cities = [
+          {
+            value: '38',
+            label: 'اردبیل'
+          },
+          {
+            value: '39',
+            label: 'پیله سوار'
+          },
+          {
+            value: '40',
+            label: 'پارس آباد'
+          },
+          {
+            value: '41',
+            label: 'خلخال'
+          },
+          {
+            value: '42',
+            label: 'گرمی'
+          },
+          {
+            value: '43',
+            label: 'مشکین شهر'
+          },
+          {
+            value: '44',
+            label: 'نمین'
+          },
+          {
+            value: '45',
+            label: 'نیر'
+          },
+          {
+            value: '46',
+            label: 'کوثر'
+          },
+          {
+            value: '47',
+            label: 'سرعین'
+          }
+
+        ];
+        break;
+      }
+      default: {
+        //statements;
+        break;
+      }
     }
   }
 
   submitShopForm(): void {
     const category = this.shopForm.controls.category.value;
-    this.shopForm.controls.category.setValue(category.id);
+    this.shopForm.controls.category.setValue(category.title);
 
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
@@ -415,16 +722,15 @@ export class ProfileComponent implements OnInit {
     const formData = {
       ...shop, ...contact, ...personal, ...bussiness
     };
-
-    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.userData.id);
-      }
-      else {
+        this.getSeller(this.localStorage.userJson.id);
+      } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
     });
   }
+
   submitContactForm(): void {
     const state = this.contactForm.controls.state.value;
     this.contactForm.controls.state.setValue(state.label);
@@ -441,16 +747,16 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...personal, ...bussiness
     };
 
-    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.userData.id);
+        this.getSeller(this.localStorage.userJson.id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
     });
   }
-  submitPersonalForm(): void {
 
+  submitPersonalForm(): void {
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const personal = this.personalForm.value;
@@ -459,17 +765,16 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...personal
     };
 
-    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.userData.id);
-      }
-      else {
+        this.getSeller(this.localStorage.userJson.id);
+      } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
     });
   }
-  submitBusinessForm(): void {
 
+  submitBusinessForm(): void {
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const business = this.businessForm.value;
@@ -478,45 +783,38 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...business
     };
 
-    this.sellerService.updateSeller(this.userData.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.userData.id);
+        this.getSeller(this.localStorage.userJson.id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
     });
   }
 
-  getSeller(id: any): void{
+  getSeller(id: any): void {
     this.sellerService.getSeller(id).subscribe((response) => {
+      console.log(response);
       if (response.success === true) {
-        localStorage.setItem('user', JSON.stringify(response.data));
-
-        this.getSellerFromStorage();
-
+        console.log(response.data);
+        this.localStorage.saveCurrentUser(response.data);
+        this.localStorage.getCurrentUser();
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }
     });
   }
 
-  getCategories(): any{
+  getCategories(): void {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
+
+        this.getSelectedCategory();
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }
     });
-  }
-
-  getSellerFromStorage(): void{
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    else{
-      this.router.navigateByUrl('/seller/login');
-    }
   }
 
   logoUploader(event): void {
@@ -614,7 +912,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  isCompanyOnChange(): void{
+  isCompanyOnChange(): void {
     this.isCompany = !this.isCompany;
   }
 }

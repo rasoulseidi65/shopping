@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./Auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'seller',
+    path: 'sellerBe',
     loadChildren: () => import('./layout/seller/seller.module').then(m => m.SellerModule),
   },
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabled', scrollPositionRestoration:'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

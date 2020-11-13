@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {SellerModel} from '../SellerModel';
 
 @Component({
   selector: 'app-index',
@@ -17,21 +16,10 @@ export class IndexComponent implements OnInit {
       shareReplay()
     );
 
-  userData: SellerModel = null;
-
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.checkUserStatus();
   }
-
-  checkUserStatus(): void {
-    if (localStorage.getItem('user') !== null) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    } else {
-      this.router.navigateByUrl('/seller/login');
-    }
-  }
-
 }
