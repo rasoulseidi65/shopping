@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LayoutService} from '../../layout.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-seller-login',
@@ -26,8 +27,11 @@ export class SellerLoginComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder, private layoutService: LayoutService,
-              private messageService: MessageService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+              private layoutService: LayoutService,
+              private messageService: MessageService,
+              private router: Router,
+              private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -54,10 +58,14 @@ export class SellerLoginComponent implements OnInit {
   login(): void {
     this.layoutService.loginSeller(this.form.value).subscribe((response) => {
 
-      console.log(response);
+
       if (response['success'] === true) {
-        localStorage.setItem('user', JSON.stringify( response['data'] ));
-        this.router.navigateByUrl('/seller/profile');
+        console.log(response);
+
+        this.localStorage.saveCurrentUser(JSON.stringify(response['data']));
+
+        // localStorage.setItem('user', JSON.stringify(response['data']));
+        this.router.navigateByUrl('/seller');
       }
       else {
         this.messageService.add({severity: 'error', summary: ' ورود ', detail: response['data'], sticky: true});

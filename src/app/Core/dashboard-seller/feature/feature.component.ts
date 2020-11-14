@@ -31,7 +31,7 @@ export class FeatureComponent implements OnInit {
               private confirmationService: ConfirmationService,
               public dialogService: DialogService,
               private router: Router,
-              private localStorage: LocalStorageService) {
+              public localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {

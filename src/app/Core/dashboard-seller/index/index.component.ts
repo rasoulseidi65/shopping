@@ -20,15 +20,14 @@ export class IndexComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
               private router: Router,
               private route: ActivatedRoute,
-<<<<<<< HEAD
               public localStorage: LocalStorageService) {
-=======
-              private localStorage: LocalStorageService) {
->>>>>>> 821596d524868946225d784240b44f833094d3a7
   }
 
   ngOnInit(): void {
     this.localStorage.getCurrentUser();
+
+    if (this.localStorage.userJson === undefined)
+      this.router.navigateByUrl('/sellerBe/login');
   }
 
   logOut(): void{

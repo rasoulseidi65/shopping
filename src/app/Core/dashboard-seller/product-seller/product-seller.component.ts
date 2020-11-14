@@ -29,7 +29,8 @@ export class ProductSellerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.localStorage.getCurrentUser();
+    // this.localStorage.getCurrentUser();
+    console.log(this.localStorage.userJson);
     this.getProducts();
   }
 

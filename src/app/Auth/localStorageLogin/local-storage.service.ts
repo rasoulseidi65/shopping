@@ -11,12 +11,12 @@ export class LocalStorageService {
   constructor() {
 
   }
- saveCurrentUser(data:any){
-   localStorage.setItem('currentUser',data);
+ saveCurrentUser(data: any){
+   localStorage.setItem('currentUser', data);
  }
   getCurrentUser() {
     this.userData = localStorage.getItem('currentUser');
-    this.userJson = JSON.parse(this.userData);
+    this.userJson =  JSON.parse(this.userData);
     if (this.userJson != null) {
       // this.userJson = JSON.parse(this.userData);
       // this.userToken= this.userJson.token;

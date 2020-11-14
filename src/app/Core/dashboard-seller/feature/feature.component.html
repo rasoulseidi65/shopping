@@ -60,10 +60,10 @@
                     class="p-button-success p-ml-2 text-white"></button>
           </td>
           <td>
-            <button pButton pRipple icon="pi pi-pencil" [disabled]="feature._id !== userData.id"
+            <button pButton pRipple icon="pi pi-pencil" [disabled]="feature._id !== localStorage.userJson.id"
                     (click)="showEditFeatureDialog(feature.id, feature.titleFarsi, feature.titleLatin)"
                     class="p-button-rounded p-button-warning p-ml-2 text-white"></button>
-            <button pButton pRipple (click)="deleteFeature(0)" [disabled]="feature._id !== userData.id"
+            <button pButton pRipple (click)="deleteFeature(0)" [disabled]="feature._id !== localStorage.userJson.id"
                     icon="pi pi-trash" class="p-button-rounded p-button-danger text-white"></button>
           </td>
         </tr>
