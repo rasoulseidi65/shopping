@@ -35,7 +35,7 @@ const routes: Routes = [
     component:  AboutComponent
   },
   {
-    path: 'call-back',
+    path: 'call-back/:success',
     component:  CallBackComponent
   },
   {

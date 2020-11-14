@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {UserGuard} from "./Auth/Guards/user.guard";
+import {AccesslevelGuard} from "./Auth/Guards/accesslevel.guard";
 
 const routes: Routes = [
   {
@@ -34,6 +36,7 @@ const routes: Routes = [
   {
     path: 'seller',
     loadChildren: () => import('./Core/dashboard-seller/dashboard-seller.module').then(m => m.DashboardSellerModule),
+    canActivate:[UserGuard,AccesslevelGuard]
   }
 ];
 

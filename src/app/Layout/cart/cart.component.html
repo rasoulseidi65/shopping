@@ -280,20 +280,36 @@
             <div class="p-field p-grid">
               <label for="type" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">استان:</label>
               <div class="p-col-12 p-md-9">
-                <select id="inputState1" class="form-control" formControlName="state" [(ngModel)]="userInfo.state">
-                  <option *ngFor="let i of state ">{{i.name}}</option>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="states"
+                            formControlName="state"
+                            [(ngModel)]="userInfo.state"
+                            optionLabel="label" [filter]="true"
+                            (onChange)="stateOnChange($event)"
+                ></p-dropdown>
 
-                </select>
+                <!--                <select id="inputState1" class="form-control" formControlName="state" [(ngModel)]="userInfo.state">-->
+<!--                  <option *ngFor="let i of state ">{{i.name}}</option>-->
+
+<!--                </select>-->
 
               </div>
             </div>
             <div class="p-field p-grid">
               <label for="type" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">شهر:</label>
               <div class="p-col-12 p-md-9">
-                <select id="inputState" class="form-control" formControlName="city" [(ngModel)]="userInfo.city">
-                  <option *ngFor="let i of city ">{{i.name}}</option>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="cities"
+                            formControlName="city"
+                            [(ngModel)]="userInfo.city"
+                            optionLabel="label" [filter]="true"
+                            (onChange)="cityOnChange($event)"
+                >
+                </p-dropdown>
+<!--                <select id="inputState" class="form-control" formControlName="city" [(ngModel)]="userInfo.city">-->
+<!--                  <option *ngFor="let i of city ">{{i.name}}</option>-->
 
-                </select>
+<!--                </select>-->
 
               </div>
             </div>
@@ -770,20 +786,24 @@
             <div class="p-field p-grid">
               <label for="type" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">استان:</label>
               <div class="p-col-12 p-md-9">
-                <select id="inputState1" class="form-control" formControlName="state" [(ngModel)]="userInfo.state">
-                  <option *ngFor="let i of state ">{{i.name}}</option>
-
-                </select>
-
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="states"
+                            formControlName="state"
+                            [(ngModel)]="userInfo.state"
+                            optionLabel="label" [filter]="true"
+                            (onChange)="stateOnChange($event)"
+                ></p-dropdown>
               </div>
             </div>
             <div class="p-field p-grid">
               <label for="type" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0">شهر:</label>
               <div class="p-col-12 p-md-9">
-                <select id="inputState" class="form-control" formControlName="city" [(ngModel)]="userInfo.city">
-                  <option *ngFor="let i of city ">{{i.name}}</option>
-
-                </select>
+                <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                            [options]="cities"
+                            formControlName="city"
+                            [(ngModel)]="userInfo.city"
+                            optionLabel="label" [filter]="true">
+                </p-dropdown>
 
               </div>
             </div>

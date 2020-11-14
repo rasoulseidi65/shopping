@@ -20,7 +20,7 @@ export class MobileHeaderComponent implements OnInit {
 
   categories: string[] = ['کالای دیجیتال', 'لوازم برقی', 'پوشاک'];
   selectedCategory: any;
-
+  showCartList:boolean;
   valueDynamic = 0;
   highValueDynamic = 250000;
   options: Options = this.getOptions();
@@ -175,11 +175,13 @@ export class MobileHeaderComponent implements OnInit {
     this.cartlist = this.serviceCart.getItems();
     this.sumOfPrice = 0;
     this.countBadge = 0;
+    this.showCartList = true;
     if(this.cartlist.length > 0){
       for (var i = 0; i < this.cartlist.length; i++){
         let count = Number(this.cartlist[i]['product']['number'])*Number(this.cartlist[i]['product']['cartList'].price);
         this.sumOfPrice += count;
         this.countBadge++;
+        this.showCartList = false;
 
       }
     }

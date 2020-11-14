@@ -7,29 +7,33 @@ export class LocalStorageService {
   public userData: any;
   public userToken: any;
   public userJson: any;
+  public userType: any;
 
   constructor() {
 
   }
- saveCurrentUser(data: any){
-   localStorage.setItem('currentUser', data);
- }
+
+  saveCurrentUser(data: any) {
+    localStorage.setItem('currentUser', data);
+  }
+
   getCurrentUser() {
     this.userData = localStorage.getItem('currentUser');
 
     if (this.userData !== undefined && this.userData !== []) {
-      this.userJson =  JSON.parse(this.userData);
-      if (this.userJson !== undefined){
+      this.userJson = JSON.parse(this.userData);
+      this.userType = this.userJson['type'];
+
+      if (this.userJson !== undefined) {
         return true;
       }
       return false;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
-  removeCurrentUser(){
+
+  removeCurrentUser() {
     // alert('del');
     localStorage.removeItem('currentUser');
 

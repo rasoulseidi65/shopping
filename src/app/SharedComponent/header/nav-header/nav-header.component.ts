@@ -18,14 +18,15 @@ export class NavHeaderComponent implements OnInit {
   cartlist: any;
   sumOfPrice = 0;
   countBadge = 0;
+  showCartList: boolean = true;
 
   constructor(private deviceService: DeviceDetectorService, private serviceCart: CartService) {
   }
 
   ngOnInit(): void {
-    setInterval(()=>{
+    setInterval(() => {
       this.getAllPrice();
-    },1000);
+    }, 1000);
     // this.getAllPrice();
   }
 
@@ -103,10 +104,12 @@ export class NavHeaderComponent implements OnInit {
     this.cartlist = this.serviceCart.getItems();
     this.sumOfPrice = 0;
     this.countBadge = 0;
+    this.showCartList = true;
     for (var i = 0; i < this.cartlist.length; i++) {
       let count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
       this.sumOfPrice += count;
       this.countBadge++;
+      this.showCartList = false;
 
     }
   }

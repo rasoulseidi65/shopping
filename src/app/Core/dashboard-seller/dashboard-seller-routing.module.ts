@@ -7,22 +7,27 @@ import {RegisterProductComponent} from './product-seller/register-product/regist
 import {FeatureComponent} from './feature/feature.component';
 import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
 import {ProductDetailComponent} from '../../Layout/product-detail/product-detail.component';
+import {UserGuard} from "../../Auth/Guards/user.guard";
+import {AccesslevelGuard} from "../../Auth/Guards/accesslevel.guard";
 
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent
+    component: IndexComponent,
+
   },
   {
     path: '',
+
     component: IndexComponent,
     children: [{
       path: 'profile',
       component: ProfileComponent
-    }]
+    }],
   },
   {
     path: '',
+
     component: IndexComponent,
     children: [{
       path: 'product',
@@ -31,6 +36,7 @@ const routes: Routes = [
   },
   {
     path: '',
+
     component: IndexComponent,
     children: [{
       path: 'product/add',
@@ -39,6 +45,7 @@ const routes: Routes = [
   },
   {
     path: '',
+
     component: IndexComponent,
     children: [{
       path: 'product/edit/:id',
@@ -47,6 +54,7 @@ const routes: Routes = [
   },
   {
     path: '',
+
     component: IndexComponent,
     children: [{
       path: 'feature',

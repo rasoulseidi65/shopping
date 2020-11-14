@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-call-back',
@@ -7,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CallBackComponent implements OnInit {
 
-  success = true;
-  constructor() { }
+  success;
+  x: boolean;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params =>
+      this.success = params.get('success'));
+    if (this.success === 'true') {
+      this.x = true;
+    }
+    else
+    {
+      this.x = false;
+    }
+
   }
 
 }

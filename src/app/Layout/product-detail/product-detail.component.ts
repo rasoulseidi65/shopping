@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   providers: [MessageService]
 })
 export class ProductDetailComponent implements OnInit {
-
+  displayBasic:boolean=false;
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -141,6 +141,7 @@ export class ProductDetailComponent implements OnInit {
         cartList: product,
         number: 1
       };
+      this.displayBasic=true;
       this.serviceCart.addToCart(list);
       this.messageService.add({severity: 'success', summary: ' سبد خرید ', detail: 'کالا به سبد خرید اضافه شد'});
 
@@ -154,5 +155,9 @@ export class ProductDetailComponent implements OnInit {
     window.location.assign('./#/home/detail/' + id);
     // this.router.navigate(['/home/detail/' + id]);
     window.location.reload();
+  }
+  goCart() {
+    this.displayBasic = !this.displayBasic;
+    this.router.navigate(['/home/cart']);
   }
 }

@@ -1,5 +1,5 @@
 
-  <div class="container" dir="rtl" *ngIf="success">
+  <div class="container" dir="rtl" *ngIf="x">
     <div class="row mt-5 justify-content-center">
       <div class="col-sm-12 col-md-6 mt-5 align-items-center">
         <div class="row justify-content-center">
@@ -22,7 +22,7 @@
                   <h1 class="mt-4 greenColor"> پرداخت با موفقیت انجام شد</h1>
                   <p class="mt-3">   بسیار خوشنودیم که 'به قیمت' را برای خرید خود، انتخاب کردید.</p>
 
-                  <button class="btn btn-secondary d-block mx-auto mt-5">بازگشت به پنل کاربری</button>
+                  <button class="btn btn-secondary d-block mx-auto mt-5" routerLink="/">بازگشت به پنل کاربری</button>
                 </div>
               </div>
             </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class="container" dir="rtl" *ngIf="!success">
+  <div class="container" dir="rtl" *ngIf="!x">
     <div class="row mt-5 justify-content-center">
       <div class="col-sm-12 col-md-6 mt-5 align-items-center">
         <div class="row justify-content-center">
@@ -54,7 +54,7 @@
                   <h1 class="mt-4 redColor"> پرداخت انجام نشد</h1>
                   <p class="mt-3">   متاسفانه مشکلی رخ داده است. لطفا مجددا تلاش کنید.</p>
 
-                  <button class="btn btn-secondary d-block mx-auto mt-5">بازگشت به پنل کاربری</button>
+                  <button class="btn btn-secondary d-block mx-auto mt-5" routerLink="/">بازگشت به پنل کاربری</button>
                 </div>
               </div>
             </div>
