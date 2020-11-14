@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from 'primeng/api';
-import {SellerModel} from '../SellerModel';
 import {SellerService} from '../seller.service';
 import {Router} from '@angular/router';
 import {AppComponent} from '../../../app.component';
@@ -275,13 +274,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.localStorage.getCurrentUser();
-    this.getSeller(this.localStorage.userJson.id);
 
-    if (this.localStorage.userJson.companyName !== null) {
-      this.isCompany = true;
-    } else {
-      this.isCompany = false;
-    }
+    this.getSeller(this.localStorage.userJson._id);
 
     this.getCategories();
 
@@ -930,9 +924,9 @@ export class ProfileComponent implements OnInit {
     const formData = {
       ...shop, ...contact, ...personal, ...bussiness
     };
-    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.localStorage.userJson.id);
+        this.getSeller(this.localStorage.userJson._id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -955,9 +949,9 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...personal, ...bussiness
     };
 
-    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.localStorage.userJson.id);
+        this.getSeller(this.localStorage.userJson._id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -973,9 +967,9 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...personal
     };
 
-    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.localStorage.userJson.id);
+        this.getSeller(this.localStorage.userJson._id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -991,9 +985,9 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...business
     };
 
-    this.sellerService.updateSeller(this.localStorage.userJson.id, formData).subscribe((response) => {
+    this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
-        this.getSeller(this.localStorage.userJson.id);
+        this.getSeller(this.localStorage.userJson._id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -1003,10 +997,10 @@ export class ProfileComponent implements OnInit {
   getSeller(id: any): void {
     this.sellerService.getSeller(id).subscribe((response) => {
       if (response.success === true) {
-        this.localStorage.saveCurrentUser(response.data);
+        this.localStorage.saveCurrentUser(JSON.stringify(response.data[0]));
         this.localStorage.getCurrentUser();
       } else {
-        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات فروشنده ', detail: response.data});
       }
     });
   }
@@ -1018,7 +1012,7 @@ export class ProfileComponent implements OnInit {
 
         this.getSelectedCategory();
       } else {
-        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+        this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ها ', detail: response.data});
       }
     });
   }

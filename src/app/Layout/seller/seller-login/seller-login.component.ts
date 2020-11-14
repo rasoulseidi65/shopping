@@ -57,14 +57,8 @@ export class SellerLoginComponent implements OnInit {
 
   login(): void {
     this.layoutService.loginSeller(this.form.value).subscribe((response) => {
-
-
       if (response['success'] === true) {
-        console.log(response);
-
         this.localStorage.saveCurrentUser(JSON.stringify(response['data']));
-
-        // localStorage.setItem('user', JSON.stringify(response['data']));
         this.router.navigateByUrl('/seller');
       }
       else {

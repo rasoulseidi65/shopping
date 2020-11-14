@@ -29,13 +29,15 @@ export class ProductSellerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.localStorage.getCurrentUser();
-    console.log(this.localStorage.userJson);
+
+    // const res = this.localStorage.getCurrentUser();
+    // console.log(res);
+
     this.getProducts();
   }
 
   getProducts(): any{
-    this.sellerService.getProducts(this.localStorage.userJson.id).subscribe((response) => {
+    this.sellerService.getProducts(this.localStorage.userJson._id).subscribe((response) => {
       if (response.success === true) {
         this.products = response.data;
       } else {

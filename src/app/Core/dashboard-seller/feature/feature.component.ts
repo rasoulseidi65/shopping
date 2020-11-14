@@ -52,7 +52,7 @@ export class FeatureComponent implements OnInit {
   showAddFeatureDialog(): void {
     const ref = this.dialogService.open(AddFeatureDialogComponent, {
       data: {
-        _id: this.localStorage.userJson.id
+        _id: this.localStorage.userJson._id
       },
       header: 'ثبت ویژگی محصول جدید',
       width: '70%'

@@ -83,7 +83,7 @@ export class RegisterProductComponent implements OnInit {
   createform(): void {
     this.form = this.formBuilder.group({
       sellerID: new FormControl(
-        this.localstorage.userJson.id
+        this.localstorage.userJson._id
       ),
       title: new FormControl(
         null,
@@ -166,7 +166,7 @@ export class RegisterProductComponent implements OnInit {
     console.log(this.form.value);
 
     this.sellerService.addProduct(this.form.value).subscribe((response) => {
-      console.log(response);
+
       if (response.success === true) {
 
         let featureValue: any[] = [];

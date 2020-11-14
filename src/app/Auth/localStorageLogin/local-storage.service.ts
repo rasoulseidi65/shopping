@@ -16,12 +16,13 @@ export class LocalStorageService {
  }
   getCurrentUser() {
     this.userData = localStorage.getItem('currentUser');
-    this.userJson =  JSON.parse(this.userData);
-    if (this.userJson != null) {
-      // this.userJson = JSON.parse(this.userData);
-      // this.userToken= this.userJson.token;
-    return true;
 
+    if (this.userData !== undefined && this.userData !== []) {
+      this.userJson =  JSON.parse(this.userData);
+      if (this.userJson !== undefined){
+        return true;
+      }
+      return false;
     }
     else
     {

@@ -175,11 +175,13 @@ export class MobileHeaderComponent implements OnInit {
     this.cartlist = this.serviceCart.getItems();
     this.sumOfPrice = 0;
     this.countBadge = 0;
-    for (var i = 0; i < this.cartlist.length; i++){
-      let count = Number(this.cartlist[i]['product']['number'])*Number(this.cartlist[i]['product']['cartList'].price);
-      this.sumOfPrice += count;
-      this.countBadge++;
+    if(this.cartlist.length > 0){
+      for (var i = 0; i < this.cartlist.length; i++){
+        let count = Number(this.cartlist[i]['product']['number'])*Number(this.cartlist[i]['product']['cartList'].price);
+        this.sumOfPrice += count;
+        this.countBadge++;
 
+      }
     }
   }
   onDeleteCart(item: any): void {
