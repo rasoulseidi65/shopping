@@ -3,10 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SellerService} from '../../seller.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
-import {SellerModel} from '../../SellerModel';
 import {OverlayService} from '../../../../overlay.service';
-import {AddFeatureDialogComponent} from '../../feature/add-feature-dialog/add-feature-dialog.component';
-import {DialogService} from 'primeng/dynamicdialog';
 import {LocalStorageService} from '../../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
@@ -56,6 +53,9 @@ export class RegisterProductComponent implements OnInit {
     ],
     detail: [
       {type: 'required', message: 'جزئیات محصول را وارد کنید.'}
+    ],
+    help: [
+      {type: 'required', message: 'راهنما محصول را وارد کنید.'}
     ],
     briefFeature: [
       {type: 'required', message: 'خلاصه ویژگی های محصول را وارد کنید.'}
@@ -142,6 +142,12 @@ export class RegisterProductComponent implements OnInit {
           Validators.required
         ]
       ),
+      help: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
       briefFeature: new FormControl(
         null,
         [
@@ -196,6 +202,7 @@ export class RegisterProductComponent implements OnInit {
         });
 
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
+        this.clearForm();
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت محصول ', detail: response.data});
       }
@@ -206,8 +213,9 @@ export class RegisterProductComponent implements OnInit {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
+        console.log('cat');
       } else {
-        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+        this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ', detail: response.data});
       }
     });
   }
@@ -277,6 +285,10 @@ export class RegisterProductComponent implements OnInit {
         );
       });
     }
+  }
+
+  clearForm(): void{
+    this.form.reset();
   }
 
 }

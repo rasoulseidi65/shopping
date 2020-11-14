@@ -50,6 +50,9 @@ export class EditProductComponent implements OnInit {
     detail: [
       {type: 'required', message: 'جزئیات محصول را وارد کنید.'}
     ],
+    help: [
+      {type: 'required', message: 'راهنما محصول را وارد کنید.'}
+    ],
     briefFeature: [
       {type: 'required', message: 'خلاصه ویژگی های محصول را وارد کنید.'}
     ],
@@ -75,9 +78,6 @@ export class EditProductComponent implements OnInit {
 
   createform(): void {
     this.form = this.formBuilder.group({
-      sellerID: new FormControl(
-        this.product.sellerID
-      ),
       title: new FormControl(
         this.product.title,
         [
@@ -135,6 +135,12 @@ export class EditProductComponent implements OnInit {
           Validators.required
         ]
       ),
+      help: new FormControl(
+        this.product.help,
+        [
+          Validators.required
+        ]
+      ),
       briefFeature: new FormControl(
         this.product.briefFeature,
         [
@@ -156,12 +162,17 @@ export class EditProductComponent implements OnInit {
   submitForm(): void {
     const category = this.form.controls.categoryID.value;
     this.form.controls.categoryID.setValue(category._id);
+
+    const count = Number.parseInt(this.form.controls.count.value);
+    this.form.controls.count.setValue(count);
     console.log(this.form.value);
+    console.log(this.productId);
+
 
     this.sellerService.editProduct(this.productId, this.form.value).subscribe((response) => {
       console.log(response);
       if (response.success === true) {
-        this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
+        this.messageService.add({severity: 'success', summary: ' ویرایش محصول ', detail: 'محصول با موفقیت ویرایش شد.'});
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت محصول ', detail: response.data});
       }
@@ -178,12 +189,9 @@ export class EditProductComponent implements OnInit {
       }
     });
   }
-
   getSelectedCategory(): void {
     this.selectedCategory = null;
     this.selectedCategory = this.categories.filter(x => x.value === this.form.controls.categoryID)[0];
-
-    console.log(this.form.controls.categoryID.value);
     this.form.controls.categoryID.setValue(this.selectedCategory);
   }
 
@@ -194,7 +202,6 @@ export class EditProductComponent implements OnInit {
 
         this.createform();
         this.getCategories();
-
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
       }

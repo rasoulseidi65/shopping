@@ -35,6 +35,7 @@ export class SellerService {
   editProduct(id: any, data: any): any{
     return this.http.put('http://194.5.175.25:3005/api/v1/seller/updateProduct/' + id, data);
   }
+
   addProductFeature(data: any): any{
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/productFeature', data);
   }

@@ -152,6 +152,21 @@
       </div>
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
+          <label for="help">راهنما محصول</label>
+          <p-editor formControlName="help" id="help" [style]="{'height':'200px'}"></p-editor>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.help">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('help').hasError(error.type)
+                            && (form.get('help').dirty
+                            || form.get('help').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
           <label>آپلود تصویر محصول</label>
           <p-fileUpload
             chooseLabel="انتخاب تصویر"
@@ -191,10 +206,9 @@
         </div>
       </div>
 
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
-          <label for="briefFeature">جزئیات محصول</label>
+          <label for="briefFeature">خلاصه ویژگی محصول</label>
           <p-editor formControlName="briefFeature" id="briefFeature" [style]="{'height':'200px'}"></p-editor>
           <ul class="mt-1 text-right list-inline"
               *ngFor="let error of errorMessages.briefFeature">

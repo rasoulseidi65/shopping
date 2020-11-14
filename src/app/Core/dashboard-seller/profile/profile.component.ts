@@ -916,16 +916,28 @@ export class ProfileComponent implements OnInit {
     const category = this.shopForm.controls.category.value;
     this.shopForm.controls.category.setValue(category.title);
 
+    const state = this.contactForm.controls.state.value;
+    this.contactForm.controls.state.setValue(state.label);
+
+    const city = this.contactForm.controls.city.value;
+    this.contactForm.controls.city.setValue(city.label);
+
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const personal = this.personalForm.value;
-    const bussiness = this.businessForm.value;
+    const business = this.businessForm.value;
 
     const formData = {
-      ...shop, ...contact, ...personal, ...bussiness
+      ...shop, ...contact, ...personal, ...business
     };
+
+    console.log(formData);
+
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
+      console.log(this.localStorage.userJson._id);
+
       if (response.success === true) {
+        console.log(response);
         this.getSeller(this.localStorage.userJson._id);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
@@ -940,6 +952,9 @@ export class ProfileComponent implements OnInit {
     const city = this.contactForm.controls.city.value;
     this.contactForm.controls.city.setValue(city.label);
 
+    const category = this.shopForm.controls.category.value;
+    this.shopForm.controls.category.setValue(category.title);
+
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const personal = this.personalForm.value;
@@ -952,6 +967,7 @@ export class ProfileComponent implements OnInit {
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.localStorage.userJson._id);
+        this.messageService.add({severity: 'success', summary: ' ثبت اطلاعات ', detail: response.data});
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -959,6 +975,15 @@ export class ProfileComponent implements OnInit {
   }
 
   submitPersonalForm(): void {
+    const state = this.contactForm.controls.state.value;
+    this.contactForm.controls.state.setValue(state.label);
+
+    const city = this.contactForm.controls.city.value;
+    this.contactForm.controls.city.setValue(city.label);
+
+    const category = this.shopForm.controls.category.value;
+    this.shopForm.controls.category.setValue(category.title);
+
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const personal = this.personalForm.value;
@@ -977,6 +1002,15 @@ export class ProfileComponent implements OnInit {
   }
 
   submitBusinessForm(): void {
+    const state = this.contactForm.controls.state.value;
+    this.contactForm.controls.state.setValue(state.label);
+
+    const city = this.contactForm.controls.city.value;
+    this.contactForm.controls.city.setValue(city.label);
+
+    const category = this.shopForm.controls.category.value;
+    this.shopForm.controls.category.setValue(category.title);
+
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const business = this.businessForm.value;
@@ -988,6 +1022,8 @@ export class ProfileComponent implements OnInit {
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.localStorage.userJson._id);
+        this.messageService.add({severity: 'success', summary: ' ثبت اطلاعات ', detail: response.data});
+
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }

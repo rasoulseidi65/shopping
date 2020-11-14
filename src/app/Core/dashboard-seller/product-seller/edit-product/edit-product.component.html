@@ -73,7 +73,6 @@
           </ul>
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="price">قیمت</label>
@@ -104,7 +103,6 @@
           </ul>
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="topText">متن بالای محصول</label>
@@ -122,14 +120,9 @@
         </div>
         <div class="p-field p-col">
           <label class="d-block">محصول شما تخفیف دارد؟ {{form.controls.offer.value === true ? 'بله' : 'خیر'}}</label>
-          <!--          <mat-radio-group aria-label="تخفیف" formControlName="offer">-->
-          <!--            <mat-radio-button class="mt-2" value="true">دارد</mat-radio-button>-->
-          <!--            <mat-radio-button class="mt-2" value="false" class="mr-3">ندارد</mat-radio-button>-->
-          <!--          </mat-radio-group>-->
           <p-inputSwitch formControlName="offer"></p-inputSwitch>
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid" *ngIf="form.controls.offer.value === true">
         <div class="p-field p-col">
           <label for="offerPercent">درصد تخفیف</label>
@@ -142,7 +135,6 @@
                  formControlName="offerText">
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label for="detail">جزئیات محصول</label>
@@ -158,7 +150,21 @@
           </ul>
         </div>
       </div>
-
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="help">راهنما محصول</label>
+          <p-editor formControlName="help" id="help" [style]="{'height':'200px'}"></p-editor>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.help">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('help').hasError(error.type)
+                            && (form.get('help').dirty
+                            || form.get('help').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label>آپلود تصویر محصول</label>
@@ -183,7 +189,6 @@
           </ul>
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <label>آپلود تصاویر گالری محصول</label>
@@ -200,10 +205,9 @@
           </p-fileUpload>
         </div>
       </div>
-
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
-          <label for="briefFeature">جزئیات محصول</label>
+          <label for="briefFeature">خلاصه ویژگی محصول</label>
           <p-editor formControlName="briefFeature" id="briefFeature" [style]="{'height':'200px'}"></p-editor>
           <ul class="mt-1 text-right list-inline"
               *ngFor="let error of errorMessages.briefFeature">
@@ -220,7 +224,7 @@
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <div class="float-left">
-            <button pButton label="ثبت محصول جدید" class="ui-button-success"
+            <button pButton label="ثبت" class="ui-button-success"
                     icon="pi pi-check" iconPos="left" [disabled]="form.invalid"></button>
           </div>
         </div>
