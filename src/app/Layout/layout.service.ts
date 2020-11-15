@@ -10,6 +10,10 @@ export class LayoutService {
   constructor(private http: HttpClient) {
 
   }
+
+  showGift() {
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/showGift');
+  }
   showProduct() {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/product');
   }

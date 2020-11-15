@@ -21,40 +21,12 @@
             </div>
           </a>
         </ng-template>
-        <ng-template carouselSlide>
-          <a href="" target="_blank">
+        <ng-template carouselSlide *ngFor="let i of gifts">
+          <a [href]="i['linkUrl']" target="_blank">
             <div class="direct-gift py-3">
               <div class="image">
-                <img src="assets/bootstrap/img/svg/box-2.svg" class="d-block img-fluid mx-auto"></div>
-              <div class="is-button-pink"><span class="caption">کادو‌های تخفیف‌دار</span></div>
-            </div>
-          </a>
-        </ng-template>
-        <ng-template carouselSlide>
-          <a href="" target="_blank">
-            <div class="direct-gift py-3">
-              <div class="image">
-                <img src="assets/bootstrap/img/svg/box-1.svg" class="d-block img-fluid mx-auto">
-              </div>
-              <div class="is-button-pink"><span class="caption">کارت هدیه</span></div>
-            </div>
-          </a>
-        </ng-template>
-        <ng-template carouselSlide>
-          <a href="" target="_blank">
-            <div class="direct-gift py-3">
-              <div class="image">
-                <img src="assets/bootstrap/img/svg/box-4.svg" class="d-block img-fluid mx-auto"></div>
-              <div class="is-button-pink"><span class="caption">هدیه برای آقایان</span></div>
-            </div>
-          </a>
-        </ng-template>
-        <ng-template carouselSlide>
-          <a href="" target="_blank">
-            <div class="direct-gift py-3">
-              <div class="image">
-                <img src="assets/bootstrap/img/svg/box-3.svg" class="d-block img-fluid mx-auto"></div>
-              <div class="is-button-pink"><span class="caption">هدیه برای خانم‌ها</span></div>
+                <img [src]="i['giftSvg']" class="d-block img-fluid mx-auto"></div>
+              <div class="is-button-pink"><span class="caption">{{i['giftTitle']}}</span></div>
             </div>
           </a>
         </ng-template>

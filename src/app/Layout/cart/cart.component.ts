@@ -211,10 +211,6 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.localStorage.getCurrentUser();
-
-    this.getInfoUser();
-
 
     this.formUser = this._formBuilder.group({
       mobile: new FormControl('', Validators.required),
@@ -252,6 +248,7 @@ export class CartComponent implements OnInit {
         }),
       ])
     });
+    this.getInfoUser();
     this.refreshCart();
   }
 
@@ -680,7 +677,6 @@ export class CartComponent implements OnInit {
 
   }
   onRegister() {
-console.log(this.userInfo)
     this.servicelayout.updateUser(this.userInfologin['_id'], this.userInfo).subscribe((response) => {
       // console.log(response);
     });
@@ -699,7 +695,7 @@ console.log(this.userInfo)
   }
 
   getInfoUser() {
-    // localStorage.removeItem("user");
+    console.log(this.localStorage.getCurrentUser())
     if (this.localStorage.getCurrentUser() === true) {
       this.successLogin = false;
       this.userInfologin = this.localStorage.userJson;
@@ -723,8 +719,6 @@ console.log(this.userInfo)
         }
       });
     }
-
-
   }
 
   loginUser(): void {

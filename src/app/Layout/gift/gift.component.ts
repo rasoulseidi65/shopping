@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {OwlOptions} from "ngx-owl-carousel-o";
+import {LayoutService} from '../layout.service';
 
 @Component({
   selector: 'app-gift',
@@ -42,10 +43,14 @@ export class GiftComponent implements OnInit {
       }
     }
   };
+  gifts: any[];
+  constructor(private service: LayoutService) {
 
-  constructor() { }
-
+  }
   ngOnInit(): void {
+    this.service.showGift().subscribe((response) => {
+      this.gifts = response['data'];
+    });
   }
 
 }
