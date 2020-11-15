@@ -6,7 +6,7 @@ import {LayoutService} from '../layout.service';
 import {UserService} from '../../Auth/user.service';
 import {MessageService} from 'primeng/api';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
-
+import * as moment from 'jalali-moment';
 interface state {
   name: string,
   code: string
@@ -78,6 +78,10 @@ export class CartComponent implements OnInit {
               private servicelayout: LayoutService,
               private messageService: MessageService,
               private localStorage: LocalStorageService) {
+   let myDate = new Date();
+    this.payment.date = moment(Date.now()).locale('fa').format('YYYY/M/D');
+    this.payment.time = moment(Date.now()).locale('fa').format('HH:mm:ss');
+
     this.states = [
       {
         value: '1',

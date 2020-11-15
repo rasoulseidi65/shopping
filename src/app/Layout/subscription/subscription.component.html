@@ -1,30 +1,52 @@
 
 
 <div class="container-fluid mt-2 gift-container py-4" dir="rtl">
+<!--  <form [formGroup]="emailForm">-->
   <div class="row justify-content-center gift-bg py-3">
     <div class="col-8 align-items-center">
+<!--      <form [formGroup]="mobileForm">-->
       <div class="row justify-content-center">
         <div class="col-12 title align-items-center">
           <h3 class="text-white text-center">
             برای اطلاع از آخرین تخفیف‌ها و جدیدترین کالا‌ها در خبرنامه ثبت‌نام کنید.
           </h3>
         </div>
+
         <div class="col-sm-12 col-lg-4 align-items-center mt-2">
 <!--          <input pInputText placeholder="عضویت با ایمیل" style="background-color: #ffffff" [(ngModel)]="email">-->
-          <input pInputText class="form-control w-100" placeholder="عضویت با ایمیل" [(ngModel)]="email">
+          <input   class="form-control w-100" placeholder="عضویت با ایمیل" [(ngModel)]="email" >
 
         </div>
         <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
-          <button class="button" (click)="regEmailNewsletter()">ثبت نام</button>
+          <button class="button" (click)="regEmailNewsletter(email)">ثبت نام</button>
         </div>
+
         <div class="col-sm-12 col-lg-4 align-items-center mt-2">
-          <input pInputText class="form-control w-100" placeholder="عضویت با شماره موبایل" [(ngModel)]="mobile" maxlength="11" minlength="11" >
-<!--          <p-inputNumber mode="decimal"  [useGrouping]="false" [maxlength]="11" [minlength]="11"  [format]="" class="text-center"  placeholder="عضویت با شماره موبایل" [(ngModel)]="mobile"></p-inputNumber>-->
+          <input pInputText  class="form-control w-100" placeholder="عضویت با شماره موبایل"  [(ngModel)]="mobile" formControlName="mobile" maxlength="11" minlength="11" >
+
+          <!--          <p-inputNumber mode="decimal"  [useGrouping]="false" [maxlength]="11" [minlength]="11"  [format]="" class="text-center"  placeholder="عضویت با شماره موبایل" [(ngModel)]="mobile"></p-inputNumber>-->
         </div>
         <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
           <button class="button" (click)="regSmsNewsletter()">ثبت نام</button>
+
         </div>
+
+
       </div>
+<!--      </form>-->
     </div>
   </div>
+<!--  </form>-->
 </div>
+<p-dialog  [(visible)]="displayError" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
+  <p-header>
+    <p  class="mr-3">انجام شد</p>
+  </p-header>
+  <hr style="width: 100%;"/>
+  <p class="text-right text-success mt-2">{{textDialog}}</p>
+  <hr style="margin-bottom: -15px"/>
+  <ng-template pTemplate="footer" >
+    <button pButton pRipple type="button"  (click)="displayError=false" label="ادامه"  class="p-button-danger float-left"></button>
+
+  </ng-template>
+</p-dialog>
