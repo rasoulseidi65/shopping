@@ -105,13 +105,18 @@ export class NavHeaderComponent implements OnInit {
     this.sumOfPrice = 0;
     this.countBadge = 0;
     this.showCartList = true;
-    for (var i = 0; i < this.cartlist.length; i++) {
-      let count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
-      this.sumOfPrice += count;
-      this.countBadge++;
-      this.showCartList = false;
 
+    if (this.cartlist != null) {
+      if (this.cartlist.length > 0) {
+        for (var i = 0; i < this.cartlist.length; i++) {
+          let count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
+          this.sumOfPrice += count;
+          this.countBadge++;
+          this.showCartList = false;
+        }
+      }
     }
+
   }
 
 

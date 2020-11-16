@@ -809,3 +809,28 @@ img.image__tag {
   display: flex;
 }
 
+
+.product-top-row a:hover i{
+  color: #CC3333;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  content: unset!important;
+}
+
+
+:host ::ng-deep .ngxImageZoomContainer{
+  width: 100%!important;
+  display: block;
+  height: unset!important;
+}
+:host ::ng-deep .ngxImageZoomThumbnail{
+  width: 100%!important;
+  display: block;
+}
+
+:host ::ng-deep .p-tooltip{
+  direction: rtl;
+}
+:host ::ng-deep .p-tooltip-text{
+  text-align: right;
+}

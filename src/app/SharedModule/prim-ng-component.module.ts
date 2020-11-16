@@ -28,7 +28,9 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {EditorModule} from 'primeng/editor';
 import {AccordionModule} from 'primeng/accordion';
 import {MenubarModule} from 'primeng/menubar';
+import {TooltipModule} from 'primeng/tooltip';
 
+// @ts-ignore
 @NgModule({
   declarations: [],
   imports: [
@@ -63,6 +65,7 @@ import {MenubarModule} from 'primeng/menubar';
     EditorModule,
     AccordionModule,
     MenubarModule,
+    TooltipModule
   ],
   exports: [
     CommonModule,
@@ -95,8 +98,9 @@ import {MenubarModule} from 'primeng/menubar';
     FileUploadModule,
     EditorModule,
     AccordionModule,
-    MenubarModule
+    MenubarModule,
+    TooltipModule
   ],
 })
-export class PrimNgComponentModule {
+export class PrimNgComponentModule{
 }

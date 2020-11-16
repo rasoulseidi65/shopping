@@ -598,3 +598,51 @@ label.color span {
   margin-top: -15px!important;
 }
 
+
+:host ::ng-deep .pagination .page-item.active .page-link {
+  background-color: #cc3333;
+}
+:host ::ng-deep .page-item.active .page-link {
+  background-color: #cc3333;
+  border-color: #cc3333;
+}
+:host ::ng-deep .pagination .page-item.active .page-link:hover {
+   background-color: #cc3333;
+ }
+:host ::ng-deep .page-item.disabled .page-link {
+     background-color: unset!important;
+     border-color: unset!important;
+}
+:host ::ng-deep .page-item.first-item a{
+  font-size:0;
+}
+:host ::ng-deep .page-item.first-item a:after {
+  content: '<<';
+  font-size:16px;
+}
+
+:host ::ng-deep .page-item.previous-item a{
+  font-size:0;
+}
+:host ::ng-deep .page-item.previous-item a:after {
+  content: '<';
+  font-size:16px;
+}
+:host ::ng-deep .page-item.last-item a{
+  font-size:0;
+}
+:host ::ng-deep .page-item.last-item a:after {
+  content: '>>';
+  font-size:16px;
+}
+
+:host ::ng-deep .page-item.next-item a{
+  font-size:0;
+}
+:host ::ng-deep .page-item.next-item a:after {
+  content: '>';
+  font-size:16px;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  content: unset!important;
+}
