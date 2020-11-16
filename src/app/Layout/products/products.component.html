@@ -130,7 +130,7 @@
 
               <div class="col-sm-12 col-md-6 col-lg-4" dir="ltr" *ngFor="let item of pageOfItems">
                 <div class="block-products-carousel-column" >
-                  <div class="block-products-carousel-cell" >
+                  <div class="block-products-carousel-cell" (click)="goDetail(Products[item.id]['_id'])">
                     <div class="product-card product-card-layout-grid" >
                       <div class="product-card-actions-list" >
                         <button class="product-card-action product-card-action-quickview" type="button"

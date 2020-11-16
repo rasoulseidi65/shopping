@@ -85,10 +85,10 @@ export class ProductDetailComponent implements OnInit {
     let data = {
       _id: this.productID
     };
-    this.productFeature.indexOf(0,this.productFeature.length);
-    this.featureValue.indexOf(0,this.featureValue.length);
+    this.productFeature.splice(0,this.productFeature.length);
+    this.featureValue.splice(0,this.featureValue.length);
 
-    this.images.indexOf(0, this.images.length);
+    this.images.splice(0, this.images.length);
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
         this.product = response['data'][0];
@@ -129,7 +129,7 @@ export class ProductDetailComponent implements OnInit {
       if (response['success'] === true) {
         this.similarProduct = response['data'];
         this.Inventory = response['data'][0]['Inventory'][0];
-        console.log(this.Inventory);
+
       }
 
     });
@@ -152,9 +152,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   goDetail(id: any) {
-    window.location.assign('./#/home/detail/' + id);
+    this.router.navigate(['/home/detail/' + id]);
+    this.ngOnInit()
+    // window.location.assign('./#/home/detail/' + id);
     // this.router.navigate(['/home/detail/' + id]);
-    window.location.reload();
+    // window.location.reload();
   }
   goCart() {
     this.displayBasic = !this.displayBasic;

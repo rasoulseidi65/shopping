@@ -83,7 +83,13 @@ export class ProductsComponent implements OnInit {
     //   alert('nooo');
     // }
   }
-
+  goDetail(id: any) {
+    this.router.navigate(['/home/detail/' + id]);
+    this.ngOnInit()
+    // window.location.assign('./#/home/detail/' + id);
+    // this.router.navigate(['/home/detail/' + id]);
+    // window.location.reload();
+  }
   goCart() {
     this.displayBasic = !this.displayBasic;
     this.router.navigate(['/home/cart']);

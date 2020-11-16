@@ -192,3 +192,16 @@
 
 /*  }*/
 /*}*/
+mat-list{
+  width: 65%;
+  z-index: 99999999;
+  position: absolute;
+  background-color: white;
+  color: #aab4bc;
+  flex-grow: 1;
+  border-radius: 5px;
+  border: 1px solid #aab4bc;
+  overflow-y:auto;
+  /*height: 20em;*/
+  /*width: 20em;*/
+}
