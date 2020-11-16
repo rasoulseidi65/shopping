@@ -65,3 +65,9 @@ label,input{
   direction: rtl!important;
   text-align: right!important;
 }
+:host::ng-deep p-dropdownitem{
+  text-align: right!important;
+}
+:host::ng-deep li.p-dropdown-item{
+  text-align: right!important;
+}
