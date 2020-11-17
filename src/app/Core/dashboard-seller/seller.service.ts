@@ -39,6 +39,9 @@ export class SellerService {
   addProductFeature(data: any): any{
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/productFeature', data);
   }
+  addProductGift(data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/registerProductGift', data);
+  }
 
   getFeatures(): any{
     return this.http.get('http://194.5.175.25:3005/api/v1/seller/indexFeature');
@@ -54,6 +57,9 @@ export class SellerService {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/featureValue', data);
   }
 
+  getGifts(): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/showGift');
+  }
   uploadFile(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/image', data);
   }

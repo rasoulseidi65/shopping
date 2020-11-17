@@ -14,20 +14,52 @@
   </ng-template>
 </p-dialog>
 
-<div class="container-fluid text-right" dir="rtl">
-  <div class="row mt-5">
-    <div class="col-sm-12 col-lg-12">
 
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i></a></li>
-        <li class="breadcrumb-item"><a href="">{{category['title']}}</a></li>
-        <li class="breadcrumb-item"><a href="">{{product['subCategory']}}</a></li>
-        <li class="breadcrumb-item active">{{product['title']}}</li>
-      </ol>
+<div class="page-header text-right mt-5" dir="rtl">
+  <div class="page-header-container container-fluid">
+    <div class="page-header-box">
+      <div class="page-header-breadcrumb">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a routerLink="/" class="nuxt-link-active">
+                صفحه اصلی
+              </a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="breadcrumb-arrow">
+                <path d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
+              </svg>
+            </li>
+            <li class="breadcrumb-item">
+              <a routerLink="/" class="nuxt-link-active">
+                {{category['title']}}
+              </a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="breadcrumb-arrow">
+                <path d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
+              </svg>
+            </li>
+            <li class="breadcrumb-item">
+              <a routerLink="/" class="nuxt-link-active">
+                {{product['subCategory']}}
+              </a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="breadcrumb-arrow">
+                <path d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
+              </svg>
+            </li>
 
+            <li class="breadcrumb-item active">
+              {{product['title']}}
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <div class="page-header-title">
+        <h1>{{product['title']}}</h1>
+      </div>
     </div>
   </div>
+</div>
 
+<div class="container-fluid text-right" dir="rtl">
   <div class="row">
     <div class="col-sm-12">
       <div class="row">
@@ -39,17 +71,16 @@
                         dir="ltr" thumbnailsPosition="bottom" [autoPlay]="true" [transitionInterval]="2000"
                         [circular]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
               <ng-template pTemplate="item" let-item>
-                <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
-
-
-                <!--                <lib-ngx-image-zoom-->
-                <!--                  [thumbImage]=item.thumbnailImageSrc-->
-                <!--                  [fullImage]=item.previewImageSrc-->
-                <!--                  [magnification]="1"-->
-                <!--                  [enableScrollZoom]="true"-->
-                <!--                  [enableLens]="true"-->
-                <!--                  [lensWidth]="100">-->
-                <!--                </lib-ngx-image-zoom>-->
+<!--                <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>-->
+                <lib-ngx-image-zoom
+                  [thumbImage]=item.thumbnailImageSrc
+                  [fullImage]=item.previewImageSrc
+                  [magnification]="1"
+                  [enableScrollZoom]="true"
+                  zoomMode="hover"
+                  [enableLens]="true"
+                  [lensWidth]="100">
+                </lib-ngx-image-zoom>
               </ng-template>
 
               <ng-template pTemplate="thumbnail" let-item>
@@ -64,13 +95,13 @@
         </div>
         <div class="col-sm-12 col-lg-7">
           <div class="box">
-            <div class="row title no-gutters justify-content-center">
+            <div class="row title no-gutters justify-content-center product-top-row">
               <div class="col-sm-6 align-items-center text-right">
                 <h2>{{product['title']}}</h2>
               </div>
               <div class="col-sm-6 align-items-center text-left">
-                <a><i class="fa fa-heart fa-2x"></i></a>
-                <a><i class="fa fa-share-alt fa-2x"></i></a>
+                <a><i class="fa fa-heart fa-2x" pTooltip="افزودن به لیست علاقه مندی ها" tooltipPosition="bottom"></i></a>
+                <a><i class="fa fa-share-alt fa-2x" pTooltip="اشتراک گذاری" tooltipPosition="bottom"></i></a>
               </div>
             </div>
 
@@ -217,6 +248,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="container-fluid" dir="rtl">

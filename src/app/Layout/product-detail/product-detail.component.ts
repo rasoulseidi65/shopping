@@ -18,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
     autoplaySpeed: 1000,
     autoplayTimeout: 5000,
     loop: true,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
     dots: false,

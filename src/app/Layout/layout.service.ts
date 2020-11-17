@@ -62,4 +62,8 @@ export class LayoutService {
   regEmailNewsletter(data: any) {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/EmailNewsletter', data);
   }
+
+  getCategories(): any {
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/category');
+  }
 }
