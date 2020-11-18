@@ -3,6 +3,7 @@ import {OwlOptions} from 'ngx-owl-carousel-o';
 import {LayoutService} from '../layout.service';
 import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-all-products',
@@ -43,12 +44,19 @@ export class AllProductsComponent implements OnInit {
   Product: any[];
   displayBasic: boolean;
 
-  constructor(private service: LayoutService, private serviceCart: CartService, private messageService: MessageService) {
+  constructor(private service: LayoutService,
+              private serviceCart: CartService,
+              private messageService: MessageService,
+  private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.service.allProduct().subscribe((response) => {
-      this.Product = response['data'];
+      if(response['success']===true){
+        this.Product = response['data'];
+        this.spinner.hide();
+      }
 
     });
   }

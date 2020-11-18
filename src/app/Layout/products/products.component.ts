@@ -4,6 +4,7 @@ import {LayoutService} from '../layout.service';
 import {MessageService, SelectItem} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 @Component({
@@ -38,11 +39,13 @@ export class ProductsComponent implements OnInit {
   constructor(private router: Router,
               private service: LayoutService,
               private serviceCart: CartService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private spinner: NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
+    this.spinner.show()
     this.getCategories();
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
@@ -68,6 +71,7 @@ export class ProductsComponent implements OnInit {
   getCategories(): any {
     this.service.getCategories().subscribe((response) => {
       if (response.success === true) {
+        this.spinner.hide()
         this.categories = response.data;
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ', detail: response.data});
@@ -103,10 +107,7 @@ export class ProductsComponent implements OnInit {
   }
   goDetail(id: any) {
     this.router.navigate(['/home/detail/' + id]);
-    this.ngOnInit()
-    // window.location.assign('./#/home/detail/' + id);
-    // this.router.navigate(['/home/detail/' + id]);
-    // window.location.reload();
+
   }
   goCart() {
     this.displayBasic = !this.displayBasic;
@@ -133,4 +134,5 @@ export class ProductsComponent implements OnInit {
     this.countOfProduct = this.FilteredProducts.length;
     this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
   }
+
 }

@@ -126,9 +126,9 @@
 <!--                  <li>ماندگاری بالا و طولانی مدت</li>-->
 <!--                  <li>ضد آب</li>-->
 <!--                </ul>-->
-                <p style="color: #777777;text-align: justify">
-                  {{product['briefFeature']}}
-                </p>
+                <div style="color: #777777;text-align: justify" [innerHTML]="product['briefFeature']">
+
+                </div>
               </div>
             </div>
             <div class="row color no-gutters">
@@ -326,5 +326,11 @@
     </owl-carousel-o>
   </div>
 </div>
-
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"
+             size = "large"
+             color = "#fff"
+             type = "ball-fussion"
+             [fullScreen] = "true">
+  <p style="color: white" >منتظر بمانید   ...</p>
+</ngx-spinner>
 <app-footer></app-footer>

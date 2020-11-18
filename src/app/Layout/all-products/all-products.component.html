@@ -42,7 +42,7 @@
           </div>
           <div class="product-details text-right">
             <div class="d-flex flex-row">
-              <span class="product-catagory mr-auto">{{i['Seller'][0].name}}</span>
+              <span class="product-catagory mr-auto">{{i['Seller'][0].shopName}}</span>
               <span class="product-catagory">{{i['subCategory']}} </span>
             </div>
             <h4><a href="" style="direction: rtl;font-size: 12px">{{i['title']}}</a></h4>
@@ -82,3 +82,10 @@
     </owl-carousel-o>
   </div>
 </section>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"
+             size = "large"
+             color = "#fff"
+             type = "ball-fussion"
+             [fullScreen] = "true">
+  <p style="color: white" >منتظر بمانید ... </p>
+</ngx-spinner>
