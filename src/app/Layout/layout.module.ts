@@ -44,7 +44,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
-import {NgxSpinnerModule} from "ngx-spinner";
+import {NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
