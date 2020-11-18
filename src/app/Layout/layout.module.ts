@@ -44,6 +44,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
+import {NgxSpinnerModule} from "ngx-spinner";
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
@@ -92,7 +93,8 @@ import {JwPaginationModule} from 'jw-angular-pagination';
     SelectButtonModule,
     NgxImageZoomModule,
     OrderListModule,
-    JwPaginationModule
+    JwPaginationModule,
+    NgxSpinnerModule
   ],
   exports: [
     IndexComponent,

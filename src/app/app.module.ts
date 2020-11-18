@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,26 +12,32 @@ import {SharedcomponentModule} from './SharedComponent/sharedcomponent.module';
 import {Ng5SliderModule} from 'ng5-slider';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
+import { SearchService } from './search.service';
+import {NgxSpinnerModule} from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'serverApp'}),
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        SharedmoduleModule,
-        CarouselModule,
-        SharedcomponentModule,
-        Ng5SliderModule,
-        ClickOutsideModule,
-        ProgressSpinnerModule
-    ],
-  providers: [],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    SharedmoduleModule,
+    CarouselModule,
+    SharedcomponentModule,
+    Ng5SliderModule,
+    ClickOutsideModule,
+    ProgressSpinnerModule,
+    NgxSpinnerModule
+  ],
+  providers: [SearchService],
+  exports: [
+
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

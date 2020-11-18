@@ -3,6 +3,7 @@ import {OwlOptions} from 'ngx-owl-carousel-o';
 import {LayoutService} from "../layout.service";
 import {CartService} from "../../serviceCart/cart.service";
 import {MessageService} from "primeng/api";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-best-selling',
@@ -42,11 +43,19 @@ export class BestSellingComponent implements OnInit {
   bestsellingProduct:any[];
   displayBasic: boolean;
 
-  constructor(private service: LayoutService,private serviceCart:CartService,  private messageService: MessageService) { }
+  constructor(private service: LayoutService,
+              private serviceCart:CartService,
+              private messageService: MessageService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.service.Bestselling().subscribe((response) => {
-      this.bestsellingProduct = response['data'];
+      if(response['success']===true){
+        this.bestsellingProduct = response['data'];
+        this.spinner.hide();
+
+      }
 
     });
   }

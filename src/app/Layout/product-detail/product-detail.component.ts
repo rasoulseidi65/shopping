@@ -4,6 +4,7 @@ import {LayoutService} from '../../Layout/layout.service';
 import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-product-detail',
@@ -12,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   providers: [MessageService]
 })
 export class ProductDetailComponent implements OnInit {
-  displayBasic:boolean=false;
+  displayBasic: boolean = false;
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -75,22 +76,26 @@ export class ProductDetailComponent implements OnInit {
               private serviceCart: CartService,
               private messageService: MessageService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.route.paramMap.subscribe(params =>
       this.productID = params.get('id'));
 
     let data = {
       _id: this.productID
     };
-    this.productFeature.indexOf(0,this.productFeature.length);
-    this.featureValue.indexOf(0,this.featureValue.length);
+    this.productFeature.splice(0, this.productFeature.length);
+    this.featureValue.splice(0, this.featureValue.length);
 
-    this.images.indexOf(0, this.images.length);
+    this.images.splice(0, this.images.length);
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
+        console.log(response['data'][0])
+        this.spinner.hide();
         this.product = response['data'][0];
         this.briefFeature = this.product['briefFeature'];
         this.subCategory = this.product['subCategory'];
@@ -109,8 +114,8 @@ export class ProductDetailComponent implements OnInit {
         let countGallery = this.product['gallery'];
         for (var i = 0; i < countGallery.length; i++) {
           this.images.push({
-            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i],
-            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i]
+            thumbnailImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination+'/'+countGallery[i].filename,
+            previewImageSrc: 'http://194.5.175.25:3005/' + countGallery[i].destination+'/'+countGallery[i].filename,
           });
         }
 
@@ -121,15 +126,16 @@ export class ProductDetailComponent implements OnInit {
       subCategory: this.subCategory
     };
     this.service.relatedProducts(data1).subscribe((response) => {
-      this.relatedProducts = response['data'];
+      if (response['success'] === true) {
+        this.relatedProducts = response['data'];
+      }
     });
-
 
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
         this.similarProduct = response['data'];
         this.Inventory = response['data'][0]['Inventory'][0];
-        console.log(this.Inventory);
+
       }
 
     });
@@ -141,7 +147,7 @@ export class ProductDetailComponent implements OnInit {
         cartList: product,
         number: 1
       };
-      this.displayBasic=true;
+      this.displayBasic = true;
       this.serviceCart.addToCart(list);
       this.messageService.add({severity: 'success', summary: ' سبد خرید ', detail: 'کالا به سبد خرید اضافه شد'});
 
@@ -152,10 +158,13 @@ export class ProductDetailComponent implements OnInit {
   }
 
   goDetail(id: any) {
-    window.location.assign('./#/home/detail/' + id);
+    this.router.navigate(['/home/detail/' + id]);
+    this.ngOnInit()
+    // window.location.assign('./#/home/detail/' + id);
     // this.router.navigate(['/home/detail/' + id]);
-    window.location.reload();
+    // window.location.reload();
   }
+
   goCart() {
     this.displayBasic = !this.displayBasic;
     this.router.navigate(['/home/cart']);

@@ -64,9 +64,10 @@
                 <div class="product-card__info text-right">
                   <div class="product-card__meta">
                     <div class="d-flex flex-row">
-                      <span class="product-catagory mr-auto">{{i['Seller'][0].name}}</span>
+                      <span class="product-catagory mr-auto">{{i['Seller'][0].shopName}}</span>
                       <span class="product-catagory">{{i['subCategory']}} </span>
                     </div>
+
                   </div>
                   <div class="product-card__name">
                     <div>
@@ -107,3 +108,10 @@
     </div>
   </div>
 </section>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"
+             size = "large"
+             color = "#fff"
+             type = "ball-fussion"
+             [fullScreen] = "true">
+  <p style="color: white" >منتظر بمانید ... </p>
+</ngx-spinner>

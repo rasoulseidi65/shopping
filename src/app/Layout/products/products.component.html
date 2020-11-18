@@ -158,7 +158,7 @@
                     </svg>
                   </button>
                 </div>
-                <div class="product-card-image">
+                <div class="product-card-image" (click)="goDetail(FilteredProducts[item.id]['_id'])">
                   <div class="image image-type-product">
                     <a class="image-body">
                       <img class="image-tag" [src]="FilteredProducts[item.id]['image']" alt="">
@@ -168,7 +168,7 @@
                 <div class="product-card-info text-right">
                   <div class="product-card-meta">
                     <div class="d-flex flex-row">
-                      <span class="product-catagory mr-auto">{{FilteredProducts[item.id]['Seller'][0].name}}</span>
+                      <span class="product-catagory mr-auto">{{FilteredProducts[item.id]['Seller'][0].shopName}}</span>
                       <span class="product-catagory ">{{FilteredProducts[item.id]['subCategory']}}</span>
                     </div>
                   </div>
@@ -379,3 +379,10 @@
 
   </ng-template>
 </p-dialog>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"
+             size = "large"
+             color = "#fff"
+             type = "ball-fussion"
+             [fullScreen] = "true">
+  <p style="color: white" >منتظر بمانید   ...</p>
+</ngx-spinner>

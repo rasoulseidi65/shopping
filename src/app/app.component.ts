@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {OverlayService} from './overlay.service';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,10 @@ export class AppComponent  implements OnInit{
 
   private metaTagService: Meta;
   private titleService: Title;
-  constructor(public overlayService: OverlayService) {
+  constructor(public overlayService: OverlayService, private spinner: NgxSpinnerService) {
   }
 ngOnInit(): void {
+
   // this.titleService.setTitle(this.title);
   // this.metaTagService.addTags([
   //   { name: 'keywords', content: 'فروشگاه میگ میگ, محصولات پاک کننده, لوازم بهداشتی' },
@@ -25,4 +27,5 @@ ngOnInit(): void {
   //   { charset: 'UTF-8' }
   // ]);
 }
+
 }

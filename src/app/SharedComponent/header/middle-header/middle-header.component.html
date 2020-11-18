@@ -9,14 +9,24 @@
     </a>
   </div>
   <div class="site-header__search">
-    <div class="c-search">
-      <input  autocapitalize="off"
-             autocorrect="off" class="form-control search"
-             placeholder="جستجو در به قیمت ..."  spellcheck="off" type="text">
-
-      <i class="pi pi-search" style="margin-top: -34px;margin-right:-2rem;position: absolute;font-size: 1.2rem"></i>
-
+    <div style="margin:auto; width: 70%; margin-top: 30px;">
+      <app-search-bar (onSelectedOption)="onSelectedFilter($event)"></app-search-bar>
     </div>
+
+<!--    <div class="c-search">-->
+<!--      <input  autocapitalize="off"-->
+<!--             autocorrect="off" class="form-control search" (input)="search($event)"-->
+<!--             placeholder="جستجو در به قیمت ..."  spellcheck="off" type="text">-->
+
+<!--      <i class="pi pi-search" style="margin-top: -34px;margin-right:-2rem;position: absolute;font-size: 1.2rem"></i>-->
+<!--                  <mat-list *ngIf="successSearch">-->
+<!--                    <mat-list-item (click)="onSelect(item)" *ngFor="let item of queryString; let i=index">-->
+<!--                      <i class="pi pi-search"></i>-->
+<!--                      <div mat-line class="text-right">{{item.value[i].label}}</div>-->
+<!--                      <mat-divider></mat-divider>-->
+<!--                    </mat-list-item>-->
+<!--                  </mat-list>-->
+<!--    </div>-->
 
   </div>
   <div class="site-header__phone">

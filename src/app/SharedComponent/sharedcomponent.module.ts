@@ -13,20 +13,27 @@ import {MobileHeaderComponent} from './header/mobile-header/mobile-header.compon
 import {ClickOutsideModule} from 'ng-click-outside';
 import {Ng5SliderModule} from 'ng5-slider';
 
+import { SearchBarComponent } from './header/search-bar/search-bar.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+
 
 @NgModule({
   // providers: [FooterComponent],
   declarations: [
-    FooterComponent, TopMenuComponent, HeaderComponent, TopHeaderComponent, MiddleHeaderComponent, NavHeaderComponent, MobileHeaderComponent
+    FooterComponent, TopMenuComponent, HeaderComponent, TopHeaderComponent, MiddleHeaderComponent, NavHeaderComponent, MobileHeaderComponent, SearchBarComponent
   ],
-    imports: [
-        CommonModule,
-        SharedmoduleModule,
-        ReactiveFormsModule,
-        PanelMenuModule,
-        ClickOutsideModule,
-        Ng5SliderModule
-    ],
+  imports: [
+    CommonModule,
+    SharedmoduleModule,
+    ReactiveFormsModule,
+    PanelMenuModule,
+    ClickOutsideModule,
+    Ng5SliderModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+
+  ],
   exports: [
     FooterComponent, TopMenuComponent, HeaderComponent
   ],

@@ -5,6 +5,7 @@ import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-discount',
@@ -46,16 +47,20 @@ export class DiscountComponent implements OnInit {
   displayBasic: boolean;
   displayNotProduct: boolean;
 
-  constructor(private service: LayoutService, private serviceCart: CartService, private router: Router) {
+  constructor(private service: LayoutService,
+              private serviceCart: CartService,
+              private router: Router,
+              private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem('user');
+    this.spinner.show();
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
         this.hottestProduct = response['data'];
+        console.log(response['data'])
         this.Inventory = response['data'][0]['Inventory'][0];
-
+        this.spinner.hide()
       }
 
     });

@@ -19,12 +19,18 @@ export class RegisterProductComponent implements OnInit {
   public form: FormGroup;
   categories: any[];
 
-  showSelectedFeatures: any[] = [];
-  features: any[];
-  selectedFeature: any;
+  features: any[] = [];
+  selectedFeature: any = null;
+
   values: any[] = [];
   selectedValues: any[] = [];
+  showSelectedFeatures: any[] = [];
   finalSelectedValues: any[] = [];
+
+  gifts: any[] = [];
+  selectedGifts: any[] = [];
+  showSelectedGifts: any[] = [];
+  finalSelectedGifts: any[] = [];
 
   errorMessages = {
     title: [
@@ -77,6 +83,7 @@ export class RegisterProductComponent implements OnInit {
     this.localstorage.getCurrentUser();
     this.getCategories();
     this.getFeatures();
+    this.getGifts();
     this.createform();
   }
 
@@ -169,7 +176,6 @@ export class RegisterProductComponent implements OnInit {
   submitForm(): void {
     const category = this.form.controls.categoryID.value;
     this.form.controls.categoryID.setValue(category._id);
-    console.log(this.form.value);
 
     this.sellerService.addProduct(this.form.value).subscribe((response) => {
 
@@ -185,20 +191,31 @@ export class RegisterProductComponent implements OnInit {
           });
 
         });
-
         let value = {
           productID: response.result._id,
           productFeature: featureValue,
         };
-
-        console.log(value);
         this.sellerService.addProductFeature(value).subscribe((res) => {
-          console.log(res);
           if (res.success === true) {
             console.log(res.success);
           } else {
-            this.messageService.add({severity: 'error', summary: ' ثبت محصول ', detail: res.data});
+            this.messageService.add({severity: 'error', summary: ' ثبت ویژگی محصول ', detail: res.data});
           }
+        });
+
+        this.finalSelectedGifts.forEach(item => {
+          let gift = {
+            productID: response.result._id,
+            giftID: item._id,
+          };
+
+          this.sellerService.addProductGift(gift).subscribe((res) => {
+            if (res.success === true) {
+              console.log(res.success);
+            } else {
+              this.messageService.add({severity: 'error', summary: ' ثبت نوع هدیه ', detail: res.data});
+            }
+          });
         });
 
         this.messageService.add({severity: 'success', summary: ' ثبت محصول ', detail: 'محصول با موفقیت ثبت شد.'});
@@ -262,6 +279,17 @@ export class RegisterProductComponent implements OnInit {
       }
     });
   }
+
+  getGifts(): any {
+    this.sellerService.getGifts().subscribe((response) => {
+      if (response.success === true) {
+        this.gifts = response.data;
+        console.log(this.gifts);
+      } else {
+        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+      }
+    });
+  }
   getFeatureValues(event): void {
     this.values = this.features.find(x => x.id === event.value._id).FeaturesValue;
   }
@@ -281,6 +309,24 @@ export class RegisterProductComponent implements OnInit {
             title: parent,
             valueId: item.id,
             value: item.value
+          }
+        );
+      });
+    }
+  }
+
+  addSelectedGifts(event: any): void {
+    if (event.value !== null) {
+      this.finalSelectedGifts = [];
+      this.finalSelectedGifts.push(...event.value);
+
+      this.showSelectedGifts = [];
+      event.value.forEach(item => {
+
+        this.showSelectedGifts.push(
+          {
+            giftId: item._id,
+            giftTitle: item.giftTitle
           }
         );
       });
