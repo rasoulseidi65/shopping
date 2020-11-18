@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Options} from 'ng5-slider';
 import {LayoutService} from '../layout.service';
-import {MessageService, SelectItem} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
 import {Router} from '@angular/router';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
     ceil: 50000000,
     step: 1000000
   };
-  countOfProduct: number = 7;
+  countOfProduct = 7;
   priceList: number[] = [];
 
   constructor(private router: Router,
@@ -45,7 +45,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show()
+    this.spinner.show();
     this.getCategories();
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
@@ -63,15 +63,14 @@ export class ProductsComponent implements OnInit {
         step: 1000000
       };
       this.countOfProduct = response['data'].length;
-      this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
+      this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i), name: `Item ${i}`}));
     });
-
   }
 
   getCategories(): any {
     this.service.getCategories().subscribe((response) => {
       if (response.success === true) {
-        this.spinner.hide()
+        this.spinner.hide();
         this.categories = response.data;
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ', detail: response.data});
@@ -79,7 +78,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onChangePage(pageOfItems: Array<any>) {
+  onChangePage(pageOfItems: Array<any>): void {
     this.pageOfItems = pageOfItems;
   }
 
@@ -105,16 +104,15 @@ export class ProductsComponent implements OnInit {
     //   alert('nooo');
     // }
   }
-  goDetail(id: any) {
+  goDetail(id: any): void {
     this.router.navigate(['/home/detail/' + id]);
-
   }
-  goCart() {
+  goCart(): void {
     this.displayBasic = !this.displayBasic;
     this.router.navigate(['/home/cart']);
   }
 
-  filterByCategory(id: string) {
+  filterByCategory(id: string): void {
     this.FilteredProducts = [];
 
     this.Products.forEach(item => {
@@ -123,16 +121,16 @@ export class ProductsComponent implements OnInit {
       }
     });
     this.countOfProduct = this.FilteredProducts.length;
-    this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
+    this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i), name: `Item ${i}`}));
   }
 
-  filterByPrice(){
+  filterByPrice(): void{
   }
 
-  showAllCategories() {
+  showAllCategories(): void {
     this.FilteredProducts = this.Products;
     this.countOfProduct = this.FilteredProducts.length;
-    this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i + 1), name: `Item ${i + 1}`}));
+    this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i), name: `Item ${i}`}));
   }
 
 }
