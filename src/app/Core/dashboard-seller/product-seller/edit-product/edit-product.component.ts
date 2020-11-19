@@ -20,14 +20,14 @@ interface productFeature1 {
   ]
 })
 export class EditProductComponent implements OnInit {
-  product: productFeature1[];
-  ProductFeature:any[];
-  features: SelectItem[];
-  products2: productFeature1[];
-
-  statuses: SelectItem[];
-
-  clonedProducts: { [s: string]: productFeature1; } = {};
+  // product: productFeature1[];
+  // ProductFeature:any[];
+  // features: SelectItem[];
+  // products2: productFeature1[];
+  //
+  // statuses: SelectItem[];
+  //
+  // clonedProducts: { [s: string]: productFeature1; } = {};
 
   public form: FormGroup;
   productId: string;
@@ -86,7 +86,7 @@ export class EditProductComponent implements OnInit {
       this.productId = params.get('id'));
 
     this.getProduct();
-    this.getFeatures();
+    // this.getFeatures();
   }
 
   createform(): void {
@@ -212,8 +212,7 @@ export class EditProductComponent implements OnInit {
     this.sellerService.getProductById(this.productId).subscribe((response) => {
       if (response.success) {
         this.product = response.data[0];
-        this.ProductFeature=this.product['ProductFeature'];
-console.log(this.product['ProductFeature'])
+        // this.ProductFeature=this.product['ProductFeature'];
         this.createform();
         this.getCategories();
       } else {
@@ -252,39 +251,39 @@ console.log(this.product['ProductFeature'])
       }
     });
   }
-  onRowEditInit(product: Product) {
-    this.clonedProducts[product.id] = {...product};
-  }
-
-  onRowEditSave(product: Product) {
-    if (product.price > 0) {
-      delete this.clonedProducts[product.id];
-      this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
-    }
-    else {
-      this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
-    }
-  }
-
-  onRowEditCancel(product: Product, index: number) {
-    this.products2[index] = this.clonedProducts[product.id];
-    delete this.products2[product.id];
-  }
-  getFeatures(): any {
-    this.sellerService.getFeatures().subscribe((response) => {
-      if (response.success === true) {
-       let count = response.data;
-        for(let i=0;i<count.length;i++){
-          this.features.push({
-            label:response.data[i].titleFarsi,
-            value:response.data[i].titleFarsi,
-          })
-        }
-        console.log(this.features)
-      } else {
-        this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
-      }
-    });
-  }
+  // onRowEditInit(product: Product) {
+  //   this.clonedProducts[product.id] = {...product};
+  // }
+  //
+  // onRowEditSave(product: Product) {
+  //   if (product.price > 0) {
+  //     delete this.clonedProducts[product.id];
+  //     this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
+  //   }
+  //   else {
+  //     this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
+  //   }
+  // }
+  //
+  // onRowEditCancel(product: Product, index: number) {
+  //   this.products2[index] = this.clonedProducts[product.id];
+  //   delete this.products2[product.id];
+  // }
+  // getFeatures(): any {
+  //   this.sellerService.getFeatures().subscribe((response) => {
+  //     if (response.success === true) {
+  //      let count = response.data;
+  //       for(let i=0;i<count.length;i++){
+  //         this.features.push({
+  //           label:response.data[i].titleFarsi,
+  //           value:response.data[i].titleFarsi,
+  //         })
+  //       }
+  //       console.log(this.features)
+  //     } else {
+  //       this.messageService.add({severity: 'error', summary: ' دریافت اطلاعات ', detail: response.data});
+  //     }
+  //   });
+  // }
 
 }

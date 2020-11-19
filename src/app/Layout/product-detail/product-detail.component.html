@@ -156,8 +156,8 @@
               <div class="col-sm-6 align-items-center text-left">
                 <p>
                   <label>موجودی انبار: </label>
-                  <span>{{Inventory['count']}}</span>
-                  <!--                  <span *ngIf="InventoryState">موجود نمی باشد</span>-->
+                  <span *ngIf="InventoryState">{{Inventory['count']}}</span>
+                   <span *ngIf="!InventoryState">موجود نمی باشد</span>
                 </p>
               </div>
               <div class="col-sm-6 align-items-center">

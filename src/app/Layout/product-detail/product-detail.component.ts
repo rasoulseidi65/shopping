@@ -94,7 +94,6 @@ export class ProductDetailComponent implements OnInit {
     this.images.splice(0, this.images.length);
     this.service.findProductID(data).subscribe((response) => {
       if (response['success'] === true) {
-        console.log(response['data'][0])
         this.spinner.hide();
         this.product = response['data'][0];
         this.briefFeature = this.product['briefFeature'];

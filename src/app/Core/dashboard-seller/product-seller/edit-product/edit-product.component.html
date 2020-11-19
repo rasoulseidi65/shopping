@@ -220,59 +220,59 @@
           </ul>
         </div>
       </div>
-      <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col">
-          <label for="briefFeature">خلاصه ویژگی محصول</label>
-      <div class="card">
-        <h5>Row Editing</h5>
-        <p-table [value]="ProductFeature" dataKey="id" editMode="row">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>ردیف</th>
-              <th>نام ویژگی</th>
-              <th>مقدار ویژگی</th>
+<!--      <div class="p-fluid p-formgrid p-grid">-->
+<!--        <div class="p-field p-col">-->
+<!--          <label for="briefFeature">ویژگیها</label>-->
+<!--      <div class="card">-->
+<!--        <h5>Row Editing</h5>-->
+<!--        <p-table [value]="ProductFeature" dataKey="id" editMode="row">-->
+<!--          <ng-template pTemplate="header">-->
+<!--            <tr>-->
+<!--              <th>ردیف</th>-->
+<!--              <th>نام ویژگی</th>-->
+<!--              <th>مقدار ویژگی</th>-->
 
-              <th style="width:8rem"></th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-product let-editing="editing" let-rowIndex="rowIndex">
-            <tr [pEditableRow]="product">
-              <td pEditableColumn>
-               {{rowIndex+1}}
-              </td>
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <p-dropdown [options]="features"  [style]="{'width':'100%'}"></p-dropdown>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ProductFeature[rowIndex]['Feature'][0].titleFarsi}}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="product.name" required>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{product.name}}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
+<!--              <th style="width:8rem"></th>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="body" let-product let-editing="editing" let-rowIndex="rowIndex">-->
+<!--            <tr [pEditableRow]="product">-->
+<!--              <td pEditableColumn>-->
+<!--               {{rowIndex+1}}-->
+<!--              </td>-->
+<!--              <td pEditableColumn>-->
+<!--                <p-cellEditor>-->
+<!--                  <ng-template pTemplate="input">-->
+<!--                    <p-dropdown [options]="features"  [style]="{'width':'100%'}"></p-dropdown>-->
+<!--                  </ng-template>-->
+<!--                  <ng-template pTemplate="output">-->
+<!--                    {{ProductFeature[rowIndex]['Feature'][0].titleFarsi}}-->
+<!--                  </ng-template>-->
+<!--                </p-cellEditor>-->
+<!--              </td>-->
+<!--              <td pEditableColumn>-->
+<!--                <p-cellEditor>-->
+<!--                  <ng-template pTemplate="input">-->
+<!--                    <input pInputText type="text" [(ngModel)]="product.name" required>-->
+<!--                  </ng-template>-->
+<!--                  <ng-template pTemplate="output">-->
+<!--                    {{product.name}}-->
+<!--                  </ng-template>-->
+<!--                </p-cellEditor>-->
+<!--              </td>-->
 
 
-              <td style="text-align:center">
-                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-        </div>
-      </div>
+<!--              <td style="text-align:center">-->
+<!--                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>-->
+<!--                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>-->
+<!--                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--        </p-table>-->
+<!--      </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
           <div class="float-left">
