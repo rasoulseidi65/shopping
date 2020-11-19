@@ -1,52 +1,75 @@
-
+<p-toast [baseZIndex]="999999999" dir="rtl" position="center" class="text-right"></p-toast>
 
 <div class="container-fluid mt-2 gift-container py-4" dir="rtl">
-<!--  <form [formGroup]="emailForm">-->
+  <!--  <form [formGroup]="emailForm">-->
   <div class="row justify-content-center gift-bg py-3">
     <div class="col-8 align-items-center">
-<!--      <form [formGroup]="mobileForm">-->
+      <!--      <form [formGroup]="mobileForm">-->
       <div class="row justify-content-center">
         <div class="col-12 title align-items-center">
           <h3 class="text-white text-center">
             برای اطلاع از آخرین تخفیف‌ها و جدیدترین کالا‌ها در خبرنامه ثبت‌نام کنید.
           </h3>
         </div>
+        <form (ngSubmit)="regEmailNewsletter()" [formGroup]="emailForm" >
+          <div class="col-sm-12 align-items-center mt-2">
+            <input class="form-control w-100"
+                   formControlName="email"
+                   maxlength="500"
+                   name="email" pInputText
+                   placeholder="عضویت با پست الکترونیکی" required>
+            <ul class="mt-1 text-right list-inline" *ngFor="let error of emailErrorMessages.email">
+              <li class="font-small text-danger font-weight-bold list-inline-item"
+                  *ngIf="emailForm.get('email').hasError(error.type)
+                            && (emailForm.get('email').dirty
+                            || emailForm.get('email').touched)">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-12 align-items-center d-block text-center mt-2">
+            <button class="button" [disabled]="emailForm.invalid">عضویت با پست الکترونیکی</button>
+          </div>
+        </form>
+        <form (ngSubmit)="regSmsNewsletter()" [formGroup]="mobileForm" >
+          <div class="col-sm-12 align-items-center mt-2">
+            <input pKeyFilter="int" class="form-control w-100"
+                   formControlName="mobile"
+                   maxlength="11"
+                   minlength="11"
+                   name="mobile" pInputText
+                   placeholder="عضویت با شماره موبایل" required>
 
-        <div class="col-sm-12 col-lg-4 align-items-center mt-2">
-<!--          <input pInputText placeholder="عضویت با ایمیل" style="background-color: #ffffff" [(ngModel)]="email">-->
-          <input   class="form-control w-100" placeholder="عضویت با ایمیل" [(ngModel)]="email" >
-
-        </div>
-        <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
-          <button class="button" (click)="regEmailNewsletter(email)">ثبت نام</button>
-        </div>
-
-        <div class="col-sm-12 col-lg-4 align-items-center mt-2">
-          <input pInputText  class="form-control w-100" placeholder="عضویت با شماره موبایل"  [(ngModel)]="mobile" formControlName="mobile" maxlength="11" minlength="11" >
-
-          <!--          <p-inputNumber mode="decimal"  [useGrouping]="false" [maxlength]="11" [minlength]="11"  [format]="" class="text-center"  placeholder="عضویت با شماره موبایل" [(ngModel)]="mobile"></p-inputNumber>-->
-        </div>
-        <div class="col-sm-12 col-lg-2 align-items-center d-block text-center mt-2">
-          <button class="button" (click)="regSmsNewsletter()">ثبت نام</button>
-
-        </div>
-
+            <ul class="mt-1 text-right list-inline" *ngFor="let error of mobileErrorMessages.mobile">
+              <li class="font-small text-danger font-weight-bold list-inline-item"
+                  *ngIf="mobileForm.get('mobile').hasError(error.type)
+                            && (mobileForm.get('mobile').dirty
+                            || mobileForm.get('mobile').touched)">
+                {{ error.message }}
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-12 align-items-center d-block text-center mt-2">
+            <button class="button" [disabled]="mobileForm.invalid">عضویت با موبایل</button>
+          </div>
+        </form>
 
       </div>
-<!--      </form>-->
+      <!--      </form>-->
     </div>
   </div>
-<!--  </form>-->
+  <!--  </form>-->
 </div>
-<p-dialog  [(visible)]="displayError" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
+<p-dialog [(visible)]="displayError" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
   <p-header>
-    <p  class="mr-3">انجام شد</p>
+    <p class="mr-3">انجام شد</p>
   </p-header>
   <hr style="width: 100%;"/>
   <p class="text-right text-success mt-2">{{textDialog}}</p>
   <hr style="margin-bottom: -15px"/>
-  <ng-template pTemplate="footer" >
-    <button pButton pRipple type="button"  (click)="displayError=false" label="ادامه"  class="p-button-danger float-left"></button>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" (click)="displayError=false" label="ادامه"
+            class="p-button-danger float-left"></button>
 
   </ng-template>
 </p-dialog>
