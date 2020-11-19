@@ -2,74 +2,84 @@ import {Component, OnInit} from '@angular/core';
 import {LayoutService} from '../layout.service';
 import {MessageModule} from 'primeng/message';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.css']
+  styleUrls: ['./subscription.component.css'],
+  providers: [MessageService]
 })
 export class SubscriptionComponent implements OnInit {
-  mobile: 'sdfsdf';
-  email: 'fsdf@u';
-  displayError: boolean = false;
+  displayError = false;
   mobileForm: FormGroup;
   emailForm: FormGroup;
-textDialog:string;
-  constructor(private service: LayoutService, private fb: FormBuilder) {
+  textDialog: string;
+  mobileRegix = /^0?9[123]\d{8}$/;
+  mobileErrorMessages = {
+    mobile: [
+      {type: 'required', message: 'شماره موبایل را وارد کنید.'},
+      {type: 'minlength', message: 'شماره موبایل باید 11 رقم باشد.'},
+      {type: 'maxlength', message: 'شماره موبایل باید 11 رقم باشد.'},
+      {type: 'pattern', message: 'لطفا شماره موبایل معتبر وارد کنید.'}
+    ]
+  };
+  emailErrorMessages = {
+    email: [
+      {type: 'required', message: 'پست الکترونیکی را وارد کنید.'},
+      {type: 'maxlength', message: 'پست الکترونیکی نمی تواند از 500 کاراکتر بیشتر باشد.'},
+      {type: 'email', message: 'لطفا پست الکترونیکی معتبر وارد کنید.'}
+    ]
+  };
+
+  constructor(private service: LayoutService,
+              private fb: FormBuilder,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
     this.mobileForm = this.fb.group({
-      mobile: new FormControl('', Validators.required)
+      mobile: new FormControl(
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(11),
+          Validators.pattern(this.mobileRegix)
+        ])
+      )
     });
     this.emailForm = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email])
+      email: new FormControl(
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(500),
+        ])
+      )
     });
   }
 
 
-  regEmailNewsletter(email:any) {
-    let data = {
-      email: this.email
-    };
-    this.displayError = false;
-    if (this.email!==undefined) {
-      this.service.regEmailNewsletter(data).subscribe((response) => {
-        if (response['success'] === true) {
-          this.displayError = true;
-          this.textDialog='عضویت در خبرنامه با موفقیت ثبت شد'
-        } else {
-          this.displayError = false;
-        }
-      });
-    } else {
-      this.displayError = true;
-      this.textDialog='ایمیل را وارد نماید'
-    }
+  regEmailNewsletter(): void {
+    this.service.regEmailNewsletter(this.emailForm.value).subscribe((response) => {
+      if (response['success'] === true) {
+        this.messageService.add({severity: 'success', summary: 'عضویت در خبرنامه ', detail: response['data'], sticky: true});
+      } else {
+        this.messageService.add({severity: 'error', summary: 'عضویت در خبرنامه ', detail: response['data'], sticky: true});
+      }
+    });
   }
 
-  regSmsNewsletter() {
-    let data = {
-      mobile: this.mobile
-    };
-    this.displayError = false;
-    if (this.mobile!==undefined) {
-      this.service.regSmsNewsletter(data).subscribe((response) => {
-        console.log(response);
-        if (response['success'] === true) {
-          this.displayError = true;
-          this.textDialog='عضویت در خبرنامه با موفقیت ثبت شد'
-        } else {
-
-          this.displayError = true;
-
-        }
-      });
-    }
-    else {
-      this.displayError = true;
-      this.textDialog='شماره همراه را وارد نماید'
-    }
-
+  regSmsNewsletter(): void {
+    this.service.regSmsNewsletter(this.mobileForm.value).subscribe((response) => {
+      console.log(response);
+      if (response['success'] === true) {
+        this.messageService.add({severity: 'success', summary: 'عضویت در خبرنامه ', detail: response['data'], sticky: true});
+      } else {
+        this.messageService.add({severity: 'error', summary: 'عضویت در خبرنامه ', detail: response['data'], sticky: true});
+      }
+    });
   }
 }
