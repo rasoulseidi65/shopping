@@ -260,6 +260,7 @@ export class RegisterProductComponent implements OnInit {
       formData.append('files', event.files[i], event.files[i].name);
     }
     this.sellerService.uploadFiles(formData).subscribe((response) => {
+      console.log(response)
       if (response.success === true) {
         this.overlayService.showOverlay = false;
         this.form.controls.gallery.setValue(response.imagePath);

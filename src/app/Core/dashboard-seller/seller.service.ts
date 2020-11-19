@@ -27,6 +27,7 @@ export class SellerService {
     return this.http.get('http://194.5.175.25:3005/api/v1/seller/singleProduct/' + id);
   }
   addProduct(data: any): any{
+    console.log(data)
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/registerProduct', data);
   }
   deleteProduct(id: any): any{
