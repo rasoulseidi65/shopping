@@ -6,6 +6,7 @@ import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
 import {NgxSpinnerService} from "ngx-spinner";
+import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-discount',
@@ -14,7 +15,7 @@ import {NgxSpinnerService} from "ngx-spinner";
   providers: [MessageService]
 })
 export class DiscountComponent implements OnInit {
-  @ViewChild("NavHeaderComponent") nav: NavHeaderComponent;
+  @ViewChild('NavHeaderComponent') nav: NavHeaderComponent;
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -50,6 +51,8 @@ export class DiscountComponent implements OnInit {
   constructor(private service: LayoutService,
               private serviceCart: CartService,
               private router: Router,
+              private localStorage: LocalStorageService,
+              private messageService: MessageService,
               private spinner: NgxSpinnerService) {
   }
 
@@ -66,6 +69,25 @@ export class DiscountComponent implements OnInit {
     });
   }
 
+  addToWishList(id: any): void {
+
+    if (this.localStorage.userData !== null) {
+
+      let data = {
+        userID: this.localStorage.userJson.id,
+        productID: id
+      };
+      this.service.addWishList(data).subscribe((response) => {
+        if (response['success'] === true) {
+          this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
+        }
+        else{
+          this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
+        }
+      });
+    }
+
+  }
   addCart(product: any, count: any) {
     if (count <= 0) {
       this.displayNotProduct=true;

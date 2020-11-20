@@ -68,7 +68,13 @@ export class RegisterProductComponent implements OnInit {
     ],
     image: [
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
-    ]
+    ],
+    freeSend: [
+      {type: 'required', message: 'ارسال رایگان را انتخاب کنید.'}
+    ],
+    weight: [
+      {type: 'required', message: 'وزن محصول را انتخاب کنید.'}
+    ],
   };
 
   constructor(private formBuilder: FormBuilder,
@@ -169,7 +175,19 @@ export class RegisterProductComponent implements OnInit {
       ),
       gallery: new FormControl(
         null
-      )
+      ),
+      freeSend: new FormControl(
+        false,
+        [
+          Validators.required
+        ]
+      ),
+      weight: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
     });
   }
 
