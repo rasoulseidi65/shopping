@@ -70,7 +70,13 @@ export class EditProductComponent implements OnInit {
     ],
     image: [
       {type: 'required', message: 'تصویر محصول را بارگذاری کنید.'}
-    ]
+    ],
+    freeSend: [
+      {type: 'required', message: 'ارسال رایگان را انتخاب کنید.'}
+    ],
+    weight: [
+      {type: 'required', message: 'وزن محصول را انتخاب کنید.'}
+    ],
   };
 
   constructor(private formBuilder: FormBuilder,
@@ -168,6 +174,18 @@ export class EditProductComponent implements OnInit {
       ),
       gallery: new FormControl(
         this.product.gallery,
+      ),
+      freeSend: new FormControl(
+        this.product.freeSend,
+        [
+          Validators.required
+        ]
+      ),
+      weight: new FormControl(
+        this.product.weight,
+        [
+          Validators.required
+        ]
       ),
     });
   }

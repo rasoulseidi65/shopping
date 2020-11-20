@@ -105,6 +105,26 @@
       </div>
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
+          <label for="weight">وزن محصول</label>
+          <input id="weight" type="text" pInputText
+                 formControlName="weight">
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.weight">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('weight').hasError(error.type)
+                            && (form.get('weight').dirty
+                            || form.get('weight').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+        <div class="p-field p-col">
+          <label class="d-block">ارسال محصول رایگان است؟  {{form.controls.freeSend.value === true ? 'بله' : 'خیر'}}</label>
+          <p-inputSwitch formControlName="freeSend"></p-inputSwitch>
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
           <label for="topText">متن بالای محصول</label>
           <input id="topText" type="text" pInputText
                  formControlName="topText">
