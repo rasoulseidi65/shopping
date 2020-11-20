@@ -9,7 +9,7 @@ import {OwlOptions} from 'ngx-owl-carousel-o';
 export class FeatureComponent implements OnInit {
 
   customOptions: OwlOptions = {
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 1000,
     autoplayTimeout: 5000,
     loop: true,
@@ -22,26 +22,22 @@ export class FeatureComponent implements OnInit {
     responsive: {
       0: {
         items: 2,
-        autoplay: true,
-        autoplaySpeed: 1000,
-        autoplayTimeout: 5000,
-        loop: true
+      },
+      200: {
+        items: 3,
       },
       400: {
-        items: 3,
-        autoplay: true,
-        autoplaySpeed: 1000,
-        autoplayTimeout: 5000,
-        loop: true
+        items: 4,
       },
       740: {
         items: 5
       },
       940: {
-        items: 5
+        items: 8
       }
     }
   };
+
 
   constructor() { }
 

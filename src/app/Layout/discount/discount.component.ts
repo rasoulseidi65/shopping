@@ -33,10 +33,13 @@ export class DiscountComponent implements OnInit {
         items: 1
       },
       400: {
-        items: 1
+        items: 2
+      },
+      600: {
+        items: 3
       },
       740: {
-        items: 4
+        items: 3
       },
       940: {
         items: 5

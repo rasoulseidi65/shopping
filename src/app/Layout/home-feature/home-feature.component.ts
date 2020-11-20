@@ -27,7 +27,7 @@ export class HomeFeatureComponent implements OnInit {
         loop: true
       },
       400: {
-        items: 2,
+        items: 4,
         autoplay: true,
         autoplaySpeed: 1000,
         autoplayTimeout: 5000,

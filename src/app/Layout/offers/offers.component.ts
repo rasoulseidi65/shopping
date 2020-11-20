@@ -1,13 +1,12 @@
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
+import {OwlOptions} from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-cooperators',
-  templateUrl: './cooperators.component.html',
-  styleUrls: ['./cooperators.component.css']
+  selector: 'app-offers',
+  templateUrl: './offers.component.html',
+  styleUrls: ['./offers.component.css']
 })
-export class CooperatorsComponent implements OnInit {
-
+export class OffersComponent implements OnInit {
   customOptions: OwlOptions = {
     autoplay: true,
     autoplaySpeed: 1000,
@@ -18,23 +17,23 @@ export class CooperatorsComponent implements OnInit {
     pullDrag: true,
     dots: false,
     navSpeed: 700,
-    nav: false,
+    nav: true,
+    navText: ['<i class="fa fa-chevron-left fa-2x"></i>', '<i class="fa fa-chevron-right fa-2x"></i>'],
     responsive: {
       0: {
-        items: 2,
+        items: 1
       },
       400: {
-        items: 4,
+        items: 1
       },
       740: {
-        items: 5
+        items: 1
       },
       940: {
-        items: 8
+        items: 1
       }
     }
   };
-
   constructor() { }
 
   ngOnInit(): void {

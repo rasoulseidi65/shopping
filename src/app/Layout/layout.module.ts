@@ -21,6 +21,8 @@ import { DiscountComponent } from './discount/discount.component';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import { BestSellingComponent } from './best-selling/best-selling.component';
 import { BannerComponent } from './banner/banner.component';
+import { OffersComponent } from './offers/offers.component';
+
 import { GiftComponent } from './gift/gift.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
@@ -68,6 +70,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     CallBackComponent,
     LoginRegisterComponent,
     WishlistComponent,
+    OffersComponent
   ],
   imports: [
     CommonModule,
