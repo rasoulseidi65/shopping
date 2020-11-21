@@ -20,28 +20,20 @@ export class NavHeaderComponent implements OnInit {
   cartlist: any;
   sumOfPrice = 0;
   countBadge = 0;
-  wishListCount = 0;
   showCartList = true;
 
   constructor(private deviceService: DeviceDetectorService,
               private serviceCart: CartService,
-              private wishListService: WishListService,
+              public wishListService: WishListService,
               private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
     this.localStorage.getCurrentUser();
 
-    if (this.localStorage.userData !== null) {
-      this.wishListService.getWishListCount(this.localStorage.userJson.id).subscribe((response) => {
-        if (response.success === true) {
-          this.wishListCount = response.data;
-        } else {
-          this.wishListCount = 0;
-        }
-      });
+    if (this.localStorage.userJson._id !== null) {
+      this.wishListService.getWishListFromApi(this.localStorage.userJson._id);
     }
-
     setInterval(() => {
       this.getAllPrice();
     }, 1000);

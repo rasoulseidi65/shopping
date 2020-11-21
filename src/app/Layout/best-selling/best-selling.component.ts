@@ -5,6 +5,7 @@ import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../SharedComponent/wish-list.service';
 
 @Component({
   selector: 'app-best-selling',
@@ -49,6 +50,7 @@ export class BestSellingComponent implements OnInit {
 
   constructor(private service: LayoutService,
               private serviceCart: CartService,
+              private wishListService: WishListService,
               private messageService: MessageService,
               private spinner: NgxSpinnerService,
               public localStorage: LocalStorageService) {
@@ -77,6 +79,7 @@ export class BestSellingComponent implements OnInit {
       };
       this.service.addWishList(data).subscribe((response) => {
         if (response.success === true) {
+          this.wishListService.getWishListFromApi(this.localStorage.userJson._id);
           this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
         }
         else{

@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../SharedComponent/wish-list.service';
 
 @Component({
   selector: 'app-discount',
@@ -53,6 +54,7 @@ export class DiscountComponent implements OnInit {
 
   constructor(private service: LayoutService,
               private serviceCart: CartService,
+              private wishListService: WishListService,
               private router: Router,
               private localStorage: LocalStorageService,
               private messageService: MessageService,
@@ -80,11 +82,10 @@ export class DiscountComponent implements OnInit {
         userID: this.localStorage.userJson._id,
         productID: id
       };
-
-      console.log(data);
       this.service.addWishList(data).subscribe((response) => {
         console.log(response);
         if (response.success === true) {
+          this.wishListService.getWishListFromApi(this.localStorage.userJson._id);
           this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
         } else {
           this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
