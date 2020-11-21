@@ -26,10 +26,10 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
     this.localStorage.getCurrentUser();
 
-    if(this.localStorage.userData !== null){
+    if (this.localStorage.userJson._id !== null){
       this.spinner.show();
-      let data= {
-        userID: this.localStorage.userJson.id
+      const data = {
+        userID: this.localStorage.userJson._id
       };
 
       this.service.getWishList(data).subscribe((response) => {

@@ -70,20 +70,21 @@ export class BestSellingComponent implements OnInit {
 
   addToWishList(id: any): void {
 
-    if (this.localStorage.userData !== null) {
-
-      let data = {
-        userID: this.localStorage.userJson.id,
+    if (this.localStorage.userJson._id !== undefined) {
+      const data = {
+        userID: this.localStorage.userJson._id,
         productID: id
       };
       this.service.addWishList(data).subscribe((response) => {
-        if (response['success'] === true) {
+        if (response.success === true) {
           this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
         }
         else{
           this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
         }
       });
+    } else {
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
     }
 
   }

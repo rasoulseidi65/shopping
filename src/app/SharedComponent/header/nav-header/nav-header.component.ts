@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {CartService} from '../../../serviceCart/cart.service';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../wish-list.service';
 
 
 @Component({
@@ -18,12 +20,28 @@ export class NavHeaderComponent implements OnInit {
   cartlist: any;
   sumOfPrice = 0;
   countBadge = 0;
-  showCartList: boolean = true;
+  wishListCount = 0;
+  showCartList = true;
 
-  constructor(private deviceService: DeviceDetectorService, private serviceCart: CartService) {
+  constructor(private deviceService: DeviceDetectorService,
+              private serviceCart: CartService,
+              private wishListService: WishListService,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
+    this.localStorage.getCurrentUser();
+
+    if (this.localStorage.userData !== null) {
+      this.wishListService.getWishListCount(this.localStorage.userJson.id).subscribe((response) => {
+        if (response.success === true) {
+          this.wishListCount = response.data;
+        } else {
+          this.wishListCount = 0;
+        }
+      });
+    }
+
     setInterval(() => {
       this.getAllPrice();
     }, 1000);
@@ -52,7 +70,7 @@ export class NavHeaderComponent implements OnInit {
   }
 
   openDepartments(): void {
-    if (this.deviceService.isDesktop() == true) {
+    if (this.deviceService.isDesktop() === true) {
       this.departments.nativeElement.classList.add('departments--open');
     }
   }
@@ -67,7 +85,7 @@ export class NavHeaderComponent implements OnInit {
   }
 
   openCategory1(): void {
-    if (this.deviceService.isDesktop() == true) {
+    if (this.deviceService.isDesktop() === true) {
       this.category2.nativeElement.classList.remove('departments__submenu--open');
       this.category1.nativeElement.classList.add('departments__submenu--open');
     }
@@ -84,7 +102,7 @@ export class NavHeaderComponent implements OnInit {
   }
 
   openCategory2(): void {
-    if (this.deviceService.isDesktop() == true) {
+    if (this.deviceService.isDesktop() === true) {
       this.category1.nativeElement.classList.remove('departments__submenu--open');
       this.category2.nativeElement.classList.add('departments__submenu--open');
     }
@@ -100,7 +118,7 @@ export class NavHeaderComponent implements OnInit {
     this.category2.nativeElement.classList.remove('departments__submenu--open');
   }
 
-  getAllPrice() {
+  getAllPrice(): void {
     this.cartlist = this.serviceCart.getItems();
     this.sumOfPrice = 0;
     this.countBadge = 0;
@@ -108,8 +126,8 @@ export class NavHeaderComponent implements OnInit {
 
     if (this.cartlist != null) {
       if (this.cartlist.length > 0) {
-        for (var i = 0; i < this.cartlist.length; i++) {
-          let count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
+        for (let i = 0; i < this.cartlist.length; i++) {
+          const count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
           this.sumOfPrice += count;
           this.countBadge++;
           this.showCartList = false;
@@ -118,7 +136,6 @@ export class NavHeaderComponent implements OnInit {
     }
 
   }
-
 
   onDeleteCart(item: any): void {
     this.serviceCart.deleteItem(item);

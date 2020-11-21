@@ -5,7 +5,7 @@ import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
@@ -64,9 +64,9 @@ export class DiscountComponent implements OnInit {
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
         this.hottestProduct = response['data'];
-        console.log(response['data'])
+        console.log(response['data']);
         this.Inventory = response['data'][0]['Inventory'][0];
-        this.spinner.hide()
+        this.spinner.hide();
       }
 
     });
@@ -74,26 +74,30 @@ export class DiscountComponent implements OnInit {
 
   addToWishList(id: any): void {
 
-    if (this.localStorage.userData !== null) {
+    if (this.localStorage.userJson._id !== undefined) {
 
-      let data = {
-        userID: this.localStorage.userJson.id,
+      const data = {
+        userID: this.localStorage.userJson._id,
         productID: id
       };
+
+      console.log(data);
       this.service.addWishList(data).subscribe((response) => {
-        if (response['success'] === true) {
+        console.log(response);
+        if (response.success === true) {
           this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-        else{
+        } else {
           this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
         }
       });
+    } else {
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
     }
-
   }
+
   addCart(product: any, count: any) {
     if (count <= 0) {
-      this.displayNotProduct=true;
+      this.displayNotProduct = true;
     } else {
 
       let list = {

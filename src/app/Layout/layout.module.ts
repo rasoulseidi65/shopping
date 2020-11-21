@@ -47,6 +47,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {HomePopularCategoryComponent} from './home-popular-category/home-popular-category.component';
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
@@ -70,6 +71,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     CallBackComponent,
     LoginRegisterComponent,
     WishlistComponent,
+    HomePopularCategoryComponent,
     OffersComponent
   ],
   imports: [

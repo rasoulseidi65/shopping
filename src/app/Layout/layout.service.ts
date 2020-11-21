@@ -72,4 +72,7 @@ export class LayoutService {
   deleteWishList(id: any): any {
     return this.http.delete('http://194.5.175.25:3005/api/v1/user/deleteWishList/' + id);
   }
+  getWishListCount(id: any): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/user/countWishlist/' + id);
+  }
 }
