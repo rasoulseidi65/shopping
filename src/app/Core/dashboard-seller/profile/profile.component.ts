@@ -917,11 +917,13 @@ export class ProfileComponent implements OnInit {
     this.shopForm.controls.category.setValue(category.title);
 
     const state = this.contactForm.controls.state.value;
-    this.contactForm.controls.state.setValue(state.label);
-
+    if (state !== null) {
+      this.contactForm.controls.state.setValue(state.value);
+    }
     const city = this.contactForm.controls.city.value;
-    this.contactForm.controls.city.setValue(city.label);
-
+    if (city !== null) {
+      this.contactForm.controls.city.setValue(city.value);
+    }
     const shop = this.shopForm.value;
     const contact = this.contactForm.value;
     const personal = this.personalForm.value;
@@ -931,14 +933,13 @@ export class ProfileComponent implements OnInit {
       ...shop, ...contact, ...personal, ...business
     };
 
-    console.log(formData);
-
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
-      console.log(this.localStorage.userJson._id);
-
       if (response.success === true) {
-        console.log(response);
         this.getSeller(this.localStorage.userJson._id);
+
+        this.shopForm.controls.category.setValue(category);
+        this.contactForm.controls.state.setValue(state);
+        this.contactForm.controls.city.setValue(city);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -967,7 +968,10 @@ export class ProfileComponent implements OnInit {
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.localStorage.userJson._id);
-        this.messageService.add({severity: 'success', summary: ' ثبت اطلاعات ', detail: response.data});
+
+        this.contactForm.controls.state.setValue(state);
+        this.contactForm.controls.city.setValue(city);
+        this.shopForm.controls.category.setValue(category);
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -995,6 +999,13 @@ export class ProfileComponent implements OnInit {
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.localStorage.userJson._id);
+
+        this.contactForm.controls.state.setValue(state);
+        this.contactForm.controls.city.setValue(city);
+        this.shopForm.controls.category.setValue(category);
+
+        this.messageService.add({severity: 'success', summary: ' ثبت اطلاعات ', detail: response.data});
+
       } else {
         this.messageService.add({severity: 'error', summary: ' ثبت اطلاعات ', detail: response.data});
       }
@@ -1022,6 +1033,11 @@ export class ProfileComponent implements OnInit {
     this.sellerService.updateSeller(this.localStorage.userJson._id, formData).subscribe((response) => {
       if (response.success === true) {
         this.getSeller(this.localStorage.userJson._id);
+
+        this.contactForm.controls.state.setValue(state);
+        this.contactForm.controls.city.setValue(city);
+        this.shopForm.controls.category.setValue(category);
+
         this.messageService.add({severity: 'success', summary: ' ثبت اطلاعات ', detail: response.data});
 
       } else {

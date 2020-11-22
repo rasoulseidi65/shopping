@@ -53,4 +53,14 @@ export class AdminserviceService {
   onDisplayFeatureValue(data:any){
     return this.http.post('http://194.5.175.25:3005/api/v1/admin/indexFeatureValue',data);
   }
+
+  getAllComments(): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/allComment');
+  }
+  activeComment(id: any): any{
+    return this.http.put('http://194.5.175.25:3005/api/v1/admin/activeComment/' + id, null);
+  }
+  deleteComment(id: any): any{
+    return this.http.delete('http://194.5.175.25:3005/api/v1/admin/deleteComment/' + id);
+  }
 }

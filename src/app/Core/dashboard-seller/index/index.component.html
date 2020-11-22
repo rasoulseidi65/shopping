@@ -10,14 +10,20 @@
     <hr style="margin-top: -10px"/>
     <mat-nav-list>
       <mat-list>
-        <mat-list-item class="iran" [routerLink]="['/seller/profile']"> <i class="pi pi-user p-pl-4 text-white" style="font-size: 1rem"></i> اطلاعات کاربری</mat-list-item>
+        <mat-list-item class="iran" [routerLink]="['/seller/profile']"><i class="pi pi-user p-pl-4 text-white"
+                                                                          style="font-size: 1rem"></i> اطلاعات کاربری
+        </mat-list-item>
         <mat-divider></mat-divider>
 
         <div *ngIf="localStorage.userJson.active === true">
-          <mat-list-item [routerLink]="['/seller/product']"> <i class="pi pi-file p-pl-4 text-white" style="font-size: 1rem"></i> محصولات من</mat-list-item>
+          <mat-list-item [routerLink]="['/seller/product']"><i class="pi pi-file p-pl-4 text-white"
+                                                               style="font-size: 1rem"></i> محصولات من
+          </mat-list-item>
           <mat-divider></mat-divider>
 
-          <mat-list-item [routerLink]="['/seller/feature']"> <i class="pi pi-file p-pl-4 text-white" style="font-size: 1rem"></i> ویژگی محصولات</mat-list-item>
+          <mat-list-item [routerLink]="['/seller/feature']"><i class="pi pi-file p-pl-4 text-white"
+                                                               style="font-size: 1rem"></i> ویژگی محصولات
+          </mat-list-item>
           <mat-divider></mat-divider>
         </div>
       </mat-list>
@@ -25,7 +31,6 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-
 
     <p-toolbar>
       <div class="ui-toolbar-group-right">
@@ -41,13 +46,21 @@
       <div class="p-d-flex justify-content-center top-row">
         <div class="p-ml-5 text-white text-center">آخرین بازدید : 13 شهریور 1399 ( 10:59 )</div>
         <div class="p-mr-5">
-          <a class="text-white" (click)="logOut()"><i class="pi pi-power-off text-white pl-2" ></i>خروج کاربر</a>
+          <a class="text-white" (click)="logOut()"><i class="pi pi-power-off text-white pl-2"></i>خروج کاربر</a>
         </div>
       </div>
     </p-toolbar>
 
     <ng-content>
     </ng-content>
+
+    <div class="pnl-content p-3" *ngIf="localStorage.userJson.active !== true">
+      <div class="box text-right" dir="rtl">
+        <p>
+          لطفا اطلاعات کاربری خود را ثبت کنید تا پنل شما فعال شود.
+        </p>
+      </div>
+    </div>
 
     <router-outlet></router-outlet>
   </mat-sidenav-content>

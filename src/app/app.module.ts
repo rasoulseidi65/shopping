@@ -13,7 +13,10 @@ import {Ng5SliderModule} from 'ng5-slider';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { SearchService } from './search.service';
-import {NgxSpinnerModule} from "ngx-spinner";
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {InputMaskModule} from 'primeng/inputmask';
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -31,7 +34,8 @@ import {NgxSpinnerModule} from "ngx-spinner";
     Ng5SliderModule,
     ClickOutsideModule,
     ProgressSpinnerModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    InputMaskModule
   ],
   providers: [SearchService],
   exports: [

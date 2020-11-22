@@ -5,6 +5,7 @@ import {ProductsComponent} from "./products/products.component";
 import {HomepageComponent} from "./homepage/homepage.component";
 import {CompanyComponent} from "./company/company.component";
 import {ProductFeatureComponent} from './product-feature/product-feature.component';
+import {CommentsComponent} from './comments/comments.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,14 @@ const routes: Routes = [
     children: [{
       path: 'product',
       component: ProductsComponent
+    }]
+  },
+  {
+    path: '',
+    component: IndexComponent,
+    children: [{
+      path: 'comment',
+      component: CommentsComponent
     }]
   },
   {

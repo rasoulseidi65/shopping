@@ -75,4 +75,14 @@ export class LayoutService {
   getWishListCount(id: any): any{
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countWishlist/' + id);
   }
+
+  addProductComment(data: any): any{
+    return this.http.post('http://194.5.175.25:3005/api/v1/user/addComment', data);
+  }
+  getProductComments(id: any): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/user/allCommentForProduct/' + id);
+  }
+  getProductCommentsCount(id: any): any{
+    return this.http.get('http://194.5.175.25:3005/api/v1/user/countComment/' + id);
+  }
 }

@@ -441,7 +441,7 @@
               <div class="dropcart dropcart--style--dropdown">
                 <div class="dropcart__body">
 
-                  <div class="dropcart__products-list">
+                  <div class="dropcart__products-list" *ngIf="cartlist !== null">
                     <div class="dropcart__product" *ngFor="let item of cartlist">
                       <div class="product-image dropcart__product-image">
                         <a class="product-image__body">
@@ -460,6 +460,11 @@
                       </div>
                       <i class="fa fa-close fa-1x mr-auto" style="color:#c33" (click)="onDeleteCart(item)"></i>
                     </div>
+                  </div>
+                  <div class="dropcart__products-list" *ngIf="cartlist == null">
+                    <p class="text-center">
+                      سبد خرید شما خالی است.
+                    </p>
                   </div>
                   <div class="dropcart__totals">
                     <table>

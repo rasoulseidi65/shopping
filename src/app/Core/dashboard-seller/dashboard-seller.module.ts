@@ -24,6 +24,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {EditProductComponent} from './product-seller/edit-product/edit-product.component';
 import {ListboxModule} from 'primeng/listbox';
 import {DpDatePickerModule} from 'ng2-jalali-date-picker';
+import {InputMaskModule} from 'primeng/inputmask';
+
 @NgModule({
   declarations: [
     IndexComponent,
@@ -54,6 +56,7 @@ import {DpDatePickerModule} from 'ng2-jalali-date-picker';
     ConfirmDialogModule,
     ListboxModule,
     DpDatePickerModule,
+    InputMaskModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

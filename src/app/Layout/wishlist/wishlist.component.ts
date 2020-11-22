@@ -34,10 +34,10 @@ export class WishlistComponent implements OnInit {
   }
 
   getWishList(): void {
-    if (this.localStorage.userJson._id !== null) {
+    if (this.localStorage.userJson.id !== null) {
       this.spinner.show();
       const data = {
-        userID: this.localStorage.userJson._id
+        userID: this.localStorage.userJson.id
       };
 
       this.service.getWishList(data).subscribe((response) => {
@@ -68,7 +68,7 @@ export class WishlistComponent implements OnInit {
         this.wishListId = [];
         this.wishList = [];
         this.getWishList();
-        this.wishListService.getWishListFromApi(this.localStorage.userJson._id);
+        this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
       } else {
         this.messageService.add({severity: 'error', summary: ' حذف علاقه مندی ', detail: response.data});
       }
