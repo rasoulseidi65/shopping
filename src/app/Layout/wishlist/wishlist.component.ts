@@ -18,6 +18,7 @@ export class WishlistComponent implements OnInit {
   wishListId: any[] = [];
   wishList: any[] = [];
   displayBasic: boolean;
+  isLogged: boolean;
 
   constructor(private service: LayoutService,
               private spinner: NgxSpinnerService,
@@ -29,34 +30,35 @@ export class WishlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.localStorage.getCurrentUser();
+    this.isLogged = this.localStorage.getCurrentUser();
     this.getWishList();
   }
 
   getWishList(): void {
-    if (this.localStorage.userJson.id !== null) {
-      this.spinner.show();
-      const data = {
-        userID: this.localStorage.userJson.id
-      };
+    if (this.isLogged) {
+      if (this.localStorage.userJson.id !== null) {
+        this.spinner.show();
+        const data = {
+          userID: this.localStorage.userJson.id
+        };
+        this.service.getWishList(data).subscribe((response) => {
+          if (response.success === true) {
+            this.wishListId = response.data;
 
-      this.service.getWishList(data).subscribe((response) => {
-        if (response.success === true) {
-          this.wishListId = response.data;
-
-          this.wishListId.forEach(item => {
-            const id = {
-              _id: item.productID
-            };
-            this.service.findProductID(id).subscribe((res) => {
-              if (res.success === true) {
-                this.wishList.push(...res.data);
-              }
+            this.wishListId.forEach(item => {
+              const id = {
+                _id: item.productID
+              };
+              this.service.findProductID(id).subscribe((res) => {
+                if (res.success === true) {
+                  this.wishList.push(...res.data);
+                }
+              });
             });
-          });
-        }
-        this.spinner.hide();
-      });
+          }
+          this.spinner.hide();
+        });
+      }
     }
   }
 

@@ -38,16 +38,26 @@
               <div class="menu menu--layout--topbar">
                 <div class="menu__submenus-container"></div>
                 <ul class="menu__list">
-                  <li class="menu__item">
+                  <li class="menu__item" *ngIf="isLogged === true">
                     <div class="menu__item-submenu-offset"></div>
-                    <a class="menu__item-link"> <i class="fa fa-user fa-1x ml-3" style="color:#777"></i>پنل کاربری</a>
+                    <a class="menu__item-link">
+                      <i class="fa fa-user fa-1x ml-3" style="color:#777"></i>پنل کاربری
+                    </a>
+                  </li>
+                  <li class="menu__item" *ngIf="isLogged === false">
+                    <div class="menu__item-submenu-offset"></div>
+                    <a class="menu__item-link" [routerLink]="['/home/account']">
+                      <i class="fa fa-sign-in fa-1x ml-3" style="color:#777"></i>ورود/ثبت نام
+                    </a>
                   </li>
                   <li class="menu__item">
                     <div class="menu__item-submenu-offset"></div>
-                    <a class="menu__item-link" [routerLink]="['/home/account']"> <i class="fa fa-sign-in fa-1x ml-3" style="color:#777"></i>ورود/ثبت
-                      نام</a>
+                    <a class="menu__item-link" [routerLink]="['/home/wishlist']">
+                      <i class="fa fa-heart fa-1x ml-3" style="color:#777"></i>لیست علاقه مندی ها
+                    </a>
                   </li>
-                  <li class="menu__item">
+
+                  <li class="menu__item" *ngIf="isLogged === true">
                     <div class="menu__item-submenu-offset"></div>
                     <a class="menu__item-link"><i class="fa fa-power-off fa-1x ml-3" style="color:#777"></i>خروج</a>
                   </li>
@@ -89,7 +99,6 @@
   position="right">
   <div class=" text-center shoppingMe">
     <img height="35px"  src="./assets/bootstrap/img/svg/logo.svg" >
-
   </div>
   <div class="d-flex flex-column">
     <div class="mb-auto">

@@ -21,6 +21,7 @@ export class NavHeaderComponent implements OnInit {
   sumOfPrice = 0;
   countBadge = 0;
   showCartList = true;
+  isLogged: boolean;
 
   constructor(private deviceService: DeviceDetectorService,
               private serviceCart: CartService,
@@ -29,11 +30,14 @@ export class NavHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.localStorage.getCurrentUser();
+    this.isLogged = this.localStorage.getCurrentUser();
 
-    if (this.localStorage.userJson._id !== null) {
-      this.wishListService.getWishListFromApi(this.localStorage.userJson._id);
+    if (this.isLogged === true){
+      if (this.localStorage.userJson.id !== null) {
+        this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
+      }
     }
+
     setInterval(() => {
       this.getAllPrice();
     }, 1000);

@@ -43,7 +43,7 @@ export class DiscountComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 5
+        items: 4
       }
     }
   };
@@ -51,6 +51,7 @@ export class DiscountComponent implements OnInit {
   Inventory: any;
   displayBasic: boolean;
   displayNotProduct: boolean;
+  isLogged: boolean;
 
   constructor(private service: LayoutService,
               private serviceCart: CartService,
@@ -62,6 +63,7 @@ export class DiscountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLogged = this.localStorage.getCurrentUser();
     this.spinner.show();
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
@@ -76,22 +78,23 @@ export class DiscountComponent implements OnInit {
 
   addToWishList(id: any): void {
 
-    if (this.localStorage.userJson.id !== undefined) {
-
-      const data = {
-        userID: this.localStorage.userJson.id,
-        productID: id
-      };
-      this.service.addWishList(data).subscribe((response) => {
-        if (response.success === true) {
-          this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
-          this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
-        } else {
-          this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-      });
-    } else {
-      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+    if (this.isLogged) {
+      if (this.localStorage.userJson.id !== null) {
+        const data = {
+          userID: this.localStorage.userJson.id,
+          productID: id
+        };
+        this.service.addWishList(data).subscribe((response) => {
+          if (response.success === true) {
+            this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
+            this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
+          } else {
+            this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
+          }
+        });
+      } else {
+        this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+      }
     }
   }
 
