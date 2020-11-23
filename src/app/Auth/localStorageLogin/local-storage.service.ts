@@ -17,20 +17,19 @@ export class LocalStorageService {
     localStorage.setItem('currentUser', data);
   }
 
-  getCurrentUser() {
+  getCurrentUser(): boolean {
     this.userData = localStorage.getItem('currentUser');
     this.userJson = JSON.parse(this.userData);
     if (this.userData !== undefined && this.userData !== null) {
       this.userJson = JSON.parse(this.userData);
       this.userType = this.userJson['type'];
-        return true;
-
+      return true;
     } else {
       return false;
     }
   }
 
-  removeCurrentUser() {
+  removeCurrentUser(): void {
     // alert('del');
     localStorage.removeItem('currentUser');
 

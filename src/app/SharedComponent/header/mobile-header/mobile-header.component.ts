@@ -6,6 +6,7 @@ import {UserService} from '../../../Auth/user.service';
 import {Options} from 'ng5-slider';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
 
 @Component({
   selector: 'app-mobile-header',
@@ -20,10 +21,11 @@ export class MobileHeaderComponent implements OnInit {
 
   categories: string[] = ['کالای دیجیتال', 'لوازم برقی', 'پوشاک'];
   selectedCategory: any;
-  showCartList:boolean;
+  showCartList: boolean;
   valueDynamic = 0;
   highValueDynamic = 250000;
   options: Options = this.getOptions();
+  isLogged: boolean;
 
   getOptions(): Options {
     return {
@@ -47,11 +49,12 @@ export class MobileHeaderComponent implements OnInit {
   cartlist: any;
   sumOfPrice = 0;
   countBadge = 0;
-  constructor(private route:Router,
+  constructor(private route: Router,
               private serviceCart: CartService,
               private fb: FormBuilder,
               private messageService: MessageService,
               private breakpointObserver: BreakpointObserver,
+              private localStorage: LocalStorageService,
               private authService: UserService) {
 
       this.items = [
@@ -135,9 +138,11 @@ export class MobileHeaderComponent implements OnInit {
   }
   // mobile-links__item mobile-links__item--open collapse-item-1
   ngOnInit(): void {
+    this.isLogged = this.localStorage.getCurrentUser();
+
     setInterval(()=>{
       this.getAllPrice();
-    },1000)
+    },1000);
     // this.getAllPrice();
     this.formUser = this.fb.group({
       mobile: new FormControl(['', Validators.required]),

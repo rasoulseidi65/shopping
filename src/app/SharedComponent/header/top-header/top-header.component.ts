@@ -11,17 +11,14 @@ import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage
 
 export class TopHeaderComponent implements OnInit {
   @ViewChild('accountDropDown') accountDropDown: ElementRef;
-  loginStause: boolean = true;
+  isLogged: boolean;
 
-  constructor(private deviceService: DeviceDetectorService, private localStorage:LocalStorageService) {
+  constructor(private deviceService: DeviceDetectorService,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    if (this.localStorage.getCurrentUser() === true) {
-      this.loginStause = false;
-    } else {
-      this.loginStause = true;
-    }
+    this.isLogged = this.localStorage.getCurrentUser();
   }
 
   exitUser() {
@@ -38,7 +35,7 @@ export class TopHeaderComponent implements OnInit {
   }
 
   openAccountDropDown(): void {
-    if (this.deviceService.isDesktop() == true) {
+    if (this.deviceService.isDesktop() === true) {
       this.accountDropDown.nativeElement.classList.add('topbar-dropdown--opened');
     }
   }

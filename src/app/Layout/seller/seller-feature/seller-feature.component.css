@@ -114,12 +114,11 @@ mat-expansion-panel.mat-expanded{
 }
 
 mat-expansion-panel.mat-expanded mat-expansion-panel-header{
-  background-color: #777777;
-  color: #4d4d4d;
-
+  background-color: #F2F5F9;
 }
-mat-expansion-panel.mat-expanded mat-expansion-panel-header mat-panel-title ,mat-expansion-panel.mat-expanded mat-expansion-panel-header .mat-expansion-indicator  {
-  color: #ffffff;
+
+mat-expansion-panel.mat-expanded mat-expansion-panel-header mat-panel-title{
+  color: #4d4d4d!important;
 }
 mat-expansion-panel.mat-expanded p{
   text-align: justify;
