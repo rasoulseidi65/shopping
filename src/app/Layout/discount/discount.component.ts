@@ -5,8 +5,9 @@ import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {NavHeaderComponent} from '../../SharedComponent/header/nav-header/nav-header.component';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../SharedComponent/wish-list.service';
 
 @Component({
   selector: 'app-discount',
@@ -42,7 +43,7 @@ export class DiscountComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 5
+        items: 4
       }
     }
   };
@@ -50,9 +51,11 @@ export class DiscountComponent implements OnInit {
   Inventory: any;
   displayBasic: boolean;
   displayNotProduct: boolean;
+  isLogged: boolean;
 
   constructor(private service: LayoutService,
               private serviceCart: CartService,
+              private wishListService: WishListService,
               private router: Router,
               private localStorage: LocalStorageService,
               private messageService: MessageService,
@@ -60,13 +63,13 @@ export class DiscountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLogged = this.localStorage.getCurrentUser();
     this.spinner.show();
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
         this.hottestProduct = response['data'];
-        console.log(response['data'])
         this.Inventory = response['data'][0]['Inventory'][0];
-        this.spinner.hide()
+        this.spinner.hide();
       }
 
     });
@@ -74,26 +77,32 @@ export class DiscountComponent implements OnInit {
 
   addToWishList(id: any): void {
 
-    if (this.localStorage.userData !== null) {
-
-      let data = {
-        userID: this.localStorage.userJson.id,
-        productID: id
-      };
-      this.service.addWishList(data).subscribe((response) => {
-        if (response['success'] === true) {
-          this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-        else{
-          this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-      });
+    if (this.isLogged) {
+      if (this.localStorage.userJson.id !== null) {
+        const data = {
+          userID: this.localStorage.userJson.id,
+          productID: id
+        };
+        this.service.addWishList(data).subscribe((response) => {
+          if (response.success === true) {
+            this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
+            this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
+          } else {
+            this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
+          }
+        });
+      } else {
+        this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+      }
     }
-
+    else{
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+    }
   }
+
   addCart(product: any, count: any) {
     if (count <= 0) {
-      this.displayNotProduct=true;
+      this.displayNotProduct = true;
     } else {
 
       let list = {

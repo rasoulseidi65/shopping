@@ -1,6 +1,10 @@
 import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {CartService} from '../../../serviceCart/cart.service';
+import {LocalStorageService} from '../../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../wish-list.service';
+import {MenuService} from '../../menu.service';
+import {Route, Router} from '@angular/router';
 
 
 @Component({
@@ -11,19 +15,41 @@ import {CartService} from '../../../serviceCart/cart.service';
 export class NavHeaderComponent implements OnInit {
   @ViewChild('basketDropDown') basketDropDown: ElementRef;
   @ViewChild('departments') departments: ElementRef;
-  @ViewChild('category1') category1: ElementRef;
-  @ViewChild('category2') category2: ElementRef;
-  // @ViewChild(LoginRegisterComponent) childComponent: LoginRegisterComponent;
+  @ViewChild('category') category: ElementRef;
+
   status = false;
   cartlist: any;
   sumOfPrice = 0;
   countBadge = 0;
-  showCartList: boolean = true;
+  showCartList = true;
+  isLogged: boolean;
+  categories: any[] = [];
+  subCategories: any[] = [];
+  currentCat: any;
 
-  constructor(private deviceService: DeviceDetectorService, private serviceCart: CartService) {
+  constructor(private deviceService: DeviceDetectorService,
+              private serviceCart: CartService,
+              public wishListService: WishListService,
+              public service: MenuService,
+              public router: Router,
+              private localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
+    this.isLogged = this.localStorage.getCurrentUser();
+
+    if (this.isLogged === true) {
+      if (this.localStorage.userJson.id !== null) {
+        this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
+      }
+    }
+
+    this.service.getCategories().subscribe((response) => {
+      if (response.success === true) {
+        this.categories = response.data;
+      }
+    });
+
     setInterval(() => {
       this.getAllPrice();
     }, 1000);
@@ -52,7 +78,7 @@ export class NavHeaderComponent implements OnInit {
   }
 
   openDepartments(): void {
-    if (this.deviceService.isDesktop() == true) {
+    if (this.deviceService.isDesktop() === true) {
       this.departments.nativeElement.classList.add('departments--open');
     }
   }
@@ -61,46 +87,38 @@ export class NavHeaderComponent implements OnInit {
     this.departments.nativeElement.classList.remove('departments--open');
   }
 
-  toggleCategory1(): void {
-    this.category2.nativeElement.classList.remove('departments__submenu--open');
-    this.category1.nativeElement.classList.toggle('departments__submenu--open');
+  toggleCategory(id: any) {
+
+    const cat = this.categories.find(x => x._id === id);
+    this.subCategories = cat.SubCategory;
+    this.currentCat = id;
+    if (this.subCategories.length === 0) {
+      // NO data to show
+      this.goProduct(id, 0, 0);
+    }
+
   }
 
-  openCategory1(): void {
-    if (this.deviceService.isDesktop() == true) {
-      this.category2.nativeElement.classList.remove('departments__submenu--open');
-      this.category1.nativeElement.classList.add('departments__submenu--open');
+  openCategory(id: any): void {
+    if (this.deviceService.isDesktop() === true) {
+      this.category.nativeElement.classList.remove('departments__submenu--open');
+
+      const cat = this.categories.find(x => x._id === id);
+      this.subCategories = cat.SubCategory;
+
+      this.currentCat = id;
+      if (this.subCategories.length > 0) {
+        this.category.nativeElement.classList.add('departments__submenu--open');
+      }
+
     }
   }
 
-  closeCategory1(): void {
-    this.category2.nativeElement.classList.remove('departments__submenu--open');
-    this.category1.nativeElement.classList.remove('departments__submenu--open');
+  closeCategory(): void {
+    this.category.nativeElement.classList.remove('departments__submenu--open');
   }
 
-  toggleCategory2(): void {
-    this.category1.nativeElement.classList.remove('departments__submenu--open');
-    this.category2.nativeElement.classList.toggle('departments__submenu--open');
-  }
-
-  openCategory2(): void {
-    if (this.deviceService.isDesktop() == true) {
-      this.category1.nativeElement.classList.remove('departments__submenu--open');
-      this.category2.nativeElement.classList.add('departments__submenu--open');
-    }
-  }
-
-  closeCategory2(): void {
-    this.category1.nativeElement.classList.remove('departments__submenu--open');
-    this.category2.nativeElement.classList.remove('departments__submenu--open');
-  }
-
-  closeOthers(): void {
-    this.category1.nativeElement.classList.remove('departments__submenu--open');
-    this.category2.nativeElement.classList.remove('departments__submenu--open');
-  }
-
-  getAllPrice() {
+  getAllPrice(): void {
     this.cartlist = this.serviceCart.getItems();
     this.sumOfPrice = 0;
     this.countBadge = 0;
@@ -108,8 +126,8 @@ export class NavHeaderComponent implements OnInit {
 
     if (this.cartlist != null) {
       if (this.cartlist.length > 0) {
-        for (var i = 0; i < this.cartlist.length; i++) {
-          let count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
+        for (let i = 0; i < this.cartlist.length; i++) {
+          const count = Number(this.cartlist[i]['product']['number']) * Number(this.cartlist[i]['product']['cartList'].price);
           this.sumOfPrice += count;
           this.countBadge++;
           this.showCartList = false;
@@ -119,11 +137,13 @@ export class NavHeaderComponent implements OnInit {
 
   }
 
-
   onDeleteCart(item: any): void {
     this.serviceCart.deleteItem(item);
     this.cartlist = this.serviceCart.getItems();
     this.getAllPrice();
   }
 
+  goProduct(categoryId: any, subCategoryId: any, subSubCategoryId: any) {
+    this.router.navigateByUrl('/home/product/' + categoryId + '/' + subCategoryId + '/' + subSubCategoryId);
+  }
 }

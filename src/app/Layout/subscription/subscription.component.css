@@ -54,3 +54,6 @@ button:hover{
   border: 1px solid #EF2B2F;
 }
 
+:host ::ng-deep .p-inputgroup {
+  flex-direction: row-reverse;
+}

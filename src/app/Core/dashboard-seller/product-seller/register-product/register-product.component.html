@@ -31,10 +31,11 @@
       </div>
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col">
-          <label class="d-block">عنوان دسته</label>
+          <label class="d-block">دسته بندی اول</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
                       [options]="categories" (onChange)="xx($event)"
                       formControlName="categoryID"
+                      (onChange)="getSubCategories($event)"
                       optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
             <ng-template pTemplate="selectedItem">
               <div class="state-item state-item-value"
@@ -58,6 +59,66 @@
             </li>
           </ul>
         </div>
+
+        <div class="p-field p-col">
+          <label class="d-block">دسته بندی دوم</label>
+          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                      [options]="subCategories"
+                      (onChange)="getSubSubCategories($event)"
+                      formControlName="subCategoryID"
+                      optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
+            <ng-template pTemplate="selectedItem">
+              <div class="state-item state-item-value"
+                   *ngIf="form.controls['subCategoryID'].value">
+                <div>{{form.controls['subCategoryID'].value.title}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-category pTemplate="item">
+              <div class="state-item text-right">
+                <div class="text-right">{{category.value.title}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.categoryID">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('categoryID').hasError(error.type)
+                            && (form.get('categoryID').dirty
+                            || form.get('categoryID').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-field p-col">
+          <label class="d-block">دسته بندی سوم</label>
+          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
+                      [options]="subSubCategories"
+                      formControlName="subSubCategoryID"
+                      optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
+            <ng-template pTemplate="selectedItem">
+              <div class="state-item state-item-value"
+                   *ngIf="form.controls['subSubCategoryID'].value">
+                <div>{{form.controls['subSubCategoryID'].value.title}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-category pTemplate="item">
+              <div class="state-item text-right">
+                <div class="text-right">{{category.value.title}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <ul class="mt-1 text-right list-inline"
+              *ngFor="let error of errorMessages.categoryID">
+            <li class="font-small text-danger font-weight-bold list-inline-item"
+                *ngIf="form.get('categoryID').hasError(error.type)
+                            && (form.get('categoryID').dirty
+                            || form.get('categoryID').touched)">
+              {{ error.message }}
+            </li>
+          </ul>
+        </div>
+
         <div class="p-field p-col">
           <label for="subCategory">عنوان زیر دسته</label>
 

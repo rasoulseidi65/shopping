@@ -15,21 +15,36 @@
 .filter-box ul{
   padding: 0;
 }
-.filter-box ul li {
+.filter-box .list-group-item {
   list-style-type: none;
   width: 100%;
   color: #4D4D4D;
   display: block;
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
-  text-indent: 2em;
+  font-size: 15px;
+  border: none;
 }
-.filter-box ul li:hover {
+.filter-box .list-group-item-text li {
+  list-style-type: none;
+  width: 100%;
+  color: #4D4D4D;
+  display: block;
+  font-size: 14px;
+  border: none;
+  line-height: 30px;
   cursor: pointer;
-  border-radius: 20px;
+}
+h4{
+  font-family: IRANSans_Bold!important;
+  margin: 0px;
+}
+.filter-box .list-group-item:hover {
+  cursor: pointer;
+  border-radius: 40px;
   background-color: #CC3333;
-  color: white;
+  color: #fff;
+}
+hr{
+  margin: unset!important;
 }
 
 ::ng-deep .custom-slider .ng5-slider .ng5-slider-selection {
@@ -645,4 +660,17 @@ label.color span {
 }
 .breadcrumb-item+.breadcrumb-item::before {
   content: unset!important;
+}
+
+
+.bg-pagination{
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.product-title:hover{
+  color: #CC3333!important;
 }

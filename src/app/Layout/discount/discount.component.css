@@ -32,7 +32,7 @@
   text-align: justify;
   text-justify: inter-word;
   font-size: 12px;
-  color: #EF2B2F;
+  color: #CC3333;
 }
 :host::ng-deep.p-dialog .p-dialog-header {
   color: #777777!important;
@@ -58,7 +58,6 @@
   width: 100%;
   padding: 15px;
 }
-
 .block-products-carousel__cell {
   display: -ms-flexbox;
   display: flex;
@@ -143,7 +142,7 @@
   fill: #CCCCCC;
 }
 .product-card__actions-list button:hover svg{
-  fill: #EF2B2F;
+  fill: #CC3333;
 }
 .product-card--layout--grid .product-card__fit .status-badge__text {
   display: none;
@@ -208,7 +207,7 @@
   font-family: IRANSans_Bold;
 }
 .product-card .product-card__price--new {
-  color: #EF2B2F;
+  color: #CC3333;
   font-size: 14px;
 
 }
@@ -230,7 +229,7 @@
   padding: 8px;
   border-radius: 2px;
   background: transparent;
-  color: #EF2B2F;
+  color: #CC3333;
   z-index: 0;
   transition: color .2s;
 }
@@ -250,7 +249,7 @@
 }
 .product-card .product-card__addtocart-icon svg {
   display: block;
-  fill: #EF2B2F;
+  fill: #CC3333;
 }
 
 .product-card--layout--grid:after {
@@ -292,7 +291,7 @@ img.image__tag {
   padding: 4px 14px 0;
 }
 .tag-badge--sale:before {
-  background: #EF2B2F;
+  background: #CC3333;
 }
 .tag-badge:before {
   content: "";
@@ -319,7 +318,7 @@ img.image__tag {
 .product-card:active .product-card__addtocart-icon:before,
 .product-card:hover .product-card__addtocart-icon:before {
   transform: scale(1);
-  background: #EF2B2F;
+  background: #CC3333;
   background-image: initial;
   background-position-x: initial;
   background-position-y: initial;
@@ -335,7 +334,7 @@ img.image__tag {
   fill: #ffffff!important;
 }
 :host ::ng-deep .product-card__actions-list button:hover svg path {
-  fill: #EF2B2F!important;
+  fill: #CC3333!important;
 }
 .arrow__button {
   height: 23px;
@@ -405,3 +404,7 @@ img.image__tag {
   display: flex;
 }
 
+
+.product-title:hover{
+  color: #CC3333!important;
+}

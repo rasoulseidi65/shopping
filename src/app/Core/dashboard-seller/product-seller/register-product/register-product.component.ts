@@ -18,8 +18,14 @@ export class RegisterProductComponent implements OnInit {
 
   public form: FormGroup;
   categories: any[];
+<<<<<<< HEAD
   subCategory: any[];
   subSubCategory: any[];
+=======
+  subCategories: any[];
+  subSubCategories: any[];
+
+>>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
   features: any[] = [];
   selectedFeature: any = null;
 
@@ -111,6 +117,18 @@ export class RegisterProductComponent implements OnInit {
         ]
       ),
       categoryID: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
+      subCategoryID: new FormControl(
+        null,
+        [
+          Validators.required
+        ]
+      ),
+      subSubCategoryID: new FormControl(
         null,
         [
           Validators.required
@@ -216,17 +234,22 @@ export class RegisterProductComponent implements OnInit {
 
       if (response.success === true) {
 
-        let featureValue: any[] = [];
+        const featureValue: any[] = [];
 
         this.finalSelectedValues.forEach(item => {
 
           featureValue.push({
+<<<<<<< HEAD
             'featuresID': item.featuresID,
             'valueID': item.id
+=======
+            featuresID:  item.featuresID,
+            valueID: item.id
+>>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
           });
 
         });
-        let value = {
+        const value = {
           productID: response.result._id,
           productFeature: featureValue,
         };
@@ -239,7 +262,7 @@ export class RegisterProductComponent implements OnInit {
         });
 
         this.finalSelectedGifts.forEach(item => {
-          let gift = {
+          const gift = {
             productID: response.result._id,
             giftID: item._id,
           };
@@ -265,7 +288,6 @@ export class RegisterProductComponent implements OnInit {
     this.sellerService.getCategories().subscribe((response) => {
       if (response.success === true) {
         this.categories = response.data;
-        console.log('cat');
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ', detail: response.data});
       }
@@ -346,7 +368,13 @@ export class RegisterProductComponent implements OnInit {
   getFeatureValues(event): void {
     this.values = this.features.find(x => x.id === event.value._id).FeaturesValue;
   }
-
+  getSubCategories(event): void {
+    this.subSubCategories = [];
+    this.subCategories = this.categories.find(x => x.id === event.value._id).SubCategory;
+  }
+  getSubSubCategories(event): void {
+    this.subSubCategories = this.subCategories.find(x => x.id === event.value._id).SubSubCategory;
+  }
   addSelectedValues(event: any): void {
     if (event.value !== null) {
       this.finalSelectedValues = [];

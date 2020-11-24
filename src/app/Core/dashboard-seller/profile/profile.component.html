@@ -58,9 +58,9 @@
               </div>
               <div class="p-field p-col">
                 <label for="shabaNumber">شماره شبا (به نام شخص یا شرکت ثبت نام کننده)</label>
-                <input id="shabaNumber" type="text" pInputText
-                       formControlName="shabaNumber"
-                       mask="IR99-9999-9999-9999-9999-9999-99">
+                <p-inputMask class="text-left" mask="IR99-9999-9999-9999-9999-9999-99" id="shabaNumber"
+                             formControlName="shabaNumber" placeholder="IR99-9999-9999-9999-9999-9999-99"></p-inputMask>
+
                 <ul class="mt-1 text-right list-inline"
                     *ngFor="let error of shopErrorMessages.shabaNumber">
                   <li class="font-small text-danger font-weight-bold list-inline-item"

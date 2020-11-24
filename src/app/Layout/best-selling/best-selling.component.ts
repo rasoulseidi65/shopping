@@ -5,6 +5,7 @@ import {CartService} from '../../serviceCart/cart.service';
 import {MessageService} from 'primeng/api';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
+import {WishListService} from '../../SharedComponent/wish-list.service';
 
 @Component({
   selector: 'app-best-selling',
@@ -40,29 +41,30 @@ export class BestSellingComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 5
+        items: 4
       }
     }
   };
   bestsellingProduct: any[];
   displayBasic: boolean;
+  isLogged: boolean;
 
   constructor(private service: LayoutService,
               private serviceCart: CartService,
+              private wishListService: WishListService,
               private messageService: MessageService,
               private spinner: NgxSpinnerService,
               public localStorage: LocalStorageService) {
   }
 
   ngOnInit(): void {
-    this.localStorage.getCurrentUser();
+    this.isLogged = this.localStorage.getCurrentUser();
 
     this.spinner.show();
     this.service.Bestselling().subscribe((response) => {
       if (response['success'] === true) {
         this.bestsellingProduct = response['data'];
         this.spinner.hide();
-
       }
 
     });
@@ -70,20 +72,26 @@ export class BestSellingComponent implements OnInit {
 
   addToWishList(id: any): void {
 
-    if (this.localStorage.userData !== null) {
-
-      let data = {
-        userID: this.localStorage.userJson.id,
-        productID: id
-      };
-      this.service.addWishList(data).subscribe((response) => {
-        if (response['success'] === true) {
-          this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-        else{
-          this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
-        }
-      });
+    if (this.isLogged) {
+      if (this.localStorage.userJson.id !== null) {
+        const data = {
+          userID: this.localStorage.userJson.id,
+          productID: id
+        };
+        this.service.addWishList(data).subscribe((response) => {
+          if (response.success === true) {
+            this.wishListService.getWishListFromApi(this.localStorage.userJson.id);
+            this.messageService.add({severity: 'success', summary: ' ثبت علاقه مندی ', detail: response.data});
+          } else {
+            this.messageService.add({severity: 'error', summary: ' ثبت علاقه مندی ', detail: response.data});
+          }
+        });
+      } else {
+        this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+      }
+    }
+    else{
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
     }
 
   }

@@ -9,15 +9,18 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { HomepageComponent } from './homepage/homepage.component';
 import { CompanyComponent } from './company/company.component';
 import { ProductFeatureComponent } from './product-feature/product-feature.component';
+import { CommentsComponent } from './comments/comments.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 @NgModule({
-  declarations: [IndexComponent, ProductsComponent, HomepageComponent, CompanyComponent, ProductFeatureComponent],
+  declarations: [IndexComponent, ProductsComponent, HomepageComponent, CompanyComponent, ProductFeatureComponent, CommentsComponent],
   imports: [
     CommonModule,
     DashboardAdminRoutingModule,
     SharedmoduleModule,
     ReactiveFormsModule,
+    ConfirmDialogModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

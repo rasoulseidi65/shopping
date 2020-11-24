@@ -80,6 +80,7 @@ export class SellerRegisterComponent implements OnInit {
 
       if (response['success'] === true) {
         this.messageService.add({severity: 'success', summary: 'ثبت نام ', detail: response['data'], sticky: true });
+
       } else {
         this.messageService.add({severity: 'error', summary: 'ثبت نام ', detail: response['data'], sticky: true });
       }

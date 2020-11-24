@@ -1,3 +1,4 @@
+<p-toast position="center"></p-toast>
 <p-dialog  [(visible)]="displayBasic" [style]="{width: '30rem'}" [baseZIndex]="10000" dir="rtl">
   <p-header>
     <p  class="mr-3">انجام شد</p>
@@ -90,7 +91,7 @@
           {{item.price}} تومان
         </td>
         <td class="wishlist-column wishlist-column-tocart">
-          <button (click)="addToCart(item,item['Inventory'][0].count)" type="button" class="btn btn-primary">
+          <button (click)="addToCart(item, item.count)" type="button" class="btn btn-primary">
             اضافه به سبد خرید
           </button>
         </td>

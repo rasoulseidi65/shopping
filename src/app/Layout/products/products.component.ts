@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Options} from 'ng5-slider';
 import {LayoutService} from '../layout.service';
-import {MessageService} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {CartService} from '../../serviceCart/cart.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 
@@ -20,35 +20,49 @@ export class ProductsComponent implements OnInit {
   items = [];
   pageOfItems: Array<any>;
   categories: any[] = [];
+  currentCategory: any;
+  subCategories: any[] = [];
   displaySort = false;
   displayFilter = false;
   valueDynamic = 1000000;
   highValueDynamic = 50000000;
   Products: any[];
   FilteredProducts: any[];
-  product: any[];
   displayBasic: boolean;
-  options: Options =  {
+  options: Options = {
     floor: 1000000,
     ceil: 50000000,
     step: 1000000
   };
-  countOfProduct = 7;
+  countOfProduct = 5;
   priceList: number[] = [];
+  categoryId: any;
+  subCategoryId: any;
+  subSubCategoryId: any;
 
   constructor(private router: Router,
               private service: LayoutService,
               private serviceCart: CartService,
+              private route: ActivatedRoute,
               private messageService: MessageService,
               private spinner: NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.spinner.show();
+    this.route.paramMap.subscribe(params => {
+      this.categoryId = params.get('cat');
+      this.subCategoryId = params.get('sub');
+      this.subSubCategoryId = params.get('sub2');
+    });
+
     this.getCategories();
+
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
+
       this.FilteredProducts = this.Products;
       this.Products.forEach(item => {
         this.priceList.push(Number.parseInt(item.price));
@@ -57,7 +71,7 @@ export class ProductsComponent implements OnInit {
       this.valueDynamic = Math.min(...this.priceList);
       this.highValueDynamic = Math.max(...this.priceList);
 
-      this.options =  {
+      this.options = {
         floor: this.valueDynamic,
         ceil: this.highValueDynamic,
         step: 1000000
@@ -72,6 +86,8 @@ export class ProductsComponent implements OnInit {
       if (response.success === true) {
         this.spinner.hide();
         this.categories = response.data;
+        this.currentCategory = this.categories.find(x => x._id === this.categoryId);
+        this.subCategories = this.currentCategory.SubCategory;
       } else {
         this.messageService.add({severity: 'error', summary: ' دریافت دسته بندی ', detail: response.data});
       }
@@ -104,27 +120,38 @@ export class ProductsComponent implements OnInit {
     //   alert('nooo');
     // }
   }
+
   goDetail(id: any): void {
     this.router.navigate(['/home/detail/' + id]);
   }
+
   goCart(): void {
     this.displayBasic = !this.displayBasic;
     this.router.navigate(['/home/cart']);
   }
 
-  filterByCategory(id: string): void {
+  filterByCategory(subId: string, subSubId: string): void {
     this.FilteredProducts = [];
 
-    this.Products.forEach(item => {
-      if (item.categoryID === id){
-        this.FilteredProducts.push(item);
-      }
-    });
+    if (subSubId === '') {
+      this.Products.forEach(item => {
+        if (item.subCategory === subId) {
+          this.FilteredProducts.push(item);
+        }
+      });
+    } else {
+      this.Products.forEach(item => {
+        if (item.subsubCategory === subSubId) {
+          this.FilteredProducts.push(item);
+        }
+      });
+    }
+
     this.countOfProduct = this.FilteredProducts.length;
     this.items = Array(this.countOfProduct).fill(0).map((x, i) => ({id: (i), name: `Item ${i}`}));
   }
 
-  filterByPrice(): void{
+  filterByPrice(): void {
   }
 
   showAllCategories(): void {
