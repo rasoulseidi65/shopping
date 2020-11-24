@@ -171,14 +171,25 @@
   }
   .megamenu__links--level--0>.megamenu__item {
     padding: 1px 0;
+    border: none;
   }
+
   .megamenu__links--level--0>.megamenu__item>a {
-    font-weight: 500;
+    font-weight: bold;
+    font-size: 15px;
   }
+
+hr{
+  margin: unset!important;
+}
+
+ul ul  {
+  page-break-inside: avoid;
+}
 .megamenu__links--level--0>.megamenu__item>a+.megamenu__links {
   padding-top: 10px;
   margin-top: 3px;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
   font-size: 13px;
 }
  .megamenu__links a {

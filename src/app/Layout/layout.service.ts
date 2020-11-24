@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
@@ -10,52 +10,66 @@ export class LayoutService {
   constructor(private http: HttpClient) {
   }
 
-  showGift(): any  {
+  showGift(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/showGift');
   }
-  showProduct(): any  {
+
+  showProduct(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/product');
   }
-  registerUser(data: any): any  {
+
+  registerUser(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/register', data);
   }
-  registerSeller(data: any): any  {
+
+  registerSeller(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/registerSeller', data);
   }
+
   loginSeller(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/seller/loginSeller', data);
   }
-  updateUser(id: any, data: any): any  {
+
+  updateUser(id: any, data: any): any {
     return this.http.put('http://194.5.175.25:3005/api/v1/user/updateUser/' + id, data);
   }
-  onPayment(data: any): any  {
+
+  onPayment(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/payment', data).pipe(map(result => result));
   }
-  checkStatePayment(data: any): any  {
+
+  checkStatePayment(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/checkStatePayment', data).pipe(map(result => result));
   }
-  hottest(): any  {
+
+  hottest(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/hottest');
   }
-  Bestselling(): any  {
+
+  Bestselling(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/Bestselling');
   }
-  relatedProducts(data: any): any  {
+
+  relatedProducts(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/admin/relatedProducts', data);
   }
-  allProduct(): any  {
+
+  allProduct(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/allProduct');
   }
-  findProductID(data: any): any  {
+
+  findProductID(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/admin/findProductByID', data);
   }
-  registerBasket(data: any): any  {
+
+  registerBasket(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/basket', data);
   }
 
-  regSmsNewsletter(data: any): any  {
+  regSmsNewsletter(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/SmsNewsletter', data);
   }
+
   regEmailNewsletter(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/EmailNewsletter', data);
   }
@@ -63,26 +77,40 @@ export class LayoutService {
   getCategories(): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/admin/category');
   }
+
+  getSubCategories(id: any): any {
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/subCategory/' + id);
+  }
+
+  getSubSubCategories(id: any): any {
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/subsubCategory/' + id);
+  }
+
   getWishList(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/allWishlist', data);
   }
+
   addWishList(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/addWishList', data);
   }
+
   deleteWishList(id: any): any {
     return this.http.delete('http://194.5.175.25:3005/api/v1/user/deleteWishList/' + id);
   }
-  getWishListCount(id: any): any{
+
+  getWishListCount(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countWishlist/' + id);
   }
 
-  addProductComment(data: any): any{
+  addProductComment(data: any): any {
     return this.http.post('http://194.5.175.25:3005/api/v1/user/addComment', data);
   }
-  getProductComments(id: any): any{
+
+  getProductComments(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/allCommentForProduct/' + id);
   }
-  getProductCommentsCount(id: any): any{
+
+  getProductCommentsCount(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countComment/' + id);
   }
 }

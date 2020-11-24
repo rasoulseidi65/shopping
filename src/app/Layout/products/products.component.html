@@ -17,13 +17,13 @@
             </li>
 
             <li class="breadcrumb-item active">
-              همه محصولات
+              {{currentCategory.title}}
             </li>
           </ol>
         </nav>
       </div>
       <div class="page-header-title">
-        <h1>مشاهده همه محصولات</h1>
+        <h1> محصولات {{currentCategory.title}}</h1>
       </div>
     </div>
   </div>
@@ -34,20 +34,27 @@
     <div class="col-lg-3 filter-pc-wrapper">
       <div class="filter-box text-right">
         <p-accordion [multiple]="true">
-          <p-accordionTab header="دسته بندی" [selected]="true">
-            <ul>
-              <li (click)="showAllCategories()">همه دسته بندی ها</li>
-              <li (click)="filterByCategory(item._id)" *ngFor="let item of categories">{{item.title}}</li>
-            </ul>
-          </p-accordionTab>
-          <p-accordionTab header="برند" [selected]="true">
-            <ul>
-              <li>اپل</li>
-              <li>سامسونگ</li>
-              <li>شیائومی</li>
-              <li>هوآوی</li>
-              <li>سایر</li>
-            </ul>
+          <p-accordionTab header="دسته بندی {{currentCategory.title}}" [selected]="true">
+            <div id="accordion">
+              <div class="panel list-group">
+                <div class="w-100">
+                  <a (click)="showAllCategories()" class="list-group-item">
+                    <h4>همه دسته بندی ها</h4>
+                  </a>
+                </div>
+                <div class="w-100" *ngFor="let sub of subCategories;let i = index">
+                  <a href="#sub{{i}}" data-parent="#accordion" data-toggle="collapse" class="list-group-item">
+                    <h4>{{sub.title}}</h4>
+                  </a>
+                  <div class="collapse" id="sub{{i}}">
+                    <ul class="list-group-item-text mr-5 py-2">
+                      <li (click)="filterByCategory(sub._id, '')">همه {{sub.title}}</li>
+                      <li *ngFor="let subSub of sub.SubSubCategory" (click)="filterByCategory(sub._id, subSub._id)">{{subSub.title}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </p-accordionTab>
           <p-accordionTab header="قیمت" [selected]="true">
             <div class="custom-slider">
@@ -57,38 +64,38 @@
               <button class="btn btn-primary" (click)="filterByPrice()">اعمال بازه قیمت</button>
             </div>
           </p-accordionTab>
-          <p-accordionTab header="رنگ" [selected]="true">
+          <!--          <p-accordionTab header="رنگ" [selected]="true">-->
 
-            <input type="radio" name="color" id="red" value="red"/>
-            <label class="color" for="red"><span style="background-color: #DB2828"></span></label>
+          <!--            <input type="radio" name="color" id="red" value="red"/>-->
+          <!--            <label class="color" for="red"><span style="background-color: #DB2828"></span></label>-->
 
-            <input type="radio" name="color" id="green"/>
-            <label class="color" for="green"><span style="background-color: #21BA45"></span></label>
+          <!--            <input type="radio" name="color" id="green"/>-->
+          <!--            <label class="color" for="green"><span style="background-color: #21BA45"></span></label>-->
 
-            <input type="radio" name="color" id="yellow"/>
-            <label class="color" for="yellow"><span style="background-color: #FBBD08"></span></label>
+          <!--            <input type="radio" name="color" id="yellow"/>-->
+          <!--            <label class="color" for="yellow"><span style="background-color: #FBBD08"></span></label>-->
 
-            <input type="radio" name="color" id="olive"/>
-            <label class="color" for="olive"><span style="background-color: #B5CC18"></span></label>
+          <!--            <input type="radio" name="color" id="olive"/>-->
+          <!--            <label class="color" for="olive"><span style="background-color: #B5CC18"></span></label>-->
 
-            <input type="radio" name="color" id="orange"/>
-            <label class="color" for="orange"><span style="background-color: #F2711C"></span></label>
+          <!--            <input type="radio" name="color" id="orange"/>-->
+          <!--            <label class="color" for="orange"><span style="background-color: #F2711C"></span></label>-->
 
-            <input type="radio" name="color" id="teal"/>
-            <label class="color" for="teal"><span style="background-color: #00B5AD"></span></label>
+          <!--            <input type="radio" name="color" id="teal"/>-->
+          <!--            <label class="color" for="teal"><span style="background-color: #00B5AD"></span></label>-->
 
-            <input type="radio" name="color" id="blue"/>
-            <label class="color" for="blue"><span style="background-color: #2185D0"></span></label>
+          <!--            <input type="radio" name="color" id="blue"/>-->
+          <!--            <label class="color" for="blue"><span style="background-color: #2185D0"></span></label>-->
 
-            <input type="radio" name="color" id="violet"/>
-            <label class="color" for="violet"><span style="background-color: #6435C9"></span></label>
+          <!--            <input type="radio" name="color" id="violet"/>-->
+          <!--            <label class="color" for="violet"><span style="background-color: #6435C9"></span></label>-->
 
-            <input type="radio" name="color" id="purple"/>
-            <label class="color" for="purple"><span style="background-color: #A333C8"></span></label>
+          <!--            <input type="radio" name="color" id="purple"/>-->
+          <!--            <label class="color" for="purple"><span style="background-color: #A333C8"></span></label>-->
 
-            <input type="radio" name="color" id="pink"/>
-            <label class="color" for="pink"><span style="background-color: #E03997"></span></label>
-          </p-accordionTab>
+          <!--            <input type="radio" name="color" id="pink"/>-->
+          <!--            <label class="color" for="pink"><span style="background-color: #E03997"></span></label>-->
+          <!--          </p-accordionTab>-->
           <p-accordionTab header="وضعیت انبار" [selected]="true">
             <label>فقط کالاهای موجود</label>
             <p-inputSwitch></p-inputSwitch>
@@ -198,7 +205,8 @@
 
                   <div class="product-card-prices">
                     <div class="product-card-price product-card-price-old" *ngIf="FilteredProducts[item.id]['offer']">
-                      <b class="ml-5" style="text-decoration: line-through;">{{FilteredProducts[item.id]['price']|number}}
+                      <b class="ml-5"
+                         style="text-decoration: line-through;">{{FilteredProducts[item.id]['price']|number}}
                         تومان</b>
 
                       <small
@@ -220,7 +228,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center bg-pagination">
         <jw-pagination pageSize="9" class="text-center" [items]="items"
                        (changePage)="onChangePage($event)"></jw-pagination>
       </div>
@@ -254,18 +262,18 @@
       <div class="filter-box">
         <p-accordion [multiple]="true">
           <p-accordionTab header="دسته بندی" [selected]="true">
+
             <ul>
               <li (click)="showAllCategories()">همه دسته بندی ها</li>
-              <li (click)="filterByCategory(item._id)" *ngFor="let item of categories">{{item.title}}</li>
-            </ul>
-          </p-accordionTab>
-          <p-accordionTab header="برند">
-            <ul>
-              <li>اپل</li>
-              <li>سامسونگ</li>
-              <li>شیائومی</li>
-              <li>هوآوی</li>
-              <li>سایر</li>
+              <li (click)="filterByCategory(cat._id,'')" *ngFor="let cat of categories">
+                {{cat.title}}
+
+                <ul>
+                  <li *ngFor="let sub of cat.SubCategory">
+                    {{sub.title}}
+                  </li>
+                </ul>
+              </li>
             </ul>
           </p-accordionTab>
           <p-accordionTab header="قیمت">
@@ -273,38 +281,38 @@
               <ng5-slider [(value)]="valueDynamic" [(highValue)]="highValueDynamic" [options]="options"></ng5-slider>
             </div>
           </p-accordionTab>
-<!--          <p-accordionTab header="رنگ">-->
+          <!--          <p-accordionTab header="رنگ">-->
 
-<!--            <input type="radio" name="color" id="red" value="red"/>-->
-<!--            <label class="color" for="red"><span style="background-color: #DB2828"></span></label>-->
+          <!--            <input type="radio" name="color" id="red" value="red"/>-->
+          <!--            <label class="color" for="red"><span style="background-color: #DB2828"></span></label>-->
 
-<!--            <input type="radio" name="color" id="green"/>-->
-<!--            <label class="color" for="green"><span style="background-color: #21BA45"></span></label>-->
+          <!--            <input type="radio" name="color" id="green"/>-->
+          <!--            <label class="color" for="green"><span style="background-color: #21BA45"></span></label>-->
 
-<!--            <input type="radio" name="color" id="yellow"/>-->
-<!--            <label class="color" for="yellow"><span style="background-color: #FBBD08"></span></label>-->
+          <!--            <input type="radio" name="color" id="yellow"/>-->
+          <!--            <label class="color" for="yellow"><span style="background-color: #FBBD08"></span></label>-->
 
-<!--            <input type="radio" name="color" id="olive"/>-->
-<!--            <label class="color" for="olive"><span style="background-color: #B5CC18"></span></label>-->
+          <!--            <input type="radio" name="color" id="olive"/>-->
+          <!--            <label class="color" for="olive"><span style="background-color: #B5CC18"></span></label>-->
 
-<!--            <input type="radio" name="color" id="orange"/>-->
-<!--            <label class="color" for="orange"><span style="background-color: #F2711C"></span></label>-->
+          <!--            <input type="radio" name="color" id="orange"/>-->
+          <!--            <label class="color" for="orange"><span style="background-color: #F2711C"></span></label>-->
 
-<!--            <input type="radio" name="color" id="teal"/>-->
-<!--            <label class="color" for="teal"><span style="background-color: #00B5AD"></span></label>-->
+          <!--            <input type="radio" name="color" id="teal"/>-->
+          <!--            <label class="color" for="teal"><span style="background-color: #00B5AD"></span></label>-->
 
-<!--            <input type="radio" name="color" id="blue"/>-->
-<!--            <label class="color" for="blue"><span style="background-color: #2185D0"></span></label>-->
+          <!--            <input type="radio" name="color" id="blue"/>-->
+          <!--            <label class="color" for="blue"><span style="background-color: #2185D0"></span></label>-->
 
-<!--            <input type="radio" name="color" id="violet"/>-->
-<!--            <label class="color" for="violet"><span style="background-color: #6435C9"></span></label>-->
+          <!--            <input type="radio" name="color" id="violet"/>-->
+          <!--            <label class="color" for="violet"><span style="background-color: #6435C9"></span></label>-->
 
-<!--            <input type="radio" name="color" id="purple"/>-->
-<!--            <label class="color" for="purple"><span style="background-color: #A333C8"></span></label>-->
+          <!--            <input type="radio" name="color" id="purple"/>-->
+          <!--            <label class="color" for="purple"><span style="background-color: #A333C8"></span></label>-->
 
-<!--            <input type="radio" name="color" id="pink"/>-->
-<!--            <label class="color" for="pink"><span style="background-color: #E03997"></span></label>-->
-<!--          </p-accordionTab>-->
+          <!--            <input type="radio" name="color" id="pink"/>-->
+          <!--            <label class="color" for="pink"><span style="background-color: #E03997"></span></label>-->
+          <!--          </p-accordionTab>-->
           <p-accordionTab header="وضعیت انبار">
             <label>فقط کالاهای موجود</label>
             <p-inputSwitch></p-inputSwitch>
@@ -373,10 +381,10 @@
 
   </ng-template>
 </p-dialog>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)"
-             size = "large"
-             color = "#fff"
-             type = "ball-fussion"
-             [fullScreen] = "true">
-  <p style="color: white; direction: rtl" >منتظر بمانید ...</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)"
+             size="large"
+             color="#fff"
+             type="ball-fussion"
+             [fullScreen]="true">
+  <p style="color: white; direction: rtl">منتظر بمانید</p>
 </ngx-spinner>

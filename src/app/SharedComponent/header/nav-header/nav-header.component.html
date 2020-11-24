@@ -2,376 +2,98 @@
   <div class="nav-panel nav-panel--sticky">
     <div class="nav-panel__container container">
       <div class="nav-panel__row">
-        <div class="nav-panel__departments" (clickOutside)="closeDepartments()"  (mouseleave) = "closeDepartments()">
+        <div class="nav-panel__departments" (clickOutside)="closeDepartments()" (mouseleave)="closeDepartments()">
           <div class="departments" #departments>
             <div class="departments__body">
               <div class="departments__links-wrapper">
                 <div class="departments__submenus-container">
-                  <div (mouseleave) = "closeCategory1()" #category1 class="departments__submenu
-                  departments__submenu--type--megamenu
-                  departments__submenu--size--xl">
-                    <div class="megamenu megamenu--departments">
-                      <div class="megamenu__body">
-                        <div class="row">
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu">
-                                <a class="nuxt-link-exact-active nuxt-link-active">
-                                  گوشی موبایل(موبایل فرهادی)
-                                </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      اپل
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      سامسونگ
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    هوآوی
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    شیائومی
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آنر
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    نوکیا
-                                  </a></li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu"><a href="/themes/yellow/en-RTL/"
-                                                                                         aria-current="page"
-                                                                                         class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                لوازم جانبی گوشی
-                              </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    کیف و کاور
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    پاور بانک
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    پایه نگهدارنده
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    شارژر گوشی
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    کابل یو اس بی
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    گلس
-                                  </a></li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu"><a href="/themes/yellow/en-RTL/"
-                                                                                         aria-current="page"
-                                                                                         class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                لپ تاپ
-                              </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Asus
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Dell
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Lenovo
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Hp
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Apple
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Acer
-                                  </a></li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu"><a href="/themes/yellow/en-RTL/"
-                                                                                         aria-current="page"
-                                                                                         class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                تبلت
-                              </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Asus
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Dell
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Lenovo
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Hp
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Apple
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    Acer
-                                  </a></li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div #category2 (mouseleave) = "closeCategory2()"
+                  <div #category (mouseleave)="closeCategory()"
                        class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
                     <div class="megamenu megamenu--departments">
+
                       <div class="megamenu__body">
-                        <div class="row">
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu">
-                                <a class="nuxt-link-exact-active nuxt-link-active">
-                                  زیبایی و آرایشی
-                                </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش چشم
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش لب
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش مژه
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش پوست
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش ابرو
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    تقویت کننده
-                                  </a></li>
-                                </ul>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu">
-                                <a class="nuxt-link-exact-active nuxt-link-active">
-                                  زیبایی و آرایشی
-                                </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش چشم
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش لب
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش مژه
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش پوست
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش ابرو
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    تقویت کننده
-                                  </a></li>
-                                </ul>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu">
-                                <a class="nuxt-link-exact-active nuxt-link-active">
-                                  زیبایی و آرایشی
-                                </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش چشم
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش لب
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش مژه
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش پوست
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش ابرو
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    تقویت کننده
-                                  </a></li>
-                                </ul>
-                            </ul>
-                          </div>
-                          <div class="col-3">
-                            <ul class="megamenu__links megamenu__links--level--0">
-                              <li class="megamenu__item megamenu__item--with-submenu">
-                                <a class="nuxt-link-exact-active nuxt-link-active">
-                                  زیبایی و آرایشی
-                                </a>
-                                <ul class="megamenu__links megamenu__links--level--1">
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش چشم
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item">
-                                    <a class="nuxt-link-exact-active nuxt-link-active">
-                                      آرایش لب
-                                    </a>
-                                  </li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش مژه
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش پوست
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    آرایش ابرو
-                                  </a></li>
-                                  <li class="megamenu__item"><a href="/themes/yellow/en-RTL/" aria-current="page"
-                                                                class="nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                                    تقویت کننده
-                                  </a></li>
-                                </ul>
-                            </ul>
-                          </div>
+                        <ul class="list-group row megamenu__links megamenu__links--level--0">
+                          <li class="list-group-item megamenu__item megamenu__item--with-submenu">
+                            <a (click)="goProduct(currentCat, 0, 0)" class="w-100 nuxt-link-exact-active nuxt-link-active">
+                              همه محصولات
+                            </a>
+                            <hr>
+                          </li>
+                        </ul>
+                        <div>
+                        <ul class="list-group row megamenu__links megamenu__links--level--0">
+
+                          <li *ngFor="let sub of subCategories"
+                            class="list-group-item col-sm-6 col-md-4 col-lg-3 megamenu__item megamenu__item--with-submenu">
+                            <a (click)="goProduct(sub.categoryID, sub._id, 0)" class="w-100 nuxt-link-exact-active nuxt-link-active">
+                              {{sub.title}}
+                            </a>
+                            <hr>
+<!--                            <ul *ngIf="sub.SubSubCategory.length > 0"-->
+<!--                                class="megamenu__links pt-2 megamenu__links&#45;&#45;level&#45;&#45;1">-->
+<!--                              <li class="megamenu__item col-sm-6 col-md-4 col-lg-3" *ngFor="let subSub of sub.SubSubCategory">-->
+<!--                                <a (click)="goProduct(sub.categoryID, sub._id, subSub._id)" class="nuxt-link-exact-active nuxt-link-active">-->
+<!--                                  {{subSub.title}}-->
+<!--                                </a>-->
+<!--                              </li>-->
+<!--                            </ul>-->
+                          </li>
+                        </ul>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <ul class="departments__links">
-                  <li class="departments__item" (click)="toggleCategory1()" (mouseover) = "openCategory1()">
+                  <li class="departments__item" *ngFor="let cat of categories" (click)="toggleCategory(cat._id)" (mouseover)="openCategory(cat._id)">
                     <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      کالای دیجیتال
-                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="departments__item-arrow">
+                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">
+                      {{cat.title}}
+                      <svg *ngIf="cat.SubCategory.length > 0" xmlns="http://www.w3.org/2000/svg" width="6" height="9"
+                           class="departments__item-arrow">
                         <path
                           d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
                       </svg>
                     </a>
                   </li>
-                  <li class="departments__item" (click)="toggleCategory2()" (mouseover) = "openCategory2()">
-                    <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      بهداشت و سلامت
-                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="departments__item-arrow">
-                        <path
-                          d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
-                      </svg>
-                    </a>
-                  </li>
-                  <li class="departments__item" (mouseover) = "closeOthers()">
-                    <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      مواد غذایی
-                    </a>
-                  </li>
-                  <li class="departments__item" (mouseover) = "closeOthers()">
-                    <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      مد و پوشاک
-                    </a>
-                  </li>
-                  <li class="departments__item departments__item--menu" (mouseover) = "closeOthers()">
-                    <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      لوازم خانگی
-                    </a>
-                  </li>
-                  <li class="departments__item" (mouseover) = "closeOthers()">
-                    <a
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      سایر کالا ها
-                    </a>
-                  </li>
-                  <li class="departments__item" (mouseover) = "closeOthers()">
-                    <a  routerLink="/home/product"
-                      class="departments__item-link nuxt-link-exact-active nuxt-link-active md-opjjpmhoiojifppkkcdabiobhakljdgm_doc">
-                      همه محصولات
-                    </a>
-                  </li>
+                  <!--                  <li class="departments__item" (click)="toggleCategory2()" (mouseover) = "openCategory2()">-->
+                  <!--                    <a-->
+                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
+                  <!--                      بهداشت و سلامت-->
+                  <!--                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="departments__item-arrow">-->
+                  <!--                        <path-->
+                  <!--                          d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>-->
+                  <!--                      </svg>-->
+                  <!--                    </a>-->
+                  <!--                  </li>-->
+                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
+                  <!--                    <a-->
+                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
+                  <!--                      مواد غذایی-->
+                  <!--                    </a>-->
+                  <!--                  </li>-->
+                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
+                  <!--                    <a-->
+                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
+                  <!--                      مد و پوشاک-->
+                  <!--                    </a>-->
+                  <!--                  </li>-->
+                  <!--                  <li class="departments__item departments__item&#45;&#45;menu" (mouseover) = "closeOthers()">-->
+                  <!--                    <a-->
+                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
+                  <!--                      لوازم خانگی-->
+                  <!--                    </a>-->
+                  <!--                  </li>-->
+                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
+                  <!--                    <a-->
+                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
+                  <!--                      سایر کالا ها-->
+                  <!--                    </a>-->
+                  <!--                  </li>-->
                 </ul>
               </div>
             </div>
-            <button class="departments__button" (click)="toggleDepartments()" (mouseover) = "openDepartments()">
+            <button class="departments__button" (click)="toggleDepartments()" (mouseover)="openDepartments()">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18" height="14"
                    class="departments__button-icon" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                    viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
@@ -392,7 +114,7 @@
           <ul class="nav-links__list">
             <li class="nav-links__item">
               <a class="nav-links__item-link">
-                <div class="nav-links__item-body" [routerLink]="['/sellerBe']" target="_blank" >
+                <div class="nav-links__item-body" [routerLink]="['/sellerBe']" target="_blank">
                   فروشنده شو
                 </div>
               </a>
@@ -425,8 +147,9 @@
               </span>
             </a>
           </div>
-          <div class="indicator" #basketDropDown (clickOutside)="closeBasketDropDown()" (mouseleave) = "closeBasketDropDown()">
-            <a class="indicator__button" (click)="toggleBasketDropDown()" (mouseover) = "openBasketDropDown()">
+          <div class="indicator" #basketDropDown (clickOutside)="closeBasketDropDown()"
+               (mouseleave)="closeBasketDropDown()">
+            <a class="indicator__button" (click)="toggleBasketDropDown()" (mouseover)="openBasketDropDown()">
               <span class="indicator__area">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="">
                   <circle cx="7" cy="17" r="2"></circle>
@@ -455,7 +178,8 @@
                         <div class="dropcart__product-meta">
                           <span class="dropcart__product-quantity">{{item['product']['number']}}</span>
                           ×
-                          <span class="dropcart__product-price">{{item['product']['cartList'].price|number}} تومان</span>
+                          <span class="dropcart__product-price">{{item['product']['cartList'].price|number}}
+                            تومان</span>
                         </div>
                       </div>
                       <i class="fa fa-close fa-1x mr-auto" style="color:#c33" (click)="onDeleteCart(item)"></i>
@@ -477,7 +201,9 @@
                     </table>
                   </div>
                   <div class="dropcart__buttons">
-                    <button class="btn" style="background-color: #c33;color: #ffffff;font-size: 14px" [routerLink]="['/home/cart']" [disabled]="showCartList">مشاهده سبد و تکمیل خرید</button>
+                    <button class="btn" style="background-color: #c33;color: #ffffff;font-size: 14px"
+                            [routerLink]="['/home/cart']" [disabled]="showCartList">مشاهده سبد و تکمیل خرید
+                    </button>
                   </div>
                 </div>
               </div>

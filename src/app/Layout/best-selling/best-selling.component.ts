@@ -90,6 +90,9 @@ export class BestSellingComponent implements OnInit {
         this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
       }
     }
+    else{
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
+    }
 
   }
 

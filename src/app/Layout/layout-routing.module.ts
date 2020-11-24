@@ -19,7 +19,7 @@ const routes: Routes = [
     component:  CartComponent
   },
   {
-    path: 'product',
+    path: 'product/:cat/:sub/:sub2',
     component:  ProductsComponent
   },
   {

@@ -17,7 +17,7 @@
             <div class="row">
               <div class="col-sm-12" dir="rtl">
                 <div class="p-inputgroup">
-                  <button type="button" pButton pRipple class="button w-25" [disabled]="emailForm.invalid" label="عضویت"></button>
+                  <button type="submit" pButton pRipple class="button w-25" [disabled]="emailForm.invalid" label="عضویت"></button>
                   <input class="form-control w-100"
                          formControlName="email"
                          maxlength="500"
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-sm-12" dir="rtl">
                 <div class="p-inputgroup">
-                  <button type="button" class="button w-25" pButton pRipple [disabled]="mobileForm.invalid" label="عضویت"></button>
+                  <button type="submit" class="button w-25" pButton pRipple [disabled]="mobileForm.invalid" label="عضویت"></button>
                   <input pKeyFilter="int" class="form-control w-100"
                          formControlName="mobile"
                          maxlength="11"

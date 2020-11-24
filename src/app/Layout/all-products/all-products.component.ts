@@ -62,6 +62,7 @@ export class AllProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLogged = this.localStorage.getCurrentUser();
     this.spinner.show();
     this.service.allProduct().subscribe((response) => {
       if (response.success === true){
@@ -91,6 +92,9 @@ export class AllProductsComponent implements OnInit {
       } else {
         this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
       }
+    }
+    else{
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
     }
   }
 

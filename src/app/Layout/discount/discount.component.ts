@@ -68,7 +68,6 @@ export class DiscountComponent implements OnInit {
     this.service.hottest().subscribe((response) => {
       if (response['success'] === true) {
         this.hottestProduct = response['data'];
-        console.log(response['data']);
         this.Inventory = response['data'][0]['Inventory'][0];
         this.spinner.hide();
       }
@@ -95,6 +94,9 @@ export class DiscountComponent implements OnInit {
       } else {
         this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
       }
+    }
+    else{
+      this.messageService.add({severity: 'error', summary: ' کاربر نا معتبر ', detail: 'لطفا ابتدا وارد سایت شوید.'});
     }
   }
 
