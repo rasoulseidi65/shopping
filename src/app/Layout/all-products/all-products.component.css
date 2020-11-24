@@ -341,7 +341,19 @@ img.image__tag {
   height: 23px;
   padding: 0 14.37131px;
 }
-
+.buttonall {
+  color: #EF2B2F;
+  background-color:#ebebeb;
+  border-radius: 5px;
+  border: 1px solid #EF2B2F;
+  padding: 5px;
+}
+.buttonall:hover {
+  /*box-shadow: 1px 5px 5px #777;*/
+  color:white;
+  background-color:#EF2B2F;
+  border-radius: 5px;
+}
 .arrow__button {
   display: -ms-flexbox;
   display: flex;
