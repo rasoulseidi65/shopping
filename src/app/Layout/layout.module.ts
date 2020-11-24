@@ -47,6 +47,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import { ResultSearchComponent } from './result-search/result-search.component';
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
@@ -70,7 +71,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     CallBackComponent,
     LoginRegisterComponent,
     WishlistComponent,
-    OffersComponent
+    OffersComponent,
+    ResultSearchComponent
   ],
   imports: [
     CommonModule,

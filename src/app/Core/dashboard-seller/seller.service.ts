@@ -17,7 +17,7 @@ export class SellerService {
   }
 
   getCategories(): any {
-    return this.http.get('http://194.5.175.25:3005/api/v1/seller/category');
+    return this.http.get('http://194.5.175.25:3005/api/v1/admin/category');
   }
 
   getProducts(id: any): any{

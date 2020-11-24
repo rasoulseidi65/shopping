@@ -18,7 +18,8 @@ export class RegisterProductComponent implements OnInit {
 
   public form: FormGroup;
   categories: any[];
-
+  subCategory: any[];
+  subSubCategory: any[];
   features: any[] = [];
   selectedFeature: any = null;
 
@@ -41,6 +42,10 @@ export class RegisterProductComponent implements OnInit {
       {type: 'required', message: 'عنوان دسته را انتخاب کنید.'}
     ],
     subCategory: [
+      {type: 'required', message: 'عنوان زیر دسته را وارد کنید.'},
+      {type: 'maxlength', message: 'عنوان زیر دسته نمی تواند از 200 کاراکتر بیشتر باشد.'}
+    ],
+    subSubCategory: [
       {type: 'required', message: 'عنوان زیر دسته را وارد کنید.'},
       {type: 'maxlength', message: 'عنوان زیر دسته نمی تواند از 200 کاراکتر بیشتر باشد.'}
     ],
@@ -112,6 +117,13 @@ export class RegisterProductComponent implements OnInit {
         ]
       ),
       subCategory: new FormControl(
+        null,
+        [
+          Validators.required,
+          Validators.maxLength(200)
+        ]
+      ),
+      subSubCategory: new FormControl(
         null,
         [
           Validators.required,
@@ -193,8 +205,13 @@ export class RegisterProductComponent implements OnInit {
 
   submitForm(): void {
     const category = this.form.controls.categoryID.value;
-    this.form.controls.categoryID.setValue(category._id);
+    const subcategory = this.form.controls.subCategory.value;
+    const subSubCategory = this.form.controls.subSubCategory.value;
 
+    this.form.controls.categoryID.setValue(category._id);
+    this.form.controls.subCategory.setValue(subcategory._id);
+    this.form.controls.subSubCategory.setValue(subSubCategory._id);
+    console.log(this.form.value)
     this.sellerService.addProduct(this.form.value).subscribe((response) => {
 
       if (response.success === true) {
@@ -204,7 +221,7 @@ export class RegisterProductComponent implements OnInit {
         this.finalSelectedValues.forEach(item => {
 
           featureValue.push({
-            'featuresID':  item.featuresID,
+            'featuresID': item.featuresID,
             'valueID': item.id
           });
 
@@ -255,6 +272,14 @@ export class RegisterProductComponent implements OnInit {
     });
   }
 
+  xx(e: any) {
+    let category = e.value;
+    this.subCategory = category.SubCategory;
+  }
+  onSubSubCategory(e:any){
+    let category = e.value;
+    this.subSubCategory = category.SubSubCategory;
+  }
   imageUploader(event): void {
     this.overlayService.showOverlay = true;
     const formData = new FormData();
@@ -263,7 +288,11 @@ export class RegisterProductComponent implements OnInit {
       this.overlayService.showOverlay = false;
       if (response.success === true) {
         this.form.controls.image.setValue(response.imagePath);
-        this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});
+        this.messageService.add({
+          severity: 'success',
+          summary: ' آپلود تصویر محصول ',
+          detail: 'تصویر با موفقیت آپلود شد.'
+        });
       } else {
         this.messageService.add({severity: 'error', summary: ' آپلود تصویر محصول ', detail: response.data});
       }
@@ -282,7 +311,11 @@ export class RegisterProductComponent implements OnInit {
       if (response.success === true) {
         this.overlayService.showOverlay = false;
         this.form.controls.gallery.setValue(response.imagePath);
-        this.messageService.add({severity: 'success', summary: ' آپلود تصویر محصول ', detail: 'تصویر با موفقیت آپلود شد.'});
+        this.messageService.add({
+          severity: 'success',
+          summary: ' آپلود تصویر محصول ',
+          detail: 'تصویر با موفقیت آپلود شد.'
+        });
       } else {
         this.messageService.add({severity: 'error', summary: ' آپلود تصویر محصول ', detail: response.data});
       }
@@ -309,6 +342,7 @@ export class RegisterProductComponent implements OnInit {
       }
     });
   }
+
   getFeatureValues(event): void {
     this.values = this.features.find(x => x.id === event.value._id).FeaturesValue;
   }
@@ -352,7 +386,7 @@ export class RegisterProductComponent implements OnInit {
     }
   }
 
-  clearForm(): void{
+  clearForm(): void {
     this.form.reset();
   }
 

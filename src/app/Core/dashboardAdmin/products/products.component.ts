@@ -62,7 +62,9 @@ export class ProductsComponent implements OnInit {
     gallery: '',
     features: '',
     specifications: '',
-    help: ''
+    help: '',
+    freeSend:'',
+    weight:''
   };
   category = {
     title: '',
@@ -113,6 +115,8 @@ export class ProductsComponent implements OnInit {
       features: new FormControl(['']),
       specifications: new FormControl(['']),
       help: new FormControl(['']),
+      freeSend: new FormControl(['']),
+      weight: new FormControl(['']),
     });
 
     this.formGroup = this.fb.group({

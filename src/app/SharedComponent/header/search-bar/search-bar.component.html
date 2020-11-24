@@ -8,15 +8,15 @@
 
 <!--        <mat-icon matChipRemove>cancel</mat-icon>-->
 <!--      </mat-chip>-->
-      <input dir="rtl" #autocompleteInput type="text" placeholder="جستجو در به قیمت ..." aria-label="Number"   [formControl]="myControl"
+      <input dir="rtl" #autocompleteInput type="text" placeholder="جستجو در به قیمت ..." aria-label="Number"  [(ngModel)]="textSearch" [formControl]="myControl"
              [matAutocomplete]="auto" [matChipInputFor]="chipList">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of autoCompleteList" [value]="option" (onSelectionChange)="filterPostList($event)">
+        <mat-option *ngFor="let option of autoCompleteList" [value]="option" (onSelectionChange)="filterPostList($event)" >
           {{option.title}}
         </mat-option>
       </mat-autocomplete>
     </mat-chip-list>
-          <i class="pi pi-search" style="margin-top: -31px;margin-right:-2rem;position: absolute;font-size: 1.2rem"></i>
+          <i class="pi pi-search" style="margin-top: -31px;margin-right:-2rem;position: absolute;font-size: 1.2rem" (click)="advenceSearch()"></i>
 
 <!--  </mat-form-field>-->
   </div>

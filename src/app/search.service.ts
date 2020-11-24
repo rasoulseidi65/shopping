@@ -7,6 +7,7 @@ import {Post} from "./Post";
   providedIn: 'root'
 })
 export class SearchService {
+  resultSearchBox:any;
   searchOption = []
   public postsData: Post[]
   postUrl: string = "http://194.5.175.25:3005/api/v1/admin/allProduct"
@@ -15,6 +16,9 @@ export class SearchService {
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.postUrl);
+  }
+  allProductBySearch(data:any){
+    return this.http.post('http://194.5.175.25:3005/api/v1/admin/allProductBySearch',data)
   }
   filteredListOptions() {
     let posts = this.postsData;

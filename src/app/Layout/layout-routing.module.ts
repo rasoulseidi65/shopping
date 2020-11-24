@@ -9,6 +9,7 @@ import {ProductsComponent} from './products/products.component';
 import {CallBackComponent} from './call-back/call-back.component';
 import {LoginRegisterComponent} from './login-register/login-register.component';
 import {WishlistComponent} from './wishlist/wishlist.component';
+import {ResultSearchComponent} from "./result-search/result-search.component";
 const routes: Routes = [
   {
     path: '' ,
@@ -46,7 +47,10 @@ const routes: Routes = [
     path: 'wishlist',
     component:  WishlistComponent
   },
-
+  {
+    path: 'resultSearch',
+    component:  ResultSearchComponent
+  },
 ];
 
 @NgModule({

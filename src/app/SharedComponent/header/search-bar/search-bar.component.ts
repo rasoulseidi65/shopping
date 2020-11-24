@@ -1,8 +1,9 @@
-import {Component, ElementRef,EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Post} from "../../../Post";
 import {SearchService} from "../../../search.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-bar',
@@ -14,11 +15,14 @@ export class SearchBarComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   allPosts: Post[];
   autoCompleteList: any[]
-
+  productSearch: any;
+  textSearch: any;
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
   @Output() onSelectedOption = new EventEmitter();
 
-  constructor( public dataService: SearchService) { }
+  constructor(public dataService: SearchService,
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     // get all the post
@@ -32,10 +36,12 @@ export class SearchBarComponent implements OnInit {
       this.autoCompleteExpenseList(userInput);
     })
   }
+
   private autoCompleteExpenseList(input) {
     let categoryList = this.filterCategoryList(input)
     this.autoCompleteList = categoryList;
   }
+
   filterCategoryList(val) {
     var categoryList = []
     if (typeof val != "string") {
@@ -47,20 +53,25 @@ export class SearchBarComponent implements OnInit {
     return val ? this.allPosts.filter(s => s.title.toLowerCase().indexOf(val.toLowerCase()) != -1)
       : this.allPosts;
   }
+
   displayFn(post: Post) {
     let k = post ? post.title : post;
     return k;
   }
 
   filterPostList(event) {
+
+    this.productSearch = event.source.value['_id'];
+
     var posts = event.source.value;
     if (!posts) {
       this.dataService.searchOption = []
-    }
-    else {
+    } else {
 
       this.dataService.searchOption.push(posts);
-      this.onSelectedOption.emit(this.dataService.searchOption)
+      this.onSelectedOption.emit(this.dataService.searchOption);
+      // this.advenceSearch();
+      this.router.navigate(['/home/detail', this.productSearch])
     }
     this.focusOnPlaceInput();
   }
@@ -79,5 +90,18 @@ export class SearchBarComponent implements OnInit {
   focusOnPlaceInput() {
     this.autocompleteInput.nativeElement.focus();
     this.autocompleteInput.nativeElement.value = '';
+  }
+
+  advenceSearch() {
+    let data = {
+      title: this.textSearch
+    }
+    this.dataService.allProductBySearch(data).subscribe((response) => {
+      if (response['success'] === true) {
+        this.dataService.resultSearchBox=response['data'];
+        this.router.navigate(['/home/resultSearch']);
+        // window.location.reload();
+      }
+    })
   }
 }

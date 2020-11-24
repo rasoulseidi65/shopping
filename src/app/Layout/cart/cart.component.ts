@@ -7,6 +7,7 @@ import {UserService} from '../../Auth/user.service';
 import {MessageService} from 'primeng/api';
 import {LocalStorageService} from '../../Auth/localStorageLogin/local-storage.service';
 import * as moment from 'jalali-moment';
+
 interface state {
   name: string,
   code: string
@@ -33,7 +34,7 @@ export class CartComponent implements OnInit {
   state: state[];
   city: City[];
   display: boolean = true;
-
+  access_token: any;
   formGroup: FormGroup;
   sumPrice = 0;
   userInfo = {
@@ -78,7 +79,7 @@ export class CartComponent implements OnInit {
               private servicelayout: LayoutService,
               private messageService: MessageService,
               private localStorage: LocalStorageService) {
-   let myDate = new Date();
+    let myDate = new Date();
     this.payment.date = moment(Date.now()).locale('fa').format('YYYY/M/D');
     this.payment.time = moment(Date.now()).locale('fa').format('HH:mm:ss');
 
@@ -211,11 +212,10 @@ export class CartComponent implements OnInit {
     ];
 
 
-
   }
 
   ngOnInit(): void {
-
+this.getTokenPost();
     this.formUser = this._formBuilder.group({
       mobile: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -257,7 +257,7 @@ export class CartComponent implements OnInit {
   }
 
   stateOnChange(code: any): void {
-    this.userInfo.state=code.value['label'];
+    this.userInfo.state = code.value['label'];
     this.cities = [];
     switch (code.value['value']) {
       case '1': {
@@ -296,7 +296,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '3': {
-        this.cities = [{value: '38', label: 'اردبیل'}, {value: '39', label: 'پیله سوار'}, {value: '40', label: 'پارس آباد'}, {
+        this.cities = [{value: '38', label: 'اردبیل'}, {value: '39', label: 'پیله سوار'}, {
+          value: '40',
+          label: 'پارس آباد'
+        }, {
           value: '41',
           label: 'خلخال'
         }, {value: '42', label: 'گرمی'}, {value: '43', label: 'مشکین شهر'}, {value: '44', label: 'نمین'}, {
@@ -306,7 +309,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '4': {
-        this.cities = [{value: '48', label: 'آران و بیدگل'}, {value: '49', label: 'اردستان'}, {value: '50', label: 'اصفهان'}, {
+        this.cities = [{value: '48', label: 'آران و بیدگل'}, {value: '49', label: 'اردستان'}, {
+          value: '50',
+          label: 'اصفهان'
+        }, {
           value: '51',
           label: 'برخوار'
         }, {value: '52', label: 'تیران و کرون'}, {value: '53', label: 'چادگان'}, {value: '54', label: 'خمینی شهر'}, {
@@ -348,7 +354,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '7': {
-        this.cities = [{value: '91', label: 'اسلامشهر'}, {value: '92', label: 'پاکدشت'}, {value: '93', label: 'تهران'}, {
+        this.cities = [{value: '91', label: 'اسلامشهر'}, {value: '92', label: 'پاکدشت'}, {
+          value: '93',
+          label: 'تهران'
+        }, {
           value: '94',
           label: 'دماوند'
         }, {value: '95', label: 'رباط کریم'}, {value: '96', label: 'شمیرانات'}, {value: '97', label: 'ری'}, {
@@ -357,7 +366,10 @@ export class CartComponent implements OnInit {
         }, {value: '99', label: 'فیروزکوه'}, {value: '100', label: 'ورامین'}, {value: '101', label: 'بهارستان'}, {
           value: '102',
           label: 'ملارد'
-        }, {value: '103', label: 'قرچک'}, {value: '104', label: 'پیشوا'}, {value: '105', label: 'قدس'}, {value: '106', label: 'پردیس'}];
+        }, {value: '103', label: 'قرچک'}, {value: '104', label: 'پیشوا'}, {value: '105', label: 'قدس'}, {
+          value: '106',
+          label: 'پردیس'
+        }];
         break;
       }
       case '8': {
@@ -371,7 +383,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '9': {
-        this.cities = [{value: '119', label: 'بیرجند'}, {value: '120', label: 'درمیان'}, {value: '121', label: 'سرایان'}, {
+        this.cities = [{value: '119', label: 'بیرجند'}, {value: '120', label: 'درمیان'}, {
+          value: '121',
+          label: 'سرایان'
+        }, {
           value: '122',
           label: 'سرپیشه'
         }, {value: '123', label: 'طبس'}, {value: '124', label: 'فردوس'}, {value: '125', label: 'قائنات'}, {
@@ -407,7 +422,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '11': {
-        this.cities = [{value: '156', label: 'اسفراین'}, {value: '157', label: 'بجنورد'}, {value: '158', label: 'جاجرم'}, {
+        this.cities = [{value: '156', label: 'اسفراین'}, {value: '157', label: 'بجنورد'}, {
+          value: '158',
+          label: 'جاجرم'
+        }, {
           value: '159',
           label: 'شیروان'
         }, {value: '160', label: 'فاروج'}, {value: '161', label: 'مانه و سملقان'}, {value: '162', label: 'گرمه'}, {
@@ -417,13 +435,19 @@ export class CartComponent implements OnInit {
         break;
       }
       case '12': {
-        this.cities = [{value: '164', label: 'آبادان'}, {value: '165', label: 'امیدیه'}, {value: '166', label: 'اندیمشک'}, {
+        this.cities = [{value: '164', label: 'آبادان'}, {value: '165', label: 'امیدیه'}, {
+          value: '166',
+          label: 'اندیمشک'
+        }, {
           value: '167',
           label: 'اهواز'
         }, {value: '168', label: 'ایذه'}, {value: '169', label: 'باغ ملک'}, {value: '170', label: 'بندر ماهشهر'}, {
           value: '171',
           label: 'بهبهان'
-        }, {value: '172', label: 'خرمشهر'}, {value: '173', label: 'دزفول'}, {value: '174', label: 'دشت آزادگان(سوسنگرد)'}, {
+        }, {value: '172', label: 'خرمشهر'}, {value: '173', label: 'دزفول'}, {
+          value: '174',
+          label: 'دشت آزادگان(سوسنگرد)'
+        }, {
           value: '175',
           label: 'رامشیر'
         }, {value: '176', label: 'رامهرمز'}, {value: '177', label: 'شادگان'}, {value: '178', label: 'شوش'}, {
@@ -449,14 +473,20 @@ export class CartComponent implements OnInit {
         break;
       }
       case '14': {
-        this.cities = [{value: '199', label: 'دامغان'}, {value: '200', label: 'سمنان'}, {value: '201', label: 'شاهرود'}, {
+        this.cities = [{value: '199', label: 'دامغان'}, {value: '200', label: 'سمنان'}, {
+          value: '201',
+          label: 'شاهرود'
+        }, {
           value: '202',
           label: 'گرمسار'
         }, {value: '203', label: 'مهدی شهر'}, {value: '204', label: 'میامی'}, {value: '205', label: 'آرادان'}];
         break;
       }
       case '15': {
-        this.cities = [{value: '206', label: 'ایرانشهر'}, {value: '207', label: 'چابهار'}, {value: '208', label: 'خاش'}, {
+        this.cities = [{value: '206', label: 'ایرانشهر'}, {value: '207', label: 'چابهار'}, {
+          value: '208',
+          label: 'خاش'
+        }, {
           value: '209',
           label: 'زابل'
         }, {value: '210', label: 'زاهدان'}, {value: '211', label: 'زهک'}, {value: '212', label: 'سراوان'}, {
@@ -472,7 +502,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '16': {
-        this.cities = [{value: '224', label: 'آباده'}, {value: '225', label: 'ارسنجان'}, {value: '226', label: 'استهبان'}, {
+        this.cities = [{value: '224', label: 'آباده'}, {value: '225', label: 'ارسنجان'}, {
+          value: '226',
+          label: 'استهبان'
+        }, {
           value: '227',
           label: 'اقلید'
         }, {value: '228', label: 'بوانات'}, {value: '229', label: 'پاسارگاد'}, {value: '230', label: 'جهرم'}, {
@@ -497,7 +530,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '17': {
-        this.cities = [{value: '255', label: 'آبیک'}, {value: '256', label: 'البرز'}, {value: '257', label: 'بویین زهرا'}, {
+        this.cities = [{value: '255', label: 'آبیک'}, {value: '256', label: 'البرز'}, {
+          value: '257',
+          label: 'بویین زهرا'
+        }, {
           value: '258',
           label: 'تاکستان'
         }, {value: '259', label: 'قزوین'}, {value: '260', label: 'آوج'}];
@@ -540,7 +576,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '21': {
-        this.cities = [{value: '293', label: 'ازنا'}, {value: '294', label: 'الیگودرز'}, {value: '295', label: 'بروجرد'}, {
+        this.cities = [{value: '293', label: 'ازنا'}, {value: '294', label: 'الیگودرز'}, {
+          value: '295',
+          label: 'بروجرد'
+        }, {
           value: '296',
           label: 'پل دختر'
         }, {value: '297', label: 'خرم آباد'}, {value: '298', label: 'دلقان(نورآباد)'}, {value: '299', label: 'دورود'}, {
@@ -582,7 +621,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '24': {
-        this.cities = [{value: '337', label: 'بستک'}, {value: '338', label: 'بندرعباس'}, {value: '339', label: 'بندر لنگه'}, {
+        this.cities = [{value: '337', label: 'بستک'}, {value: '338', label: 'بندرعباس'}, {
+          value: '339',
+          label: 'بندر لنگه'
+        }, {
           value: '340',
           label: 'پارسیان'
         }, {value: '341', label: 'جاسک'}, {value: '342', label: 'حاجی آباد'}, {value: '343', label: 'خمیر'}, {
@@ -595,7 +637,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '25': {
-        this.cities = [{value: '351', label: 'اسد آباد'}, {value: '352', label: 'بهار'}, {value: '353', label: 'تویسرکان'}, {
+        this.cities = [{value: '351', label: 'اسد آباد'}, {value: '352', label: 'بهار'}, {
+          value: '353',
+          label: 'تویسرکان'
+        }, {
           value: '354',
           label: 'رزن'
         }, {value: '355', label: 'فامتین'}, {value: '356', label: 'ملایر'}, {value: '357', label: 'نهاوند'}, {
@@ -605,7 +650,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '26': {
-        this.cities = [{value: '360', label: 'بانه'}, {value: '361', label: 'بیجار'}, {value: '362', label: 'دیواندره'}, {
+        this.cities = [{value: '360', label: 'بانه'}, {value: '361', label: 'بیجار'}, {
+          value: '362',
+          label: 'دیواندره'
+        }, {
           value: '363',
           label: 'سروآباد'
         }, {value: '364', label: 'سقز'}, {value: '365', label: 'سنندج'}, {value: '366', label: 'قروه'}, {
@@ -615,7 +663,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '27': {
-        this.cities = [{value: '370', label: 'بافت'}, {value: '371', label: 'بردسیر(مشیز)'}, {value: '372', label: 'بم'}, {
+        this.cities = [{value: '370', label: 'بافت'}, {value: '371', label: 'بردسیر(مشیز)'}, {
+          value: '372',
+          label: 'بم'
+        }, {
           value: '373',
           label: 'راور'
         }, {value: '374', label: 'رفسنجان'}, {value: '375', label: 'زرند'}, {value: '376', label: 'سیرجان'}, {
@@ -654,7 +705,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '30': {
-        this.cities = [{value: '404', label: 'ابرکوه'}, {value: '405', label: 'اردکان'}, {value: '406', label: 'بافق'}, {
+        this.cities = [{value: '404', label: 'ابرکوه'}, {value: '405', label: 'اردکان'}, {
+          value: '406',
+          label: 'بافق'
+        }, {
           value: '407',
           label: 'تفت'
         }, {value: '408', label: 'خاتم'}, {value: '409', label: 'اشکذر'}, {value: '410', label: 'مهریز'}, {
@@ -664,7 +718,10 @@ export class CartComponent implements OnInit {
         break;
       }
       case '31': {
-        this.cities = [{value: '414', label: 'ساوجبلاغ'}, {value: '415', label: 'کرج'}, {value: '416', label: 'نظرآباد'}, {
+        this.cities = [{value: '414', label: 'ساوجبلاغ'}, {value: '415', label: 'کرج'}, {
+          value: '416',
+          label: 'نظرآباد'
+        }, {
           value: '417',
           label: 'فردیس'
         }, {value: '418', label: 'اشتهارد'}, {value: '419', label: 'طالقان'}, {value: '426', label: 'هشتگرد'}];
@@ -676,10 +733,12 @@ export class CartComponent implements OnInit {
       }
     }
   }
+
   cityOnChange(code: any): void {
-    this.userInfo.city=code.value['label'];
+    this.userInfo.city = code.value['label'];
 
   }
+
   onRegister() {
     this.servicelayout.updateUser(this.userInfologin['_id'], this.userInfo).subscribe((response) => {
       // console.log(response);
@@ -786,4 +845,15 @@ export class CartComponent implements OnInit {
 
   }
 
+  getTokenPost() {
+    let  username= 'asd@123';
+    let  password= 'XdpB2bpHo2WQ';
+    let model = "username=" + username + "&password=" + password + "&grant_type=" + "password";
+
+    this.servicelayout.getTokenPost(model).subscribe((response) => {
+      console.log(response)
+      this.access_token=response['access_token']
+
+    })
+  }
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService {
-
+  headers={
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+  }
   constructor(private http: HttpClient) {
   }
 
@@ -71,5 +75,11 @@ export class LayoutService {
   }
   deleteWishList(id: any): any {
     return this.http.delete('http://194.5.175.25:3005/api/v1/user/deleteWishList/' + id);
+  }
+  getTokenPost(data:any){
+    console.log(data)
+    const headers = { 'content-type': 'application/x-www-form-urlencoded'}
+    return this.http.post('http://svc.ebazaar-post.ir/RestApi/token',data,{'headers':headers});
+
   }
 }
