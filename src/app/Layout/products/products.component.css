@@ -670,3 +670,7 @@ label.color span {
   padding-bottom: 10px;
   padding-top: 10px;
 }
+
+.product-title:hover{
+  color: #CC3333!important;
+}

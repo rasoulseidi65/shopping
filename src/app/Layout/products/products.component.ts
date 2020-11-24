@@ -28,14 +28,13 @@ export class ProductsComponent implements OnInit {
   highValueDynamic = 50000000;
   Products: any[];
   FilteredProducts: any[];
-  product: any[];
   displayBasic: boolean;
   options: Options = {
     floor: 1000000,
     ceil: 50000000,
     step: 1000000
   };
-  countOfProduct = 7;
+  countOfProduct = 5;
   priceList: number[] = [];
   categoryId: any;
   subCategoryId: any;
@@ -51,6 +50,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.spinner.show();
     this.route.paramMap.subscribe(params => {
       this.categoryId = params.get('cat');
@@ -62,6 +62,7 @@ export class ProductsComponent implements OnInit {
 
     this.service.allProduct().subscribe((response) => {
       this.Products = response['data'];
+
       this.FilteredProducts = this.Products;
       this.Products.forEach(item => {
         this.priceList.push(Number.parseInt(item.price));
@@ -132,14 +133,13 @@ export class ProductsComponent implements OnInit {
   filterByCategory(subId: string, subSubId: string): void {
     this.FilteredProducts = [];
 
-    if(subSubId === ''){
+    if (subSubId === '') {
       this.Products.forEach(item => {
         if (item.subCategory === subId) {
           this.FilteredProducts.push(item);
         }
       });
-    }
-    else{
+    } else {
       this.Products.forEach(item => {
         if (item.subsubCategory === subSubId) {
           this.FilteredProducts.push(item);
