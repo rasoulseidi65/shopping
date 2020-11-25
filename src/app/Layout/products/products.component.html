@@ -196,6 +196,13 @@
             </ul>
           </div>
         </div>
+        <div class="col-sm-12" *ngIf="FilteredProducts.length === 0">
+          <div class="bg-pagination w-100">
+            <p class="text-center font-weight-bold py-3 mb-0">
+              هیچ محصولی یافت نشد.
+            </p>
+          </div>
+        </div>
 
         <div class="col-sm-12 col-md-6 col-lg-4" dir="ltr" *ngFor="let item of pageOfItems">
           <div class="block-products-carousel-column">
@@ -216,7 +223,8 @@
                     </svg>
                   </button>
 
-                  <button (click)="addToWishList(FilteredProducts[item.id]['_id'])" class="product-card-action product-card-action-wishlist"
+                  <button (click)="addToWishList(FilteredProducts[item.id]['_id'])"
+                          class="product-card-action product-card-action-wishlist"
                           pTooltip="افزودن به لیست علاقه مندی ها" tooltipPosition="bottom"
                           type="button">
                     <svg width="16" height="16">
@@ -230,7 +238,8 @@
                     <svg width="16" height="16">
                       <path
                         d="M9,15H7c-0.6,0-1-0.4-1-1V2c0-0.6,0.4-1,1-1h2c0.6,0,1,0.4,1,1v12C10,14.6,9.6,15,9,15z"></path>
-                      <path d="M1,9h2c0.6,0,1,0.4,1,1v4c0,0.6-0.4,1-1,1H1c-0.6,0-1-0.4-1-1v-4C0,9.4,0.4,9,1,9z"></path>
+                      <path
+                        d="M1,9h2c0.6,0,1,0.4,1,1v4c0,0.6-0.4,1-1,1H1c-0.6,0-1-0.4-1-1v-4C0,9.4,0.4,9,1,9z"></path>
                       <path
                         d="M15,5h-2c-0.6,0-1,0.4-1,1v8c0,0.6,0.4,1,1,1h2c0.6,0,1-0.4,1-1V6C16,5.4,15.6,5,15,5z"></path>
                     </svg>
@@ -245,7 +254,8 @@
                 <div class="product-card-info text-right">
                   <div class="product-card-meta">
                     <div class="d-flex flex-row">
-                      <span class="product-catagory mr-auto">{{FilteredProducts[item.id]['Seller'][0].shopName}}</span>
+                        <span
+                          class="product-catagory mr-auto">{{FilteredProducts[item.id]['Seller'][0].shopName}}</span>
                       <span class="product-catagory ">{{FilteredProducts[item.id]['subCategory']}}</span>
                     </div>
                   </div>
@@ -284,7 +294,8 @@
                         class="text-danger">{{FilteredProducts[item.id]['price'] - (FilteredProducts[item.id]['price'] * FilteredProducts[item.id]['offerPercent']) / 100|number}}
                         تومان</small>
                     </div>
-                    <div class="product-card-price product-card-price-new" *ngIf="!FilteredProducts[item.id]['offer']">
+                    <div class="product-card-price product-card-price-new"
+                         *ngIf="!FilteredProducts[item.id]['offer']">
                       <b>{{FilteredProducts[item.id]['price']|number}}</b>
                       تومان
                     </div>
@@ -297,13 +308,12 @@
             </div>
           </div>
         </div>
+        
       </div>
-
-      <div class="d-flex justify-content-center bg-pagination">
+      <div class="d-flex justify-content-center bg-pagination" *ngIf="FilteredProducts.length > 0">
         <jw-pagination pageSize="9" class="text-center" [items]="items"
                        (changePage)="onChangePage($event)"></jw-pagination>
       </div>
-
     </div>
   </div>
 
