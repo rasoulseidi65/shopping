@@ -106,11 +106,19 @@ export class LayoutService {
   }
 
   getTokenPost(data:any) {
-    console.log(data)
+
     const headers = {'content-type': 'application/x-www-form-urlencoded'}
     return this.http.post('http://svc.ebazaar-post.ir/RestApi/token', data, {'headers': headers});
   }
+  listOstan(data:any,token:any){
+    console.log(token)
+    const headers = {
+      'content-type': 'application/json',
+      'Authorization':'Bearer '+token
+    }
+    return this.http.post('http://svc.ebazaar-post.ir/RestApi/api/v0/BaseInfo/Province', data, {'headers': headers});
 
+  }
 
   getWishListCount(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countWishlist/' + id);

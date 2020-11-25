@@ -83,133 +83,133 @@ export class CartComponent implements OnInit {
     this.payment.date = moment(Date.now()).locale('fa').format('YYYY/M/D');
     this.payment.time = moment(Date.now()).locale('fa').format('HH:mm:ss');
 
-    this.states = [
-      {
-        value: '1',
-        label: 'آذربایجان شرقی'
-      },
-      {
-        value: '2',
-        label: 'آذربایجان غربی'
-      },
-      {
-        value: '3',
-        label: 'اردبیل'
-      },
-      {
-        value: '4',
-        label: 'اصفهان'
-      },
-      {
-        value: '5',
-        label: 'ایلام'
-      },
-      {
-        value: '6',
-        label: 'بوشهر'
-      },
-      {
-        value: '7',
-        label: 'تهران'
-      },
-      {
-        value: '8',
-        label: 'چهارمحال و بختیاری'
-      },
-      {
-        value: '9',
-        label: 'خراسان جنوبی'
-      },
-      {
-        value: '10',
-        label: 'خراسان رضوی'
-      },
-      {
-        value: '11',
-        label: 'خراسان شمالی'
-      },
-      {
-        value: '12',
-        label: 'خوزستان'
-      },
-      {
-        value: '13',
-        label: 'زنجان'
-      },
-      {
-        value: '14',
-        label: 'سمنان'
-      },
-      {
-        value: '15',
-        label: 'سیستان و بلوچستان'
-      },
-      {
-        value: '16',
-        label: 'فارس'
-      },
-      {
-        value: '17',
-        label: 'قزوین'
-      },
-      {
-        value: '18',
-        label: 'قم'
-      },
-      {
-        value: '19',
-        label: 'گلستان'
-      },
-      {
-        value: '20',
-        label: 'گیلان'
-      },
-      {
-        value: '21',
-        label: 'لرستان'
-      },
-      {
-        value: '22',
-        label: 'مازندران'
-      },
-      {
-        value: '23',
-        label: 'مرکزی'
-      },
-      {
-        value: '24',
-        label: 'هرمزگان'
-      },
-      {
-        value: '25',
-        label: 'همدان'
-      },
-      {
-        value: '26',
-        label: 'کردستان'
-      },
-      {
-        value: '27',
-        label: 'کرمان'
-      },
-      {
-        value: '28',
-        label: 'کرمانشاه'
-      },
-      {
-        value: '29',
-        label: 'کهگیلویه و بویر احمد'
-      },
-      {
-        value: '30',
-        label: 'یزد'
-      },
-      {
-        value: '31',
-        label: 'البرز'
-      }
-
-    ];
+    // this.states = [
+    //   {
+    //     value: '1',
+    //     label: 'آذربایجان شرقی'
+    //   },
+    //   {
+    //     value: '2',
+    //     label: 'آذربایجان غربی'
+    //   },
+    //   {
+    //     value: '3',
+    //     label: 'اردبیل'
+    //   },
+    //   {
+    //     value: '4',
+    //     label: 'اصفهان'
+    //   },
+    //   {
+    //     value: '5',
+    //     label: 'ایلام'
+    //   },
+    //   {
+    //     value: '6',
+    //     label: 'بوشهر'
+    //   },
+    //   {
+    //     value: '7',
+    //     label: 'تهران'
+    //   },
+    //   {
+    //     value: '8',
+    //     label: 'چهارمحال و بختیاری'
+    //   },
+    //   {
+    //     value: '9',
+    //     label: 'خراسان جنوبی'
+    //   },
+    //   {
+    //     value: '10',
+    //     label: 'خراسان رضوی'
+    //   },
+    //   {
+    //     value: '11',
+    //     label: 'خراسان شمالی'
+    //   },
+    //   {
+    //     value: '12',
+    //     label: 'خوزستان'
+    //   },
+    //   {
+    //     value: '13',
+    //     label: 'زنجان'
+    //   },
+    //   {
+    //     value: '14',
+    //     label: 'سمنان'
+    //   },
+    //   {
+    //     value: '15',
+    //     label: 'سیستان و بلوچستان'
+    //   },
+    //   {
+    //     value: '16',
+    //     label: 'فارس'
+    //   },
+    //   {
+    //     value: '17',
+    //     label: 'قزوین'
+    //   },
+    //   {
+    //     value: '18',
+    //     label: 'قم'
+    //   },
+    //   {
+    //     value: '19',
+    //     label: 'گلستان'
+    //   },
+    //   {
+    //     value: '20',
+    //     label: 'گیلان'
+    //   },
+    //   {
+    //     value: '21',
+    //     label: 'لرستان'
+    //   },
+    //   {
+    //     value: '22',
+    //     label: 'مازندران'
+    //   },
+    //   {
+    //     value: '23',
+    //     label: 'مرکزی'
+    //   },
+    //   {
+    //     value: '24',
+    //     label: 'هرمزگان'
+    //   },
+    //   {
+    //     value: '25',
+    //     label: 'همدان'
+    //   },
+    //   {
+    //     value: '26',
+    //     label: 'کردستان'
+    //   },
+    //   {
+    //     value: '27',
+    //     label: 'کرمان'
+    //   },
+    //   {
+    //     value: '28',
+    //     label: 'کرمانشاه'
+    //   },
+    //   {
+    //     value: '29',
+    //     label: 'کهگیلویه و بویر احمد'
+    //   },
+    //   {
+    //     value: '30',
+    //     label: 'یزد'
+    //   },
+    //   {
+    //     value: '31',
+    //     label: 'البرز'
+    //   }
+    //
+    // ];
 
 
   }
@@ -852,8 +852,12 @@ this.getTokenPost();
 
     this.servicelayout.getTokenPost(model).subscribe((response) => {
       console.log(response)
-      this.access_token=response['access_token']
+      this.access_token=response['access_token'];
+      this.servicelayout.listOstan(model,response['access_token']).subscribe((response)=>{
+        // this.states=response.Data
+        // console.log(response.Data)
+      });
+    });
 
-    })
   }
 }
