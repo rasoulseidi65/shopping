@@ -10,42 +10,50 @@
                   <div #category (mouseleave)="closeCategory()"
                        class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
                     <div class="megamenu megamenu--departments">
-
                       <div class="megamenu__body">
                         <ul class="list-group row megamenu__links megamenu__links--level--0">
                           <li class="list-group-item megamenu__item megamenu__item--with-submenu">
-                            <a (click)="goProduct(currentCat, 0, 0)" class="w-100 nuxt-link-exact-active nuxt-link-active">
+                            <a (click)="goProduct(currentCat, 0, 0)"
+                               class="w-100 nuxt-link-exact-active nuxt-link-active">
                               همه محصولات
                             </a>
                             <hr>
                           </li>
                         </ul>
                         <div>
-                        <ul class="list-group row megamenu__links megamenu__links--level--0">
-
-                          <li *ngFor="let sub of subCategories"
-                            class="list-group-item col-sm-6 col-md-4 col-lg-3 megamenu__item megamenu__item--with-submenu">
-                            <a (click)="goProduct(sub.categoryID, sub._id, 0)" class="w-100 nuxt-link-exact-active nuxt-link-active">
-                              {{sub.title}}
-                            </a>
-                            <hr>
-<!--                            <ul *ngIf="sub.SubSubCategory.length > 0"-->
-<!--                                class="megamenu__links pt-2 megamenu__links&#45;&#45;level&#45;&#45;1">-->
-<!--                              <li class="megamenu__item col-sm-6 col-md-4 col-lg-3" *ngFor="let subSub of sub.SubSubCategory">-->
-<!--                                <a (click)="goProduct(sub.categoryID, sub._id, subSub._id)" class="nuxt-link-exact-active nuxt-link-active">-->
-<!--                                  {{subSub.title}}-->
-<!--                                </a>-->
-<!--                              </li>-->
-<!--                            </ul>-->
-                          </li>
-                        </ul>
+                          <ul class="megamenu__links megamenu__links--level--0">
+                            <li *ngFor="let sub of subCategories"
+                                class="list-group-item megamenu__item megamenu__item--with-submenu">
+                              <a (click)="goProduct(sub.categoryID, sub._id, 0)"
+                                 class="w-100 nuxt-link-exact-active nuxt-link-active">
+                                {{sub.title}}
+                              </a>
+                              <hr>
+                              <ul *ngIf="sub.SubSubCategory.length > 0"
+                                  class="megamenu__links pt-2 megamenu__links--level--1">
+                                <li class="megamenu__item">
+                                  <a (click)="goProduct(sub.categoryID, sub._id, 0)"
+                                     class="nuxt-link-exact-active nuxt-link-active">
+                                    همه دسته بندی ها
+                                  </a>
+                                </li>
+                                <li class="megamenu__item" *ngFor="let subSub of sub.SubSubCategory">
+                                  <a (click)="goProduct(sub.categoryID, sub._id, subSub._id)"
+                                     class="nuxt-link-exact-active nuxt-link-active">
+                                    {{subSub.title}}
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <ul class="departments__links">
-                  <li class="departments__item" *ngFor="let cat of categories" (click)="toggleCategory(cat._id)" (mouseover)="openCategory(cat._id)">
+                  <li class="departments__item" *ngFor="let cat of categories" (click)="toggleCategory(cat._id)"
+                      (mouseover)="openCategory(cat._id)">
                     <a
                       class="departments__item-link nuxt-link-exact-active nuxt-link-active ">
                       {{cat.title}}
@@ -56,40 +64,12 @@
                       </svg>
                     </a>
                   </li>
-                  <!--                  <li class="departments__item" (click)="toggleCategory2()" (mouseover) = "openCategory2()">-->
-                  <!--                    <a-->
-                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
-                  <!--                      بهداشت و سلامت-->
-                  <!--                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="departments__item-arrow">-->
-                  <!--                        <path-->
-                  <!--                          d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>-->
-                  <!--                      </svg>-->
-                  <!--                    </a>-->
-                  <!--                  </li>-->
-                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
-                  <!--                    <a-->
-                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
-                  <!--                      مواد غذایی-->
-                  <!--                    </a>-->
-                  <!--                  </li>-->
-                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
-                  <!--                    <a-->
-                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
-                  <!--                      مد و پوشاک-->
-                  <!--                    </a>-->
-                  <!--                  </li>-->
-                  <!--                  <li class="departments__item departments__item&#45;&#45;menu" (mouseover) = "closeOthers()">-->
-                  <!--                    <a-->
-                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
-                  <!--                      لوازم خانگی-->
-                  <!--                    </a>-->
-                  <!--                  </li>-->
-                  <!--                  <li class="departments__item" (mouseover) = "closeOthers()">-->
-                  <!--                    <a-->
-                  <!--                      class="departments__item-link nuxt-link-exact-active nuxt-link-active ">-->
-                  <!--                      سایر کالا ها-->
-                  <!--                    </a>-->
-                  <!--                  </li>-->
+                  <li class="departments__item">
+                    <a (click)="goProduct(0,0,0)"
+                       class="departments__item-link nuxt-link-exact-active nuxt-link-active ">
+                      همه محصولات
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

@@ -102,7 +102,7 @@
   </div>
   <div class="d-flex flex-column">
     <div class="mb-auto">
-      <p-panelMenu  [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
+      <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
     </div>
   </div>
 </p-sidebar>
@@ -167,26 +167,25 @@
       </div>
 
 
-      <div class="col-12 mt-3">
+<!--      <div class="col-12 mt-3">-->
+<!--        <p-accordion [multiple]="true">-->
+<!--          <p-accordionTab header="دسته بندی" [selected]="true">-->
+<!--            <mat-selection-list>-->
+<!--              <mat-list-option *ngFor="let cat of categories" checkboxPosition="before">-->
+<!--                {{cat}}-->
+<!--              </mat-list-option>-->
+<!--            </mat-selection-list>-->
+<!--          </p-accordionTab>-->
 
-        <p-accordion [multiple]="true">
-          <p-accordionTab header="دسته بندی" [selected]="true">
-            <mat-selection-list>
-              <mat-list-option *ngFor="let cat of categories" checkboxPosition="before">
-                {{cat}}
-              </mat-list-option>
-            </mat-selection-list>
-          </p-accordionTab>
+<!--          <p-accordionTab header="محدوده قیمت مورد نظر">-->
+<!--            <div class="custom-slider">-->
+<!--              <ng5-slider [(value)]="valueDynamic" [(highValue)]="highValueDynamic" [options]="options">-->
+<!--              </ng5-slider>-->
+<!--            </div>-->
+<!--          </p-accordionTab>-->
 
-          <p-accordionTab header="محدوده قیمت مورد نظر">
-            <div class="custom-slider">
-              <ng5-slider [(value)]="valueDynamic" [(highValue)]="highValueDynamic" [options]="options">
-              </ng5-slider>
-            </div>
-          </p-accordionTab>
-
-      </p-accordion>
-      </div>
+<!--      </p-accordion>-->
+<!--      </div>-->
 
       <div class="col-12 mt-5">
         <button mat-raised-button color="primary" class="float-left">جستجو</button>
