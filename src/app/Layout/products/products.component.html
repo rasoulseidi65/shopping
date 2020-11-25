@@ -22,10 +22,12 @@
                 && currentSubCategory === undefined">
               {{currentCategory.title}}
             </li>
-            <li class="breadcrumb-item" (click)="goProduct(currentCategory._id, 0, 0)"
+            <li class="breadcrumb-item"
                 *ngIf="currentCategory !== undefined
                 && currentSubCategory !== undefined">
-              {{currentCategory.title}}
+              <a (click)="goProduct(currentCategory._id, 0, 0)" class="nuxt-link-active">
+                {{currentCategory.title}}
+              </a>
               <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="breadcrumb-arrow">
                 <path
                   d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
@@ -37,10 +39,13 @@
                 && currentSubSubCategory === undefined">
               {{currentSubCategory.title}}
             </li>
-            <li class="breadcrumb-item" (click)="goProduct(currentCategory._id, currentSubCategory._id, 0)"
+            <li class="breadcrumb-item"
                 *ngIf="currentSubCategory !== undefined
                 && currentSubSubCategory !== undefined">
-              {{currentSubCategory.title}}
+
+              <a (click)="goProduct(currentCategory._id, currentSubCategory._id, 0)" class="nuxt-link-active">
+                {{currentSubCategory.title}}
+              </a>
               <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" class="breadcrumb-arrow">
                 <path
                   d="M.4 8.8c-.4-.4-.5-1-.1-1.4l3-2.9-3-2.9C-.1 1.2-.1.5.4.2c.4-.3.9-.3 1.3.1L6 4.5 1.6 8.7c-.3.4-.9.4-1.2.1z"></path>
