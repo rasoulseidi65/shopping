@@ -1,16 +1,12 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-<<<<<<< HEAD
+
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Post} from "../../../Post";
 import {SearchService} from "../../../search.service";
 import {Router} from "@angular/router";
-=======
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {Post} from '../../../Post';
-import {SearchService} from '../../../search.service';
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
+
 
 @Component({
   selector: 'app-search-bar',
@@ -21,14 +17,11 @@ export class SearchBarComponent implements OnInit {
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
   allPosts: Post[];
-<<<<<<< HEAD
+
   autoCompleteList: any[]
   productSearch: any;
   textSearch: any;
-=======
-  autoCompleteList: any[];
 
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
   @Output() onSelectedOption = new EventEmitter();
 
@@ -47,25 +40,18 @@ export class SearchBarComponent implements OnInit {
       this.autoCompleteExpenseList(userInput);
     });
   }
-<<<<<<< HEAD
+
 
   private autoCompleteExpenseList(input) {
     let categoryList = this.filterCategoryList(input)
     this.autoCompleteList = categoryList;
   }
 
-  filterCategoryList(val) {
-    var categoryList = []
-    if (typeof val != "string") {
-=======
-  private autoCompleteExpenseList(input): void {
-    const categoryList = this.filterCategoryList(input);
-    this.autoCompleteList = categoryList;
-  }
+
   filterCategoryList(val): any {
     const categoryList = [];
     if (typeof val !== 'string') {
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
       return [];
     }
     if (val === '' || val === null) {
@@ -74,41 +60,26 @@ export class SearchBarComponent implements OnInit {
     return val ? this.allPosts.filter(s => s.title.toLowerCase().indexOf(val.toLowerCase()) != -1)
       : this.allPosts;
   }
-<<<<<<< HEAD
+
 
   displayFn(post: Post) {
-=======
-  displayFn(post: Post): any {
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
     let k = post ? post.title : post;
     return k;
   }
 
-<<<<<<< HEAD
+
   filterPostList(event) {
-
     this.productSearch = event.source.value['_id'];
-
     var posts = event.source.value;
     if (!posts) {
       this.dataService.searchOption = []
     } else {
-
       this.dataService.searchOption.push(posts);
       this.onSelectedOption.emit(this.dataService.searchOption);
       // this.advenceSearch();
       this.router.navigate(['/home/detail', this.productSearch])
-=======
-  filterPostList(event): void {
-    const posts = event.source.value;
-    if (!posts) {
-      this.dataService.searchOption = [];
-    }
-    else {
 
-      this.dataService.searchOption.push(posts);
-      this.onSelectedOption.emit(this.dataService.searchOption);
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
     }
     this.focusOnPlaceInput();
   }

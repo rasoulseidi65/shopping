@@ -33,9 +33,9 @@
         <div class="p-field p-col">
           <label class="d-block">دسته بندی اول</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                      [options]="categories" (onChange)="xx($event)"
+                      [options]="categories"
                       formControlName="categoryID"
-                      (onChange)="getSubCategories($event)"
+                      (onChange)="getSubCategory($event)"
                       optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
             <ng-template pTemplate="selectedItem">
               <div class="state-item state-item-value"
@@ -63,8 +63,8 @@
         <div class="p-field p-col">
           <label class="d-block">دسته بندی دوم</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                      [options]="subCategories"
-                      (onChange)="getSubSubCategories($event)"
+                      [options]="subCategory"
+                      (onChange)="onSubSubCategory($event)"
                       formControlName="subCategoryID"
                       optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
             <ng-template pTemplate="selectedItem">
@@ -93,7 +93,7 @@
         <div class="p-field p-col">
           <label class="d-block">دسته بندی سوم</label>
           <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                      [options]="subSubCategories"
+                      [options]="subSubCategory"
                       formControlName="subSubCategoryID"
                       optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
             <ng-template pTemplate="selectedItem">

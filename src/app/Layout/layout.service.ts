@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-=======
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
+
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -106,13 +104,13 @@ export class LayoutService {
   deleteWishList(id: any): any {
     return this.http.delete('http://194.5.175.25:3005/api/v1/user/deleteWishList/' + id);
   }
-<<<<<<< HEAD
-  getTokenPost(data:any){
-    console.log(data)
-    const headers = { 'content-type': 'application/x-www-form-urlencoded'}
-    return this.http.post('http://svc.ebazaar-post.ir/RestApi/token',data,{'headers':headers});
 
-=======
+  getTokenPost(data:any) {
+    console.log(data)
+    const headers = {'content-type': 'application/x-www-form-urlencoded'}
+    return this.http.post('http://svc.ebazaar-post.ir/RestApi/token', data, {'headers': headers});
+  }
+
 
   getWishListCount(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countWishlist/' + id);
@@ -128,6 +126,5 @@ export class LayoutService {
 
   getProductCommentsCount(id: any): any {
     return this.http.get('http://194.5.175.25:3005/api/v1/user/countComment/' + id);
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
   }
 }

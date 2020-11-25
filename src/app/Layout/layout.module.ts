@@ -47,12 +47,12 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import {OrderListModule} from 'primeng/orderlist';
 import {JwPaginationModule} from 'jw-angular-pagination';
 import {NgxSpinnerModule} from 'ngx-spinner';
-<<<<<<< HEAD
+
 import { ResultSearchComponent } from './result-search/result-search.component';
-=======
+
 import {HomePopularCategoryComponent} from './home-popular-category/home-popular-category.component';
 import {PanelMenuModule} from 'primeng/panelmenu';
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
 @NgModule({
   declarations: [IndexComponent,
     SliderComponent,
@@ -76,13 +76,11 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     CallBackComponent,
     LoginRegisterComponent,
     WishlistComponent,
-<<<<<<< HEAD
     OffersComponent,
-    ResultSearchComponent
-=======
+    ResultSearchComponent,
     HomePopularCategoryComponent,
     OffersComponent
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
+
   ],
     imports: [
         CommonModule,

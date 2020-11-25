@@ -18,14 +18,9 @@ export class RegisterProductComponent implements OnInit {
 
   public form: FormGroup;
   categories: any[];
-<<<<<<< HEAD
+
   subCategory: any[];
   subSubCategory: any[];
-=======
-  subCategories: any[];
-  subSubCategories: any[];
-
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
   features: any[] = [];
   selectedFeature: any = null;
 
@@ -239,13 +234,8 @@ export class RegisterProductComponent implements OnInit {
         this.finalSelectedValues.forEach(item => {
 
           featureValue.push({
-<<<<<<< HEAD
             'featuresID': item.featuresID,
             'valueID': item.id
-=======
-            featuresID:  item.featuresID,
-            valueID: item.id
->>>>>>> 65095094135a9c4f9cce705fc7de53c2ce3db8bc
           });
 
         });
@@ -294,7 +284,7 @@ export class RegisterProductComponent implements OnInit {
     });
   }
 
-  xx(e: any) {
+  getSubCategory(e: any) {
     let category = e.value;
     this.subCategory = category.SubCategory;
   }
@@ -368,13 +358,7 @@ export class RegisterProductComponent implements OnInit {
   getFeatureValues(event): void {
     this.values = this.features.find(x => x.id === event.value._id).FeaturesValue;
   }
-  getSubCategories(event): void {
-    this.subSubCategories = [];
-    this.subCategories = this.categories.find(x => x.id === event.value._id).SubCategory;
-  }
-  getSubSubCategories(event): void {
-    this.subSubCategories = this.subCategories.find(x => x.id === event.value._id).SubSubCategory;
-  }
+
   addSelectedValues(event: any): void {
     if (event.value !== null) {
       this.finalSelectedValues = [];
