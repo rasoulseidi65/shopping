@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="page-footer font-small mt-3" dir="rtl">
-  <div style="background-color: #CC3333" >
+  <div style="background-color: #CC3333">
     <div class="container">
       <div class="row py-3 justify-content-center">
         <div class="col-12 align-items-center text-center">
@@ -34,7 +34,8 @@
         <h6 class="text-uppercase font-weight-bold titleMenu text-center">فروشگاه اینترنتی به قیمت </h6>
         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
         <p style="text-align: justify;text-justify: inter-word;">فروشگاه اینترنتی به قیمت فعالیت خود را از سال 1399 در
-          حوزه فروش آنلاین انواع محصولات آغاز نموده است. به قیمت فعال در حوزه بازاریابی و فروش انواع کالاهای تولید کننده ها و همچنین برای اولین بار طرف قرارداد پست می باشد. ارسال سریع و آسان به تمام نقاط ایران، تامین کالاهای با
+          حوزه فروش آنلاین انواع محصولات آغاز نموده است. به قیمت فعال در حوزه بازاریابی و فروش انواع کالاهای تولید کننده
+          ها و همچنین برای اولین بار طرف قرارداد پست می باشد. ارسال سریع و آسان به تمام نقاط ایران، تامین کالاهای با
           کیفیت از برند های معتبر ایرانی و مشاوره تخصصی در حوزه خرید، از ابتدا جزء مهم ترین
           اهداف به قیمت بوده است. در این فروشگاه تنوع کاملی از محصولات در حوزه های مختلف را پیدا خواهید کرد. </p>
 
@@ -44,36 +45,21 @@
 
         <h6 class="text-uppercase font-weight-bold titleMenu text-center">محصولات</h6>
         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
-        <p class="text-right">
-          <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3"></i>زیبایی و سلامت </a>
+        <p class="text-right" *ngFor="let cat of categories">
+          <a class="text-white" (click)="goProduct(cat._id, 0,0)">
+            <i class="fas fa-chevron-left ml-3"></i> {{cat.title}}
+          </a>
         </p>
-        <p class="text-right">
-          <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3"></i>محصولات خوراکی </a>
-        </p>
-        <p class="text-right">
-          <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3"></i> دیجیتال و لوازم خانگی </a>
-        </p>
-        <p class="text-right">
-        <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3"></i> مد و پوشاک </a>
-      </p>
-        <p class="text-right">
-          <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3 text-white"></i> ورزش و سفر </a>
-        </p>
-        <p class="text-right">
-          <a class="text-white" href="#!"><i class="fas fa-chevron-left ml-3 text-white"></i> صنایع دستی </a>
-        </p>
-
-
       </div>
 
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
         <h6 class="text-uppercase font-weight-bold titleMenu text-center"> خدمات مشتریان</h6>
         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
         <p class="text-right">
-          <i class="fas fa-credit-card ml-3 text-white"></i>    پرداخت آنلاین
+          <i class="fas fa-credit-card ml-3 text-white"></i> پرداخت آنلاین
         </p>
         <p class="text-right">
-          <i class="fas fa-motorcycle ml-3 text-white"></i>   تحویل اکسپرس
+          <i class="fas fa-motorcycle ml-3 text-white"></i> تحویل اکسپرس
         </p>
         <p class="text-right">
           <i class="fas fa-support ml-3 text-white"></i>پشتیبانی 24 ساعته
@@ -91,7 +77,7 @@
         <h6 class="text-uppercase font-weight-bold titleMenu text-center">ارتباط با ما</h6>
         <hr class="text-white mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
         <p class="text-right">
-          <i class="fas fa-home ml-3 text-white"></i>  تهران ، نیاوران، بعد از چهار راه کامرانیه
+          <i class="fas fa-home ml-3 text-white"></i> تهران ، نیاوران، بعد از چهار راه کامرانیه
         </p>
         <p class="text-right pointer">
           <i class="fas fa-envelope ml-3 text-white"></i> info@begheymat.com
@@ -124,7 +110,8 @@
   <!-- Copyright -->
   <div class="footer-copyright text-center text-white py-3">
     <p>
-      تمامی حقوق سایت مربوط به شرکت <a class="text-white font-weight-bold" href="https://arkainvent.com/">دانش بنیان محاسبات نرم فناوری اطلاعات و ارتباطات آرکا</a> میباشد و هر نوع کپی برداری تخلف می باشد و پیگرد قانونی دارد.
+      تمامی حقوق سایت مربوط به شرکت <a class="text-white font-weight-bold" href="https://arkainvent.com/">دانش بنیان
+      محاسبات نرم فناوری اطلاعات و ارتباطات آرکا</a> میباشد و هر نوع کپی برداری تخلف می باشد و پیگرد قانونی دارد.
     </p>
     <p>
       Designed & developed by <a class="text-white font-weight-bold font-italic" href="https://arkainvent.com/">arkainvent.com</a>

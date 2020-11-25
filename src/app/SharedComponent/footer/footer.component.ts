@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OwlOptions} from 'ngx-owl-carousel-o';
+import {MenuService} from '../menu.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +10,7 @@ import {OwlOptions} from 'ngx-owl-carousel-o';
 })
 export class FooterComponent implements OnInit {
 
+  categories: any[] = [];
   customOptions: OwlOptions = {
     autoplay: false,
     autoplaySpeed: 1000,
@@ -42,9 +45,17 @@ export class FooterComponent implements OnInit {
       }
     }
   };
-  constructor() { }
+  constructor(private service: MenuService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.categories = this.service.getCategories().subscribe((response) => {
+      if(response.success === true){
+        this.categories = response.data;
+      }
+    });
   }
-
+  goProduct(categoryId: any, subCategoryId: any, subSubCategoryId: any) {
+    this.router.navigateByUrl('/home/product/' + categoryId + '/' + subCategoryId + '/' + subSubCategoryId);
+  }
 }
