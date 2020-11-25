@@ -15,7 +15,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { SearchService } from './search.service';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {InputMaskModule} from 'primeng/inputmask';
-
+import {PanelMenuModule} from 'primeng/panelmenu';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import {InputMaskModule} from 'primeng/inputmask';
     ClickOutsideModule,
     ProgressSpinnerModule,
     NgxSpinnerModule,
-    InputMaskModule
+    InputMaskModule,
+    PanelMenuModule
   ],
   providers: [SearchService],
   exports: [

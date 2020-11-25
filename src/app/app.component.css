@@ -37,3 +37,50 @@
 }
 
 
+:host ::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text{
+  margin: 0 1rem 0 0!important;
+  text-align: right;
+  font-family: IRANSans_Bold;
+}
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-error {
+  border-width: 0 6px 0 0px!important;
+}
+:host ::ng-deep .p-toast .p-toast-message.p-toast-message-success {
+  border-width: 0 6px 0 0px!important;
+}
+#toTop {
+  position: fixed;
+  bottom: 15px;
+  left: 0px;
+  cursor: pointer;
+  display: none;
+  z-index: 10;
+}
+.back-to-top-btn mat-icon{
+  background-color: #CC3333;
+  color: #fff;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  display: inline-block;
+  text-align: center;
+  font-size: 26px;
+  border-radius: 50%;
+  margin-left: 28px;
+  z-index: 999999999;
+  transition: box-shadow .2s ease-in-out !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .06), 0 2px 32px rgba(0, 0, 0, .16) !important;
+}
+.back-to-top-btn:hover mat-icon{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .09), 0 4px 40px rgba(0, 0, 0, .24) !important;
+  transition: all 0.2s !important;
+
+  -webkit-transform: scale(1.05) !important;
+  -moz-transform: scale(1.05) !important;
+  -ms-transform: scale(1.05) !important;
+  -o-transform: scale(1.05) !important;
+  transform: scale(1.05) !important;
+  -webkit-box-shadow: 0 4px 42px 0 rgba(0, 0, 0, .25) !important;
+  -moz-box-shadow: 0 4px 42px 0 rgba(0, 0, 0, .25) !important;
+  box-shadow: 0 4px 42px 0 rgba(0, 0, 0, .25) !important;
+}
