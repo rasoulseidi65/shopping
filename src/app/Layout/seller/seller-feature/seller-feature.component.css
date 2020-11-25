@@ -149,3 +149,39 @@ mat-expansion-panel.mat-expanded p{
 mat-expansion-panel{
   margin-bottom: 15px;
 }
+
+
+
+.custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+::ng-deep .p-timeline-event-content,
+::ng-deep .p-timeline-event-opposite {
+  line-height: 1;
+}
+
+
+@media screen and (max-width: 960px) {
+  ::ng-deep .customized-timeline .p-timeline-event:nth-child(even) {
+    flex-direction: row !important;
+  }
+  ::ng-deep .customized-timeline .p-timeline-event-content {
+    text-align: left !important;
+  }
+}
+
+.p-timeline-event-opposite {
+  flex: 0;
+}
+
+.p-card {
+  margin-top: 1rem;
+}

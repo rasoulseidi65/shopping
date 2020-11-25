@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {SidebarModule} from 'primeng/sidebar';
 import {ToastModule} from 'primeng/toast';
+import {CardModule} from 'primeng/card';
 
 
 @NgModule({
@@ -21,14 +22,15 @@ import {ToastModule} from 'primeng/toast';
     SellerHeaderComponent,
     SellerFeatureComponent,
     SellerComponent],
-  imports: [
-    CommonModule,
-    SellerRoutingModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    SidebarModule,
-    ToastModule
-  ],
+    imports: [
+        CommonModule,
+        SellerRoutingModule,
+        ReactiveFormsModule,
+        MatExpansionModule,
+        SidebarModule,
+        ToastModule,
+        CardModule
+    ],
   // exports: [
   //   SellerRegisterComponent,
   //   SellerFooterComponent,
