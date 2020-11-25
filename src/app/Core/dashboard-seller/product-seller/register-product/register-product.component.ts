@@ -129,20 +129,7 @@ export class RegisterProductComponent implements OnInit {
           Validators.required
         ]
       ),
-      subCategory: new FormControl(
-        null,
-        [
-          Validators.required,
-          Validators.maxLength(200)
-        ]
-      ),
-      subSubCategory: new FormControl(
-        null,
-        [
-          Validators.required,
-          Validators.maxLength(200)
-        ]
-      ),
+
       count: new FormControl(
         null,
         [
@@ -218,12 +205,12 @@ export class RegisterProductComponent implements OnInit {
 
   submitForm(): void {
     const category = this.form.controls.categoryID.value;
-    const subcategory = this.form.controls.subCategory.value;
-    const subSubCategory = this.form.controls.subSubCategory.value;
+    const subcategory = this.form.controls.subCategoryID.value;
+    const subSubCategory = this.form.controls.subSubCategoryID.value;
 
     this.form.controls.categoryID.setValue(category._id);
-    this.form.controls.subCategory.setValue(subcategory._id);
-    this.form.controls.subSubCategory.setValue(subSubCategory._id);
+    this.form.controls.subCategoryID.setValue(subcategory._id);
+    this.form.controls.subSubCategoryID.setValue(subSubCategory._id);
     console.log(this.form.value)
     this.sellerService.addProduct(this.form.value).subscribe((response) => {
 

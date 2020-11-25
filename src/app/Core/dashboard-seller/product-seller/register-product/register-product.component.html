@@ -119,66 +119,7 @@
           </ul>
         </div>
 
-        <div class="p-field p-col">
-          <label for="subCategory">عنوان زیر دسته</label>
 
-          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                      [options]="subCategory" (onChange)="onSubSubCategory($event)"
-                      formControlName="subCategory"
-                      optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
-            <ng-template pTemplate="selectedItem">
-              <div class="state-item state-item-value"
-                   *ngIf="form.controls['subCategory'].value">
-                <div>{{form.controls['subCategory'].value.title}}</div>
-              </div>
-            </ng-template>
-            <ng-template let-category pTemplate="item">
-              <div class="state-item text-right">
-                <div class="text-right">{{category.value.title}}</div>
-              </div>
-            </ng-template>
-          </p-dropdown>
-
-          <ul class="mt-1 text-right list-inline"
-              *ngFor="let error of errorMessages.subCategory">
-            <li class="font-small text-danger font-weight-bold list-inline-item"
-                *ngIf="form.get('subCategory').hasError(error.type)
-                            && (form.get('subCategory').dirty
-                            || form.get('subCategory').touched)">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
-        <div class="p-field p-col">
-          <label for="subSubCategory">عنوان زیر زیر دسته</label>
-
-          <p-dropdown appendTo="body" emptyFilterMessage="نتیجه ای یافت نشد"
-                      [options]="subSubCategory"
-                      formControlName="subSubCategory"
-                      optionLabel="title" [filter]="true" placeholder="-- انتخاب کنید --">
-            <ng-template pTemplate="selectedItem">
-              <div class="state-item state-item-value"
-                   *ngIf="form.controls['subSubCategory'].value">
-                <div>{{form.controls['subSubCategory'].value.title}}</div>
-              </div>
-            </ng-template>
-            <ng-template let-category pTemplate="item">
-              <div class="state-item text-right">
-                <div class="text-right">{{category.value.title}}</div>
-              </div>
-            </ng-template>
-          </p-dropdown>
-
-          <ul class="mt-1 text-right list-inline"
-              *ngFor="let error of errorMessages.subSubCategory">
-            <li class="font-small text-danger font-weight-bold list-inline-item"
-                *ngIf="form.get('subSubCategory').hasError(error.type)
-                            && (form.get('subSubCategory').dirty
-                            || form.get('subSubCategory').touched)">
-              {{ error.message }}
-            </li>
-          </ul>
-        </div>
       </div>
 
 
